@@ -5,14 +5,14 @@ export const StyledApartmentContainer = styled(ApartmentContainer)`
     height: 30vh;
     background-color: #EEEEEE;
     margin-top: 1%;
-    border-radius: 30px;
+    border-radius: 35px;
     font-size: larger;
 `;
 
 export const ApartmentInfo = styled.div`
     padding-left: 1%;
     display: inline-block;
-    width: 50%;
+    width: 30%;
     margin-top: 1.5%;
 `;
 
