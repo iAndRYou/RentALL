@@ -1,6 +1,7 @@
 import { AppContainer } from './components/AppContainer.style';
 import { Logo, StyledHeader, AppTitle, LoginButton } from './components/Header.style';
 import {StyledMainContainer} from './components/MainContainer.style';
+import {StyledApartmentContainer} from './components/ApartmentContainer.style';
 import logo from "./assets/logo.png";
 
 function App() {
@@ -13,7 +14,13 @@ function App() {
       </StyledHeader>
 
       <StyledMainContainer>
-
+        <StyledApartmentContainer/>
+        <StyledApartmentContainer/>
+        <StyledApartmentContainer/>
+        <StyledApartmentContainer/>
+        <StyledApartmentContainer/>
+        <StyledApartmentContainer/>
+        <StyledApartmentContainer/>
       </StyledMainContainer>
     </AppContainer>
   )
