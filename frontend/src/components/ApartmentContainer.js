@@ -4,7 +4,7 @@ export default function ApartmentContainer({className, price}) {
   return (
     <div className={className} price={price}>
         ApartmentContainer
-        {price}
+        <h1>{price}</h1>
     </div>
   )
 }
