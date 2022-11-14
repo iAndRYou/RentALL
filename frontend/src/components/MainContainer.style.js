@@ -7,10 +7,8 @@ export const StyledMainContainer = styled(MainContainer)`
     color: white;
    
     background: lightgray;
-    min-height:82vh;
-    margin: 1%;
+    min-height:85vh;
     margin-left: 20%;
     margin-right: 20%;
-    border-radius: 20px;
     `;
 
