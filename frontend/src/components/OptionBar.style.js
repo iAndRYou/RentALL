@@ -46,6 +46,12 @@ export const StyledLowerPrice = styled.input`
     text-align: center;
     font-size: 20px;
 
+    &:hover {
+        outline: none !important;
+        border:2px solid #52ACDF;
+        box-shadow: none;
+    }
+    
     &:focus {
         outline: none !important;
         border:2px solid #52ACDF;
@@ -69,6 +75,12 @@ export const StyledUpperPrice = styled.input`
     text-align: center;
     font-size: 20px;
 
+    &:hover {
+        outline: none !important;
+        border:2px solid #52ACDF;
+        box-shadow: none;
+    }
+    
     &:focus {
         outline: none !important;
         border:2px solid #52ACDF;
@@ -76,8 +88,57 @@ export const StyledUpperPrice = styled.input`
     }
 `;
 
-export const StyledEnterCommute = styled.input`
+export const StyledSortMethod = styled.select`
     width: 240px;
+    height: 36px;
+    margin: 10px;
+    padding-left: 14px;
+    padding-right: 14px;
+    background-color: lightgray;
+    border-color: transparent;
+
+    border-radius: 20px;
+
+    color: gray;
+    text-align: left;
+    font-size: 20px;
+
+    &:hover {
+        outline: none !important;
+        border:2px solid #52ACDF;
+        box-shadow: none;
+    }
+
+    &:focus {
+        padding-left: 12px;
+
+        outline: none !important;
+        border:2px solid #52ACDF;
+        box-shadow: none;
+
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+    }
+
+`;
+
+export const StyledSortMethodElement = styled.option`
+    width: 240px;
+    height: 36px;
+    margin: 10px;
+    padding-left: 14px;
+    background-color: lightgray;
+    border-color: transparent;
+
+    color: gray;
+    text-align: left;
+    font-size: 20px;
+`;
+
+export const StyledEnterCommute = styled.input`
+    width: 400px;
     height: 30px;
     margin: 10px;
     margin-right: 0px;
@@ -91,6 +152,40 @@ export const StyledEnterCommute = styled.input`
     color: gray;
     text-align: left;
     font-size: 20px;
+
+    &:hover {
+        outline: none !important;
+        border:2px solid #52ACDF;
+        box-shadow: none;
+    }
+
+    &:focus {
+        outline: none !important;
+        border:2px solid #52ACDF;
+        box-shadow: none;
+    }
+
+`;
+
+export const StyledEnterCity = styled.input`
+    width: 140px;
+    height: 30px;
+    margin-top: 10px;
+    padding-left: 14px;
+    background-color: white;
+
+    outline: none !important;
+    border:2px solid lightgray;
+
+    color: gray;
+    text-align: left;
+    font-size: 20px;
+
+    &:hover {
+        outline: none !important;
+        border:2px solid #52ACDF;
+        box-shadow: none;
+    }
 
     &:focus {
         outline: none !important;
@@ -120,27 +215,4 @@ export const StyledSearchButton = styled.button`
         background-color: #52ACDF;
         cursor: pointer;
     }
-`;
-
-export const StyledSortMethod = styled.select`
-    width: 240px;
-    height: 30px;
-    margin: 10px;
-    padding-left: 14px;
-    background-color: lightgray;
-    border-color: transparent;
-
-    border-bottom-left-radius: 20px;
-    border-top-left-radius: 20px;
-
-    color: gray;
-    text-align: left;
-    font-size: 20px;
-
-    &:focus {
-        outline: none !important;
-        border:2px solid #52ACDF;
-        box-shadow: none;
-    }
-
 `;

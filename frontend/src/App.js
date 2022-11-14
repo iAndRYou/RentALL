@@ -3,7 +3,7 @@ import { Logo, StyledHeader, AppTitle, LoginButton, HeaderWrapper } from './comp
 import {StyledMainContainer} from './components/MainContainer.style';
 import {StyledApartmentContainer} from './components/ApartmentContainer.style';
 import logo from "./assets/logo.png";
-import { StyledEnterCommute, StyledLowerPrice, StyledOptionBar, StyledPriceTag, StyledSearchButton, StyledSortMethod, StyledUpperPrice } from './components/OptionBar.style';
+import { StyledEnterCity, StyledEnterCommute, StyledLowerPrice, StyledOptionBar, StyledPriceTag, StyledSearchButton, StyledSortMethod, StyledSortMethodElement, StyledUpperPrice } from './components/OptionBar.style';
 import React, {useState} from 'react';
 import Apartments from './components/exampleApartments.json';
 
@@ -22,10 +22,35 @@ function App() {
           
         <StyledOptionBar>
           <StyledLowerPrice placeholder='Od'></StyledLowerPrice>
+
           <StyledPriceTag>Cena</StyledPriceTag>
+
           <StyledUpperPrice placeholder='Do'></StyledUpperPrice>
-          <StyledSortMethod></StyledSortMethod>
+
+          <StyledSortMethod>
+
+            <StyledSortMethodElement value="" disabled selected>
+              {"Sortuj według..."}
+            </StyledSortMethodElement>
+
+            <StyledSortMethodElement value={0}>
+              {"Cena od najniższej"}
+            </StyledSortMethodElement>
+
+            <StyledSortMethodElement value={1}>
+              {"Cena od najwyższej"}
+            </StyledSortMethodElement>
+
+            <StyledSortMethodElement value={2}>
+              {"Czas dojazdu"}
+            </StyledSortMethodElement>
+            
+          </StyledSortMethod>
+
           <StyledEnterCommute placeholder='Dojazd do...'></StyledEnterCommute>
+
+          <StyledEnterCity placeholder='Miasto'></StyledEnterCity>
+
           <StyledSearchButton>Szukaj</StyledSearchButton>
         </StyledOptionBar>
       </HeaderWrapper>
