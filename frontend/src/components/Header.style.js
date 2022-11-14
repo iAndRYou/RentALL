@@ -39,14 +39,21 @@ export const AppTitle = styled.text`
 
 export const LoginButton = styled.button`
     color: white;
+    background-color: transparent;
+    border-color: transparent;
     height: 70px;
-    width: min-content;
+    width: max-content;
     margin: 15px;
     float: right;
 
     text-align: center;
-    font-weight: 700;
-    font-size: max-width;
+    font-weight: 400;
+    font-size: 20px;
+
+    &:hover {
+        background-color: transparent;
+        text-decoration: underline;
+    }
 
     &::selection {
         background-color: transparent;
