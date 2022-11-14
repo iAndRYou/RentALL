@@ -5,6 +5,12 @@ export default function MainContainer({className}) {
   return (
     <div className={className}>
         <StyledApartmentContainer/>
+        <StyledApartmentContainer/>
+        <StyledApartmentContainer/>
+        <StyledApartmentContainer/>
+        <StyledApartmentContainer/>
+        <StyledApartmentContainer/>
+        <StyledApartmentContainer/>
     </div>
   )
 }

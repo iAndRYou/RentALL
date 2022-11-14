@@ -6,9 +6,9 @@ export const StyledMainContainer = styled(MainContainer)`
     background-color: red;
     color: white;
    
-    background: lightgray;
+    background: white;
     min-height:85vh;
-    margin-left: 20%;
-    margin-right: 20%;
+    margin-left: 2%;
+    margin-right: 2%;
     `;
 
