@@ -14,7 +14,7 @@ function App() {
       </StyledHeader>
 
       <StyledMainContainer>
-        <StyledApartmentContainer/>
+        <StyledApartmentContainer price='100'/>
         <StyledApartmentContainer/>
         <StyledApartmentContainer/>
         <StyledApartmentContainer/>
