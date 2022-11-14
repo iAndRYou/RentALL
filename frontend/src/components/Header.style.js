@@ -4,8 +4,10 @@ import Header from './Header';
 export const StyledHeader = styled(Header)`
     width: 100vw;
     height: 100px;
-    background-color: blue;
+    background-color: #52ACDF;
     color: white;
+    position: sticky;
+    top: 0;
 `;
 
 export const Logo = styled.img`
