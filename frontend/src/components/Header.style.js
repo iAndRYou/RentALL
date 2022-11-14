@@ -1,7 +1,6 @@
 import styled from 'styled-components';
-import Header from './Header';
 
-export const StyledHeader = styled(Header)`
+export const StyledHeader = styled.div`
     width: 100vw;
     height: 100px;
     background-color: #52ACDF;
