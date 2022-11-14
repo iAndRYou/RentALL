@@ -4,7 +4,7 @@ import {ApartmentInfo, DefText, BetterText, StyledImage } from './ApartmentConta
 export default function ApartmentContainer({className, price, city, street, picture}) {
   return (
     <div className={className} price={price} city={city} street={street} picture={picture}>
-        <StyledImage src="https://www.w3schools.com/images/w3schools_green.jpg" alt="W3Schools.com"></StyledImage>
+        <StyledImage src={picture} alt="W3Schools.com"></StyledImage> 
         <ApartmentInfo>
             <DefText>Cena:&nbsp;</DefText>
             <BetterText colour={changeColourDependingOnPrice(price)}>{price}&nbsp;zł / miesiąc</BetterText><br></br>
@@ -17,6 +17,7 @@ export default function ApartmentContainer({className, price, city, street, pict
     </div>
   )
 }
+//"https://www.w3schools.com/images/w3schools_green.jpg"
 //'#00cc00'
 export function changeColourDependingOnPrice(price){
    var num = Number(price);
