@@ -1,5 +1,5 @@
 import React from 'react'
-import { AppContainer, ApartmentInfo, DefText, BetterText } from './ApartmentContainer.style'
+import {ApartmentInfo, DefText, BetterText } from './ApartmentContainer.style'
 
 export default function ApartmentContainer({className, price, city, street, picture}) {
   return (
