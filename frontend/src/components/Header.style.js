@@ -37,3 +37,19 @@ export const AppTitle = styled.text`
     }
 `;
 
+export const LoginButton = styled.button`
+    color: white;
+    height: 70px;
+    width: min-content;
+    margin: 15px;
+    float: right;
+
+    text-align: center;
+    font-weight: 700;
+    font-size: max-width;
+
+    &::selection {
+        background-color: transparent;
+    }
+`;
+
