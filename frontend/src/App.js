@@ -1,10 +1,11 @@
-import './App.css';
-import { Header } from './components/common';
+import { StyledHeader } from './components/Header.style';
 
 function App() {
   return (
     <div className='App'>
-      <Header />
+      <StyledHeader>
+        
+      </StyledHeader>
     </div>
   )
 }
