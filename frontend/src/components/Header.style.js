@@ -8,14 +8,30 @@ export const StyledHeader = styled(Header)`
     color: white;
 `;
 
-export const Logo = styled.image`
+export const Logo = styled.img`
     height: 70px;
     width: 70px;
-    margin: 5px;
+    margin: 15px;
     float: left;
 
-    &:hover {
-        background-color: black;
+    &::selection {
+        background-color: transparent;
+    }
+`;
+
+export const AppTitle = styled.text`
+    color: white;
+    height: 70px;
+    width: min-content;
+    margin: 15px;
+    float: left;
+
+    text-align: center;
+    font-weight: 700;
+    font-size: 50px;
+
+    &::selection {
+        background-color: transparent;
     }
 `;
 

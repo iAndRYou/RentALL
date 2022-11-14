@@ -1,9 +1,10 @@
-import { StyledHeader } from './components/Header.style';
+import { AppTitle, StyledHeader } from './components/Header.style';
 
 function App() {
   return (
     <div className='App'>
       <StyledHeader>
+        
       </StyledHeader>
     </div>
   )
