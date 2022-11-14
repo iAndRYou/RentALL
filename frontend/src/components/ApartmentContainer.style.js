@@ -6,6 +6,7 @@ export const StyledApartmentContainer = styled(ApartmentContainer)`
     background-color: #EEEEEE;
     margin: 1%;
     border-radius: 30px;
+    font-size: large;
 `;
 
 export const ApartmentInfo = styled.div`
@@ -14,7 +15,7 @@ export const ApartmentInfo = styled.div`
 
 export const DefText = styled.p`
     display: inline-block;
-    color: #CDCDCD
+    color: #A9A9A9
 ;
     
 `;
