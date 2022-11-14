@@ -7,7 +7,7 @@ function Header({className}) {
         <div className={className}>
             <Logo src={logo}></Logo>
             <AppTitle>RentALL</AppTitle>
-            <LoginButton>{"Zaloguj się!"}</LoginButton>
+            <LoginButton>{"Zaloguj się"}</LoginButton>
         </div>
     )
   }
