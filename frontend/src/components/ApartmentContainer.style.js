@@ -6,21 +6,31 @@ export const StyledApartmentContainer = styled(ApartmentContainer)`
     background-color: #EEEEEE;
     margin-top: 1%;
     border-radius: 30px;
-    font-size: large;
+    font-size: larger;
 `;
 
 export const ApartmentInfo = styled.div`
-    padding-left: 10vw;
+    padding-left: 1%;
+    display: inline-block;
+    width: 50%;
+    margin-top: 1.5%;
 `;
 
 export const DefText = styled.p`
-    display: inline-block;
-    color: #A9A9A9
-;
-    
+    display: inline;
+    color: #A9A9A9;
 `;
 
 export const BetterText = styled.h3`
-    display: inline-block;
+    display: inline;
     color: ${(props) => props.colour};
 `;
+
+export const StyledImage = styled.img`
+    float: left;
+    display: inline-block;
+    width: 15%;
+    height: 85%;
+    padding: 15px;
+    border-radius: 45px;
+`

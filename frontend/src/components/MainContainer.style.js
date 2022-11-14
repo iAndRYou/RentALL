@@ -8,7 +8,7 @@ export const StyledMainContainer = styled.div`
    
     background: white;
     min-height:85vh;
-    margin-left: 2%;
-    margin-right: 2%;
+    padding-left: 2%;
+    padding-right: 2%;
     `;
 
