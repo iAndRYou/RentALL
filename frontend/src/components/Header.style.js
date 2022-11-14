@@ -1,22 +1,32 @@
 import styled from 'styled-components';
 
-export const StyledHeader = styled.div`
+export const HeaderWrapper = styled.div`
     width: 100vw;
-    height: 100px;
-    background-color: #52ACDF;
+    height: 150px;
+    background-color: transparent;
     color: white;
     position: sticky;
+    top: 0;
+`;
+
+export const StyledHeader = styled.div`
+    width: 100vw;
+    height: 90px;
+    background-color: #52ACDF;
+    color: white;
+    position: fixed;
     top: 0;
 `;
 
 export const Logo = styled.img`
     height: 70px;
     width: 70px;
-    margin: 15px;
+    margin: 10px;
     float: left;
 
-    &::selection {
+    &:hover {
         background-color: transparent;
+        cursor: pointer;
     }
 `;
 
@@ -24,15 +34,16 @@ export const AppTitle = styled.text`
     color: white;
     height: 70px;
     width: min-content;
-    margin: 15px;
+    margin: 10px;
     float: left;
 
     text-align: center;
     font-weight: 700;
     font-size: 50px;
 
-    &::selection {
+    &:hover {
         background-color: transparent;
+        cursor: pointer;
     }
 `;
 
@@ -42,7 +53,7 @@ export const LoginButton = styled.button`
     border-color: transparent;
     height: 70px;
     width: max-content;
-    margin: 15px;
+    margin: 10px;
     float: right;
 
     text-align: center;
@@ -52,6 +63,7 @@ export const LoginButton = styled.button`
     &:hover {
         background-color: transparent;
         text-decoration: underline;
+        cursor: pointer;
     }
 
     &::selection {
