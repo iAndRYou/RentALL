@@ -3,7 +3,7 @@ import ApartmentContainer from './ApartmentContainer';
 
 export const StyledApartmentContainer = styled(ApartmentContainer)`
     height: 30vh;
-    background-color: lightgray;
+    background-color: #CACACA;
     margin: 1%;
     border-radius: 30px;
 `;
