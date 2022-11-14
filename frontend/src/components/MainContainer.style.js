@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import MainContainer from './MainContainer';
 
 
-export const StyledMainContainer = styled(MainContainer)`
+
+export const StyledMainContainer = styled.div`
     background-color: red;
     color: white;
    
