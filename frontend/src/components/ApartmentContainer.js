@@ -1,9 +1,9 @@
 import React from 'react'
 import {ApartmentInfo, DefText, BetterText, StyledImage } from './ApartmentContainer.style'
 
-export default function ApartmentContainer({className, price, city, street, picture}) {
+export default function ApartmentContainer({className, price, city, street, picture, title, description, latitude, longtitude, author, date, advertId}) {
   return (
-    <div className={className} price={price} city={city} street={street} picture={picture}>
+    <div className={className}>
         <StyledImage src={picture} alt="W3Schools.com"></StyledImage> 
         <ApartmentInfo>
             <DefText>Cena:&nbsp;</DefText>
@@ -13,6 +13,13 @@ export default function ApartmentContainer({className, price, city, street, pict
             <DefText>Dojazd do:&nbsp;</DefText><BetterText colour='grey'>AGH</BetterText><br></br>
             <DefText>Środek komunikacji:&nbsp;</DefText><BetterText colour='grey'>Autobus</BetterText><br></br>
             <DefText>Dojazd:&nbsp;</DefText><BetterText colour='red'>&#8734;</BetterText>
+        </ApartmentInfo>
+        <ApartmentInfo>
+            <DefText>Description:&nbsp;</DefText>
+            <br></br>
+            <DefText>{description}</DefText>
+            
+            
         </ApartmentInfo>
     </div>
   )
