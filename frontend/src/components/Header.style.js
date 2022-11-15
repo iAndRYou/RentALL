@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import profile from "../assets/profile.png"
 
 export const HeaderWrapper = styled.div`
     width: 100vw;
@@ -71,3 +72,33 @@ export const LoginButton = styled.button`
     }
 `;
 
+export const ProfileButton = styled.button`
+    color: white;
+    background-color: transparent;
+    background-position: center;
+    border-color: transparent;
+    height: 60px;
+    width: 60px;
+    margin: 15px;
+    margin-left: 5px;
+    margin-right: 2.5%;
+    float: right;
+
+    text-align: center;
+    font-weight: 400;
+    font-size: 20px;
+
+    &:hover {
+        text-decoration: underline;
+        transform: scale(1.2);
+        outline: none !important;
+        border: 1px solid white;
+        border-radius: 70px;
+        box-shadow: none;
+        cursor: pointer;
+    }
+
+    &::selection {
+        background-color: transparent;
+    }
+`;

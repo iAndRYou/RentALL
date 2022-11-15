@@ -1,7 +1,8 @@
 import { AppContainer } from './components/AppContainer.style';
-import { Logo, StyledHeader, AppTitle, LoginButton, HeaderWrapper } from './components/Header.style';
+import { Logo, StyledHeader, AppTitle, LoginButton, HeaderWrapper, ProfileButton } from './components/Header.style';
 import {StyledMainContainer} from './components/MainContainer.style';
 import logo from "./assets/logo.png";
+import profile from "./assets/profile.png"
 import { StyledEnterCity, StyledEnterCommute, StyledLowerPrice, StyledOptionBar, StyledPriceTag, StyledSearchButton, StyledSortMethod, StyledSortMethodElement, StyledUpperPrice } from './components/OptionBar.style';
 import React, {useState} from 'react';
 import Apartments from './components/exampleApartments.json';
@@ -17,16 +18,16 @@ function App() {
         <StyledHeader>
           <Logo src={logo}></Logo>
           <AppTitle>RentALL</AppTitle>
+          <ProfileButton>
+            <img src={profile} width="40px"></img>
+          </ProfileButton>
           <LoginButton>{"Zaloguj się"}</LoginButton>
         </StyledHeader>
           
         <StyledOptionBar>
           <StyledLowerPrice placeholder='Od'></StyledLowerPrice>
-
           <StyledPriceTag>Cena</StyledPriceTag>
-
           <StyledUpperPrice placeholder='Do'></StyledUpperPrice>
-
           <StyledSortMethod>
 
             <StyledSortMethodElement value="" disabled selected>
@@ -46,11 +47,8 @@ function App() {
             </StyledSortMethodElement>
             
           </StyledSortMethod>
-
           <StyledEnterCommute placeholder='Dojazd do...'></StyledEnterCommute>
-
           <StyledEnterCity placeholder='Miasto'></StyledEnterCity>
-
           <StyledSearchButton>Szukaj</StyledSearchButton>
         </StyledOptionBar>
       </HeaderWrapper>
