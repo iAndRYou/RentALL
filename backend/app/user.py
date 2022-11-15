@@ -3,6 +3,7 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from pydantic import BaseModel, EmailStr, Field
 from typing import Optional
 from passlib.context import CryptContext
+from models import User, UserInDB, Token, TokenData
 
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -10,28 +11,6 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl='token')
 
 router = APIRouter()
-
-
-
-
-
-class User(BaseModel):
-    fullname: str = Field(default=...)
-    email: EmailStr = Field(default=...)
-    phone_number: str = Field(default=...)
-    user_id: int = Field(default=...)
-
-class UserInDB(User):
-    password_hash: str = Field(default=...)
-
-
-class Token(BaseModel):
-    access_token: str
-    token_type: str
-
-
-class TokenData(BaseModel):
-    username: Optional[str] = None
 
 
 
