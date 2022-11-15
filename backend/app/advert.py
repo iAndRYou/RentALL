@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from models import Advert
+from .models import Advert
 from typing import List
 
 

@@ -2,7 +2,7 @@ from fastapi import APIRouter, Query, Path, Depends, Body, Form, HTTPException
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from typing import Optional
 from passlib.context import CryptContext
-from models import User, UserInDB, Token, TokenData
+from .models import User, UserInDB, Token, TokenData
 
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
