@@ -1,12 +1,12 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from app.user import *
+import app.user as user
 
 
 
 app = FastAPI()
 
-app.include_router(router)
+app.include_router(user.router)
 
 
 class Advert(BaseModel):
