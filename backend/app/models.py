@@ -1,6 +1,13 @@
 from pydantic import BaseModel, EmailStr, Field
 from typing import Optional, List
 
+class Location(BaseModel):
+    latitude: float = Field(default=...)
+    longitude: float = Field(default=...)
+
+class LocationDetails(BaseModel):
+    travel_time: float = Field(default=...) # travel time in seconds
+
 class Advert(BaseModel):
     advertId: int = Field(default=...)
     latitude: float = Field(default=...)
