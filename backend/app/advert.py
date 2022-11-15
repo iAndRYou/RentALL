@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Query
 from .models import Advert
 from typing import List
 
@@ -8,7 +8,7 @@ router = APIRouter()
 
 
 @router.get("/adverts", response_model=List[Advert], tags=['adverts'])
-async def get_adverts():
+async def get_adverts(lower_price_bound: float = Query(default=None), upper_price_bound: float = Query(default=None)):
     advert = Advert()
     #TODO: get an actual list of adverts
     return [advert] 
