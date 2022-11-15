@@ -1,8 +1,7 @@
 from fastapi import FastAPI
 from pydantic import BaseModel, Field
+from typing import List, Optional
 import app.user as user
-
-
 
 app = FastAPI()
 
@@ -15,31 +14,45 @@ class Advert(BaseModel):
     longitude: float = Field(default=...)
     date: str = Field(default=...)
     price: int = Field(default=...)
-    travel_time: int = Field(default=...)
     authorId: int = Field(default=...)
-    description: str | None = None
+    description: Optional[str] = Field(default=...)
     title: str = Field(default=...)
-    images: list[str] | None = None
-    
+    images: Optional[List[str]] = Field(default=...)
 
-@app.get("adverts", tags=['adverts'])
+    
+@app.get("/")
+async def hello():
+    return {"hello": "swirze"}
+
+@app.get("/adverts", response_model=List[Advert], tags=['adverts'])
 async def get_adverts():
-    return {"data": []}
+    advert = Advert()
+    #TODO: get an actual list of adverts
+    return [advert] 
+
+
 
 @app.post("/adverts", tags=['adverts'])
 async def post_advert(advert: Advert):
     return advert
+
+
     
-@app.get("/adverts/{advertId}", tags=['adverts'])
+@app.get("/adverts/{advertId}", response_model = Advert, tags=['adverts'])
 async def get_advert(advertId: int, advert: Advert):
-    return {"advertId": advertId}
+    return advert
+
+
 
 @app.put("adverts/{advertId}", tags=['adverts'])
 async def update_user_advert(advertId: int, advert: Advert):
     return advert
 
+
+
 @app.delete("adverts/{advertId}", tags=['adverts'])
 async def delete_user_advert(advertId: int):
-    pass
+    #TODO: delete from database logic
+    return{"ok": True}
 
 
