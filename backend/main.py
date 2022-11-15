@@ -1,30 +1,18 @@
 from fastapi import FastAPI
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 app = FastAPI()
-'''
-fake_items_db = [{"item_name": "Foo"}, {"item_name": "Bar"}, {"item_name": "Baz"}]
 
-@app.get("/items/")
-async def read_item(skip: int=0, limit: int=10):
-    return fake_items_db[skip: skip + limit]
-
-@app.get("/items/{item_id}")
-async def read_item(item_id: str, q: Union[str, None] = None):
-    if q:
-        return {"item_id": item_id, "q": q}
-    return {"item_id": item_id}
-    '''
 class Advert(BaseModel):
-    advertId: int
-    latitute: float
-    longitude: float
-    date: str
-    price: int
-    travel_time: int
-    authorId: int
+    advertId: int = Field(default=...)
+    latitute: float = Field(default=...)
+    longitude: float = Field(default=...)
+    date: str = Field(default=...)
+    price: int = Field(default=...)
+    travel_time: int = Field(default=...)
+    authorId: int = Field(default=...)
     description: str | None = None
-    title: str
+    title: str = Field(default=...)
     images: list[str] | None = None
     
 
@@ -36,7 +24,7 @@ async def get_adverts(): #do poprawy
 async def post_advertd(advert: Advert):
     return advert
     
-@app.get("/adverts/{advertId}")
+@app.get("/adverts/{advertId}", response_model=Advert)
 async def get_user_advert(advertId: int, advert: Advert):
     return {"advertId": advertId}
 
