@@ -5,7 +5,7 @@ import logo from "./assets/logo.png";
 import { StyledEnterCity, StyledEnterCommute, StyledLowerPrice, StyledOptionBar, StyledPriceTag, StyledSearchButton, StyledSortMethod, StyledSortMethodElement, StyledUpperPrice } from './components/OptionBar.style';
 import React, {useState} from 'react';
 import Apartments from './components/exampleApartments.json';
-import {createApartment} from './utilities/CreateApartment.js'
+import {createApartment, sortBy} from './utilities/CreateApartment.js'
 
 function App() {
   //const [apartments, setApartments] = useState(['1000zl', '2000zl', '2000zl', '2000zl', '2000zl']);
@@ -57,6 +57,7 @@ function App() {
       
 
       <StyledMainContainer>
+        {sortBy(Apartments, 'price', true)}
         {createApartment(Apartments)}
       </StyledMainContainer>
     </AppContainer>
