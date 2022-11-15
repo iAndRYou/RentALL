@@ -27,13 +27,13 @@ async def get_advert(advertId: int, advert: Advert):
 
 
 
-@router.put("adverts/{advertId}", tags=['adverts'])
+@router.put("/adverts/{advertId}", tags=['adverts'])
 async def update_user_advert(advertId: int, advert: Advert):
     return advert
 
 
 
-@router.delete("adverts/{advertId}", tags=['adverts'])
+@router.delete("/adverts/{advertId}", tags=['adverts'])
 async def delete_user_advert(advertId: int):
     #TODO: delete from database logic
     return{"ok": True}
