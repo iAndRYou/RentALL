@@ -1,20 +1,14 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
+from app.user import *
+
+
 
 app = FastAPI()
-'''
-fake_items_db = [{"item_name": "Foo"}, {"item_name": "Bar"}, {"item_name": "Baz"}]
 
-@app.get("/items/")
-async def read_item(skip: int=0, limit: int=10):
-    return fake_items_db[skip: skip + limit]
+app.include_router(router)
 
-@app.get("/items/{item_id}")
-async def read_item(item_id: str, q: Union[str, None] = None):
-    if q:
-        return {"item_id": item_id, "q": q}
-    return {"item_id": item_id}
-    '''
+
 class Advert(BaseModel):
     advertId: int
     latitute: float
@@ -28,22 +22,24 @@ class Advert(BaseModel):
     images: list[str] | None = None
     
 
-@app.get("adverts")
-async def get_adverts(): #do poprawy
+@app.get("adverts", tags=['adverts'])
+async def get_adverts():
     return {"data": []}
 
-@app.post("/adverts")
-async def post_advertd(advert: Advert):
+@app.post("/adverts", tags=['adverts'])
+async def post_advert(advert: Advert):
     return advert
     
-@app.get("/adverts/{advertId}")
-async def get_user_advert(advertId: int, advert: Advert):
+@app.get("/adverts/{advertId}", tags=['adverts'])
+async def get_advert(advertId: int, advert: Advert):
     return {"advertId": advertId}
 
-@app.put("adverts/{advertId}")
+@app.put("adverts/{advertId}", tags=['adverts'])
 async def update_user_advert(advertId: int, advert: Advert):
     return advert
 
-@app.delete("adverts/{advertId}")
-async def delete_advert(advertId: int):
+@app.delete("adverts/{advertId}", tags=['adverts'])
+async def delete_user_advert(advertId: int):
     pass
+
+
