@@ -1,6 +1,5 @@
-from fastapi import APIRouter, FastAPI, Query, Path, Depends, Body, Form, HTTPException
+from fastapi import APIRouter, Query, Path, Depends, Body, Form, HTTPException
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-from pydantic import BaseModel, EmailStr, Field
 from typing import Optional
 from passlib.context import CryptContext
 from models import User, UserInDB, Token, TokenData

@@ -1,17 +1,16 @@
 from pydantic import BaseModel, EmailStr, Field
-from typing import Optional
+from typing import Optional, List
 
 class Advert(BaseModel):
-    advertId: int
-    latitute: float
-    longitude: float
-    date: str
-    price: int
-    travel_time: int
-    authorId: int
-    description: str | None = None
-    title: str
-    images: list[str] | None = None
+    advertId: int = Field(default=...)
+    latitude: float = Field(default=...)
+    longitude: float = Field(default=...)
+    date: str = Field(default=...)
+    price: int = Field(default=...)
+    author_id: int = Field(default=...)
+    description: Optional[str] = Field(default=...)
+    title: str = Field(default=...)
+    images: Optional[List[str]] = Field(default=...)
 
 
 class User(BaseModel):

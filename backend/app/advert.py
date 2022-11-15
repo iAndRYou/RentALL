@@ -1,31 +1,41 @@
-from fastapi import FastAPI, APIRouter
+from fastapi import APIRouter
 from models import Advert
+from typing import List
 
 
 router = APIRouter()
 
 
 
-
-
-@router.get("/adverts", tags=['adverts'])
+@router.get("/adverts", response_model=List[Advert], tags=['adverts'])
 async def get_adverts():
-    return {"data": []}
+    advert = Advert()
+    #TODO: get an actual list of adverts
+    return [advert] 
+
+
 
 @router.post("/adverts", tags=['adverts'])
 async def post_advert(advert: Advert):
     return advert
-    
-@router.get("/adverts/{advertId}", tags=['adverts'])
-async def get_advert(advertId: int, advert: Advert):
-    return {"advertId": advertId}
 
-@router.put("/adverts/{advertId}", tags=['adverts'])
+
+    
+@router.get("/adverts/{advertId}", response_model = Advert, tags=['adverts'])
+async def get_advert(advertId: int, advert: Advert):
+    return advert
+
+
+
+@router.put("adverts/{advertId}", tags=['adverts'])
 async def update_user_advert(advertId: int, advert: Advert):
     return advert
 
-@router.delete("/adverts/{advertId}", tags=['adverts'])
+
+
+@router.delete("adverts/{advertId}", tags=['adverts'])
 async def delete_user_advert(advertId: int):
-    pass
+    #TODO: delete from database logic
+    return{"ok": True}
 
 
