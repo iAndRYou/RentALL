@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Query
+from fastapi import APIRouter, Query, Path, Body
 from .models import Advert
 from typing import List
 
@@ -22,13 +22,13 @@ async def post_advert(advert: Advert):
 
     
 @router.get("/adverts/{advertId}", response_model = Advert, tags=['adverts'])
-async def get_advert(advertId: int, advert: Advert):
+async def get_advert(advertId: int = Path(), advert: Advert = Body()):
     return advert
 
 
 
 @router.put("/adverts/{advertId}", tags=['adverts'])
-async def update_user_advert(advertId: int, advert: Advert):
+async def update_user_advert(advertId: int = Path(), advert: Advert = Body()):
     return advert
 
 
