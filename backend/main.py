@@ -42,7 +42,6 @@ async def get_user_advert(advertId: int, advert: Advert):
 
 @app.put("adverts/{advertId}")
 async def update_user_advert(advertId: int, advert: Advert):
-    cursor.execute("UPDATE inventory SET quantity = %s WHERE name = %s;", (200, "banana"))
     return advert
 
 @app.delete("adverts/{advertId}")
