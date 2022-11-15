@@ -21,5 +21,6 @@ export function sortBy(apartmentObj, variable, descending){
       return parseFloat(a.travelTime) - parseFloat(b.travelTime);
   })
   }
+  return apartmentObj;
 };
 

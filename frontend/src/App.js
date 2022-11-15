@@ -7,10 +7,23 @@ import React, {useState} from 'react';
 import Apartments from './components/exampleApartments.json';
 import {createApartment, sortBy} from './utilities/CreateApartment.js'
 
+
+
 function App() {
   //const [apartments, setApartments] = useState(['1000zl', '2000zl', '2000zl', '2000zl', '2000zl']);
   //const arr = ['1000zl', '2000zl', '2000zl', '2000zl', '2000zl'];
- 
+  const [apartments, setApartments] = useState(Apartments)
+  function handleSortApartment(value){
+    const clone = structuredClone(apartments);
+    if(value == 0){
+      sortBy(clone, 'price', false)
+      setApartments(clone)
+    }else if(value == 1){
+      sortBy(clone, 'price', true)
+      setApartments(clone)
+    }
+  }
+  
   return (
     <AppContainer>
       <HeaderWrapper>
@@ -27,7 +40,7 @@ function App() {
 
           <StyledUpperPrice placeholder='Do'></StyledUpperPrice>
 
-          <StyledSortMethod>
+          <StyledSortMethod onChange={e => handleSortApartment(e.target.value)}>
 
             <StyledSortMethodElement value="" disabled selected>
               {"Sortuj według..."}
@@ -57,12 +70,13 @@ function App() {
       
 
       <StyledMainContainer>
-        {sortBy(Apartments, 'price', true)}
-        {createApartment(Apartments)}
+        
+        {createApartment(apartments)}
       </StyledMainContainer>
     </AppContainer>
     
   )
 }
+
 
 export default App;
