@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Query, Path, Depends, Body, Form, HTTPException
+from fastapi import APIRouter, FastAPI, Query, Path, Depends, Body, Form, HTTPException
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from pydantic import BaseModel, EmailStr, Field
 from typing import Optional
@@ -9,7 +9,7 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl='token')
 
-app = FastAPI()
+router = APIRouter()
 
 
 
@@ -98,7 +98,7 @@ def authenticate_user(email: str, password: str):
 
 
 # Login for access token
-@app.post('/token')
+@router.post('/token')
 async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
     user = db_get_user_email(form_data.username)
     if not user:
@@ -108,24 +108,24 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
 
 
 # Get user {user_id}
-@app.get('/users/{user_id}', response_model=User, tags=['users'])
+@router.get('/users/{user_id}', response_model=User, tags=['users'])
 async def get_user(user: User = Depends(db_get_user_id)):
     return user
 
 
 # Get current user
-@app.get('/users/me', response_model=User, tags=['users'])
+@router.get('/users/me', response_model=User, tags=['users'])
 async def get_current_user(current_user: User = Depends(db_get_user_token)):
     return current_user
 
 
 # User signup
-@app.post('/users/signup', tags=['users'])
+@router.post('/users/signup', tags=['users'])
 async def user_signup():
     pass
 
 
 # User login
-@app.post("/login")
+@router.post("/login")
 async def login(username: str = Form(), password: str = Form()):
     pass
