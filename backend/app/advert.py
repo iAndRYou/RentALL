@@ -10,7 +10,7 @@ router = APIRouter()
 @router.get("/adverts", response_model=List[Advert], tags=['adverts'])
 async def get_adverts(lower_price_bound: float = Query(default=None), upper_price_bound: float = Query(default=None)):
     advert = Advert()
-    #TODO: get an actual list of adverts
+    #TODO: get an actual list of advert
     return [advert] 
 
 
