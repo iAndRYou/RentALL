@@ -26,3 +26,12 @@ export function sortBy(apartmentObj, variable, descending){
   return apartmentObj;
 };
 
+export function sortApartments(value, apartmentObj){
+    var shallowCopyOfApartmentObj = [...apartmentObj];
+    if(value == 0){
+      shallowCopyOfApartmentObj = sortBy(shallowCopyOfApartmentObj, 'price', false)
+    }else if(value == 1){
+      shallowCopyOfApartmentObj = sortBy(shallowCopyOfApartmentObj, 'price', true)
+    }
+    return shallowCopyOfApartmentObj
+}

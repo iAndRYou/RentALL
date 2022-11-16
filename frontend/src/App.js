@@ -6,23 +6,17 @@ import profile from "./assets/profile.png"
 import { StyledEnterCity, StyledEnterCommute, StyledLowerPrice, StyledOptionBar, StyledPriceTag, StyledSearchButton, StyledSortMethod, StyledSortMethodElement, StyledUpperPrice } from './components/OptionBar.style';
 import React, {useState} from 'react';
 import Apartments from './components/exampleApartments.json';
-import {createApartment, sortBy} from './utilities/CreateApartment.js'
+import {createApartment, sortApartments,} from './utilities/CreateApartment.js'
 
 
 
 function App() {
-  //const [apartments, setApartments] = useState(['1000zl', '2000zl', '2000zl', '2000zl', '2000zl']);
-  //const arr = ['1000zl', '2000zl', '2000zl', '2000zl', '2000zl'];
+  //apartments - array of objects packed in JSON, setApartments - function that changes the state of the apartments' var and rerenders the components
   const [apartments, setApartments] = useState(Apartments)
+  //handles sorting of the json array
   function handleSortApartment(value){
-    const clone = structuredClone(apartments);
-    if(value == 0){
-      sortBy(clone, 'price', false)
-      setApartments(clone)
-    }else if(value == 1){
-      sortBy(clone, 'price', true)
-      setApartments(clone)
-    }
+    var copy = sortApartments(value, apartments)
+    setApartments(copy)
   }
   
   return (
