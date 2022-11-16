@@ -23,6 +23,9 @@ class User(BaseModel):
     phone_number: str = Field(default=...)
     user_id: int = Field(default=...)
 
+class UserRegister(User):
+    password: str = Field(default=...)
+
 class UserInDB(User):
     password_hash: str = Field(default=...)
 

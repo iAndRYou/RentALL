@@ -2,7 +2,7 @@ from fastapi import APIRouter, Query, Path, Depends, Body, Form, HTTPException
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from typing import Optional
 from passlib.context import CryptContext
-from .models import User, UserInDB, Token, TokenData
+from .models import User, UserRegister, UserInDB, Token, TokenData
 
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -92,13 +92,7 @@ async def get_current_user(current_user: User = Depends(db_get_user_token)):
     return current_user
 
 
-# User signup
-@router.post('/users/signup', tags=['users'])
-async def user_signup():
-    pass
-
-
-# User login
-@router.post("/login")
-async def login(username: str = Form(), password: str = Form()):
+# User registration
+@router.post('/register', tags=['users'])
+async def register_user(new_user: UserRegister = Body()):
     pass
