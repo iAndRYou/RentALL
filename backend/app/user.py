@@ -48,12 +48,7 @@ async def db_get_user_email(email: str) -> Optional[User]:
     return User(fullname="test_name", email=email, phone_number="test_phone_number", user_id=0)
 
 
-def fake_hash_password(password: str) -> str:
-    '''
-    (Fake) Hash the password
-    '''
-    
-    return "xxx" + password + "xxx"
+
 
 
 def get_password_hash(password):
@@ -76,7 +71,7 @@ def authenticate_user(email: str, password: str):
 
 
 # Login for access token
-@router.post('/token')
+@router.post('/token', response_model=Token)
 async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
     user = db_get_user_email(form_data.username)
     if not user:
