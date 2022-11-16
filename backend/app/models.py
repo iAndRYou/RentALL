@@ -23,7 +23,10 @@ class User(BaseModel):
     phone_number: str = Field(default=...)
     user_id: int = Field(default=...)
 
-class UserRegister(User):
+class UserRegister(BaseModel):
+    fullname: str = Field(default=...)
+    phone_number: str = Field(default=...)
+    email: EmailStr = Field(default=...)
     password: str = Field(default=...)
 
 class UserInDB(User):
