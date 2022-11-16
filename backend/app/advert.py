@@ -21,20 +21,20 @@ async def post_advert(advert: Advert):
 
 
     
-@router.get("/adverts/{advertId}", response_model = Advert, tags=['adverts'])
-async def get_advert(advertId: int = Path(), advert: Advert = Body()):
+@router.get("/adverts/{advert_id}", response_model = Advert, tags=['adverts'])
+async def get_advert(advert_id: int = Path()):
+    pass
+
+
+
+@router.put("/adverts/{advert_id}", tags=['adverts'])
+async def update_user_advert(advert_id: int = Path(), advert: Advert = Body()):
     return advert
 
 
 
-@router.put("/adverts/{advertId}", tags=['adverts'])
-async def update_user_advert(advertId: int = Path(), advert: Advert = Body()):
-    return advert
-
-
-
-@router.delete("/adverts/{advertId}", tags=['adverts'])
-async def delete_user_advert(advertId: int):
+@router.delete("/adverts/{advert_id}", tags=['adverts'])
+async def delete_user_advert(advert_id: int):
     #TODO: delete from database logic
     return{"ok": True}
 
