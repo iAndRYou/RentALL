@@ -1,8 +1,13 @@
-import React from 'react'
-import {ApartmentInfo, DefText, BetterText, StyledImage } from './ApartmentContainer.style'
+import React, {useState} from 'react'
+import {ApartmentInfo, DefText, BetterText, StyledImage, StyledExpandableDiv } from './ApartmentContainer.style'
 
 export default function ApartmentContainer({className, price, city, street, picture, title, description, latitude, longtitude, author, date, advertId}) {
-  return (
+   const [isOpen, setIsOpen] = useState(false)
+   const toggle = () => {
+      setIsOpen(!isOpen);
+    };
+
+   return (
     <div className={className}>
         <StyledImage src={picture} alt="W3Schools.com"></StyledImage> 
         <ApartmentInfo>
@@ -15,12 +20,20 @@ export default function ApartmentContainer({className, price, city, street, pict
             <DefText>Dojazd:&nbsp;</DefText><BetterText colour='red'>&#8734;</BetterText>
         </ApartmentInfo>
         <ApartmentInfo>
-            <DefText>Description:&nbsp;</DefText>
-            <br></br>
-            <DefText>{description}</DefText>
+            
             
             
         </ApartmentInfo>
+
+        <button onClick={toggle}>open</button>
+        <StyledExpandableDiv isOpen={isOpen}>
+            <DefText>Description:&nbsp;</DefText>
+            <br></br>
+            <DefText>{description}</DefText>
+            <br></br>
+            <DefText>{description}</DefText>
+            <DefText>{description}</DefText>
+        </StyledExpandableDiv>
     </div>
   )
 }
