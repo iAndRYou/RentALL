@@ -89,12 +89,7 @@ export const ProfileButton = styled.button`
     font-size: 20px;
 
     &:hover {
-        text-decoration: underline;
         transform: scale(1.2);
-        outline: none !important;
-        border: 1px solid white;
-        border-radius: 70px;
-        box-shadow: none;
         cursor: pointer;
     }
 
