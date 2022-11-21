@@ -1,11 +1,17 @@
 import React, {useState} from 'react'
-import {ApartmentInfo, DefText, BetterText, StyledImage, StyledExpandableDiv } from './ApartmentContainer.style'
+import {ApartmentInfo, DefText, BetterText, StyledImage, StyledExpandableDiv, DetailsButton, AdvertButton } from './ApartmentContainer.style'
 
 export default function ApartmentContainer({className, price, city, street, picture, title, description, latitude, longtitude, author, date, advertId}) {
    const [isOpen, setIsOpen] = useState(false)
+   const [buttonText, setButtonText] = useState("Pokaż szczegóły")
    const toggle = () => {
+      setButtonText(isOpen ? "Pokaż szczegóły" : "Ukryj szczegóły");
       setIsOpen(!isOpen);
     };
+
+   const getActualAdvert = () => { 
+      return null;
+   }
 
    return (
     <div className={className}>
@@ -24,10 +30,12 @@ export default function ApartmentContainer({className, price, city, street, pict
             
             
         </ApartmentInfo>
-
-        <button onClick={toggle}>open</button>
+        <div>
+            <DetailsButton onClick={toggle}>{buttonText}</DetailsButton>
+            <AdvertButton onClick={getActualAdvert}>Zobacz ofertę →</AdvertButton>
+        </div>
         <StyledExpandableDiv isOpen={isOpen}>
-            <DefText>Description:&nbsp;</DefText>
+            <DefText>Opis:&nbsp;</DefText>
             <br></br>
             <DefText>{description}</DefText>
             <br></br>

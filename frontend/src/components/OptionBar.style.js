@@ -6,7 +6,7 @@ export const StyledOptionBar = styled.div`
     background-color: transparent;
     color: white;
     position: fixed;
-    top: 90px;
+    top: 75px;
     display: flex;
 `;
 
@@ -18,7 +18,6 @@ export const StyledPriceTag = styled.div`
     margin-right: 0px;
     margin-left: 0px;
     background-color: gray;
-    background-size: px;
     border-color: transparent;
 
     color: white;

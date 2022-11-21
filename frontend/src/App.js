@@ -11,11 +11,30 @@ import {createApartment, sortApartments,} from './utilities/CreateApartment.js'
 
 
 function App() {
+
+  const [lowerPrice, setLowerPrice] = useState('');
+  const [upperPrice, setUpperPrice] = useState('');
+  const [city, setCity] = useState('');
+  const [commute, setCommute] = useState('');
+
+  function getApartmentsJson(lowerPrice, upperPrice, city, commute) {
+
+    // TODO: Make a call to the backend to get the apartments
+
+    setLowerPrice('');
+    setUpperPrice('');
+    setCity('');
+    setCommute('');
+    // TODO: Return apartments got from the backend
+    return null;
+  }
+
   //apartments - array of objects packed in JSON, setApartments - function that changes the state of the apartments' var and rerenders the components
   const [apartments, setApartments] = useState(Apartments)
+
   //handles sorting of the json array
-  function handleSortApartment(value){
-    var copy = sortApartments(value, apartments)
+  function handleSortApartment(sorting_method){
+    var copy = sortApartments(sorting_method, apartments)
     setApartments(copy)
   }
   
@@ -26,45 +45,82 @@ function App() {
           <Logo src={logo}></Logo>
           <AppTitle>RentALL</AppTitle>
           <ProfileButton>
-            <img src={profile} width="40px"></img>
+            <img 
+              src={profile} 
+              width="40px"
+            ></img>
           </ProfileButton>
           <LoginButton>{"Zaloguj się"}</LoginButton>
         </StyledHeader>
           
         <StyledOptionBar>
-          <StyledLowerPrice placeholder='Od'></StyledLowerPrice>
+          <StyledLowerPrice 
+            placeholder='Od'
+            type='number'
+            min='0'
+            value={lowerPrice}
+            onChange={e => setLowerPrice(e.target.value)}
+          ></StyledLowerPrice>
           <StyledPriceTag>Cena</StyledPriceTag>
-          <StyledUpperPrice placeholder='Do'></StyledUpperPrice>
+          <StyledUpperPrice 
+            placeholder='Do'
+            type='number'
+            min='0'
+            value={upperPrice}
+            onChange={e => setUpperPrice(e.target.value)}
+          ></StyledUpperPrice>
           
 
           <StyledSortMethod onChange={e => handleSortApartment(e.target.value)}>
 
-            <StyledSortMethodElement value="" disabled selected>
-              {"Sortuj według..."}
+            <StyledSortMethodElement 
+              value="" 
+              disabled 
+              selected
+            >{"Sortuj według..."}
             </StyledSortMethodElement>
 
-            <StyledSortMethodElement value={0}>
-              {"Cena od najniższej"}
+            <StyledSortMethodElement 
+              value={0}
+            >{"Cena od najniższej"}
             </StyledSortMethodElement>
 
-            <StyledSortMethodElement value={1}>
-              {"Cena od najwyższej"}
+            <StyledSortMethodElement 
+              value={1}
+              >{"Cena od najwyższej"}
             </StyledSortMethodElement>
 
-            <StyledSortMethodElement value={2}>
-              {"Czas dojazdu"}
+            <StyledSortMethodElement 
+              value={2}
+            >{"Czas dojazdu"}
             </StyledSortMethodElement>
             
           </StyledSortMethod>
-          <StyledEnterCommute placeholder='Dojazd do...'></StyledEnterCommute>
-          <StyledEnterCity placeholder='Miasto'></StyledEnterCity>
-          <StyledSearchButton>Szukaj</StyledSearchButton>
+          <StyledEnterCommute 
+            placeholder='Dojazd do...'
+            type='text'
+            value={commute}
+            onChange={e => setCommute(e.target.value)}
+          ></StyledEnterCommute>
+          <StyledEnterCity 
+            placeholder='Miasto'
+            type='text'
+            value={city}
+            onChange={e => setCity(e.target.value)}
+            required
+          ></StyledEnterCity>
+          <StyledSearchButton
+            type='submit'
+
+            // here we call for backend to get the apartments
+            onClick={() => getApartmentsJson(lowerPrice, upperPrice, city, commute)}
+
+          >Szukaj</StyledSearchButton>
         </StyledOptionBar>
       </HeaderWrapper>
       
 
       <StyledMainContainer>
-        
         {createApartment(apartments)}
       </StyledMainContainer>
     </AppContainer>

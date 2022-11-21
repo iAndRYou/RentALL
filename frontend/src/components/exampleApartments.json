@@ -1,7 +1,7 @@
 [
-    { "price": "2000", "city": "Krakow", "street": "Złomiasta 14a/43", "picture": "https://www.iheartradio.ca/image/policy:1.3642351:1519414086/DIRTY-APARTMENT.jpg?f=default&$p$f=1f9cb7c", "description": "blahblahblahsdasd"},
-    { "price": "1000", "city": "Poznań", "street": "Śmieciowa 69a/43", "picture": "https://www.pedestrian.tv/wp-content/uploads/2017/09/bondi-junction-apartment.jpg"},
-    { "price": "3400", "city": "Krakow", "street": "Złomiasta 14a/43", "picture": "https://www.boredpanda.com/blog/wp-content/uploads/2022/02/frustrating-design-flaws-in-nyc-apartments-fb85.png"},
-    { "price": "900", "city": "Krakow", "street": "Złomiasta 14a/43", "picture": "https://badgerherald.com/wp-content/uploads/2005/04/worsthouse_BF_416.jpg"},
-    { "price": "10000", "city": "Krakow", "street": "Złomiasta 14a/43", "picture": "https://globalnews.ca/wp-content/uploads/2015/07/apt_image_1.jpg?quality=85&strip=all"}
+    { "price": "2000", "city": "Kraków", "street": "Złomiasta 14a/13", "picture": "https://www.iheartradio.ca/image/policy:1.3642351:1519414086/DIRTY-APARTMENT.jpg?f=default&$p$f=1f9cb7c", "description": "blahblahblahsdasd"},
+    { "price": "1000", "city": "Poznań", "street": "Śmieciowa 69a/19", "picture": "https://www.pedestrian.tv/wp-content/uploads/2017/09/bondi-junction-apartment.jpg"},
+    { "price": "3400", "city": "Kraków", "street": "Złomiasta 14a/47", "picture": "https://www.boredpanda.com/blog/wp-content/uploads/2022/02/frustrating-design-flaws-in-nyc-apartments-fb85.png"},
+    { "price": "900", "city": "Kraków", "street": "Złomiasta 14a/23", "picture": "https://badgerherald.com/wp-content/uploads/2005/04/worsthouse_BF_416.jpg"},
+    { "price": "10000", "city": "Kraków", "street": "Złomiasta 14a/81", "picture": "https://globalnews.ca/wp-content/uploads/2015/07/apt_image_1.jpg?quality=85&strip=all"}
 ]
