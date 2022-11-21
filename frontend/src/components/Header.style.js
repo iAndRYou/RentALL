@@ -3,7 +3,7 @@ import profile from "../assets/profile.png"
 
 export const HeaderWrapper = styled.div`
     width: 100vw;
-    height: 150px;
+    height: 125px;
     background-color: transparent;
     color: white;
     position: sticky;
@@ -12,7 +12,7 @@ export const HeaderWrapper = styled.div`
 
 export const StyledHeader = styled.div`
     width: 100vw;
-    height: 90px;
+    height: 70px;
     background-color: #52ACDF;
     color: white;
     position: fixed;
@@ -20,8 +20,8 @@ export const StyledHeader = styled.div`
 `;
 
 export const Logo = styled.img`
-    height: 70px;
-    width: 70px;
+    height: 50px;
+    width: 50px;
     margin: 10px;
     float: left;
 
@@ -33,14 +33,14 @@ export const Logo = styled.img`
 
 export const AppTitle = styled.text`
     color: white;
-    height: 70px;
+    height: 50px;
     width: min-content;
     margin: 10px;
     float: left;
 
     text-align: center;
     font-weight: 700;
-    font-size: 50px;
+    font-size: 40px;
 
     &:hover {
         background-color: transparent;
@@ -52,7 +52,7 @@ export const LoginButton = styled.button`
     color: white;
     background-color: transparent;
     border-color: transparent;
-    height: 70px;
+    height: 50px;
     width: max-content;
     margin: 10px;
     float: right;
@@ -77,11 +77,11 @@ export const ProfileButton = styled.button`
     background-color: transparent;
     background-position: center;
     border-color: transparent;
-    height: 60px;
-    width: 60px;
+    height: 45px;
+    width: 45px;
     margin: 15px;
     margin-left: 5px;
-    margin-right: 2.5%;
+    margin-right: 1.5%;
     float: right;
 
     text-align: center;
