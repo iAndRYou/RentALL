@@ -10,5 +10,6 @@ export const StyledMainContainer = styled.div`
     min-height:85vh;
     padding-left: 2%;
     padding-right: 2%;
-    `;
+
+`;
 
