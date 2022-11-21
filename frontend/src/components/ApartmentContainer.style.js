@@ -8,32 +8,51 @@ export const StyledApartmentContainer = styled(ApartmentContainer)`
     margin-top: 1%;
     border-radius: 35px;
     font-size: larger;
+
+    &:hover {
+        cursor: default;
+    }
 `;
 
 export const ApartmentInfo = styled.div`
     padding-left: 1%;
     display: inline-block;
-    width: 30%;
+    width: 50%;
     margin-top: 1.5%;
+
+    &:hover {
+        cursor: default;
+    }
 `;
 
 export const DefText = styled.p`
     display: inline;
     color: #A9A9A9;
+
+    &:hover {
+        cursor: default;
+    }
 `;
 
 export const BetterText = styled.h3`
     display: inline;
     color: ${(props) => props.colour};
+
+    &:hover {
+        cursor: default;
+    }
 `;
 
 export const StyledImage = styled.img`
     float: left;
-    display: inline-block;
     width: 22.5vh;
     height: 22.5vh;
     padding: 15px;
     border-radius: 45px;
+
+    &:hover {
+        cursor: default;
+    }
 `
 
 export const StyledExpandableDiv = styled.div`
@@ -46,6 +65,10 @@ export const StyledExpandableDiv = styled.div`
     transition: 0.3s;
     transition-timing-function: ease-out;
     //color: red;
+
+    &:hover {
+        cursor: default;
+    }
 `;
 
 export const DetailsButton = styled.button`
