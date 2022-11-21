@@ -38,7 +38,7 @@ export const StyledImage = styled.img`
 
 export const StyledExpandableDiv = styled.div`
     margin-top: 40px;
-    max-height: ${props => props.isOpen ? "1000px" : "0"};
+    max-height: ${props => props.isOpen ? "300px" : "0"};
     min-height: ${props => props.isOpen ? "100px" : "0"};
     //padding: ${props => props.isOpen ? "70px 0" : "0"};
     padding-left: 40px;
