@@ -107,25 +107,6 @@ class DBGetUser:
 
         return user
     
-    @get_connection
-    def get_user_by_token(cursor, token: str) -> Optional[User]:
-
-
-        '''
-        Get user from database by token
-        '''
-        decoded_token = decode_token(token)
-        cursor.execute("SELECT * FROM users WHERE user_id = %s;", (decoded_token['sub'],))
-        rows = cursor.fetchall()
-        if len(rows) == 0:
-            raise HTTPException(status_code=404, detail="User not found")
-        user = User(**{
-            "user_id": rows[0][0],
-            "email": rows[0][1],
-            "phone_number": rows[0][2],
-        })
-
-        return user
 
 class DBAddUser:
     '''

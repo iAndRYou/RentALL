@@ -33,7 +33,7 @@ async def get_user(user: User = Depends(DBGetUser.get_user_by_id)):
 
 # Get current user
 @router.get('/users/me', response_model=User, tags=['users'])
-async def get_current_user(current_user: User = Depends(DBGetUser.get_user_by_token)):
+async def get_current_user(current_user: User = Depends(decode_token)):
     return current_user
 
 
