@@ -6,7 +6,7 @@ class LocationDetails(BaseModel):
     travel_time: float = Field(default=...) # travel time in seconds
 
 class Advert(BaseModel):
-    advertId: int = Field(default=...)
+    advert_id: int = Field(default=...)
     latitude: float = Field(default=...)
     longitude: float = Field(default=...)
     date: str = Field(default=...)
