@@ -3,7 +3,7 @@ from fastapi.security import OAuth2PasswordRequestForm
 from typing import Optional
 from .models import User, UserRegister, UserInDB, Token, TokenData
 from auth.jwt_handler import pwd_context, create_access_token, decode_token, oauth2_scheme, get_password_hash, verify_password, authenticate_user
-from db_user_interface import DBGetUser, DBAddUser
+from db.user_interface import DBGetUser, DBAddUser
 from datetime import datetime, timedelta
 
 

@@ -4,7 +4,7 @@ from fastapi.security import OAuth2PasswordBearer
 from passlib.context import CryptContext
 from models import User
 from datetime import datetime, timedelta
-from db_user_interface import DBGetUser
+from db.user_interface import DBGetUser
 from models import User
 
 
