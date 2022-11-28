@@ -45,7 +45,7 @@ async def register_user(new_user: UserRegister = Body()):
         raise HTTPException(status_code=400, detail="Email already registered")
     user = UserInDB()
     user.email = new_user.email
-    user.password = get_password_hash(new_user.password)
+    user.password_hash = get_password_hash(new_user.password)
     user.phone_number = new_user.phone_number
     DBAddUser.add_user(user)
     return {"message": "User created successfully"}

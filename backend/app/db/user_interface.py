@@ -38,6 +38,14 @@ class DBGetUser:
     Class for getting users from database
     '''
 
+    # User database structure:
+    # user_id serial PRIMARY KEY,
+    # email VARCHAR,
+    # fullname VARCHAR,
+    # phone_number VARCHAR,
+    # password_hash VARCHAR
+
+
     @get_connection
     def get_user_by_id(cursor, user_id: int) -> Optional[User]:
         '''
@@ -50,7 +58,8 @@ class DBGetUser:
         user = User(**{
             "user_id": rows[0][0],
             "email": rows[0][1],
-            "phone_number": rows[0][2],
+            "fullname": rows[0][2],
+            "phone_number": rows[0][3],
         })
 
         return user
@@ -67,7 +76,8 @@ class DBGetUser:
         user = User(**{
             "user_id": rows[0][0],
             "email": rows[0][1],
-            "phone_number": rows[0][2],
+            "fullname": rows[0][2],
+            "phone_number": rows[0][3],
         })
 
         return user
@@ -84,8 +94,9 @@ class DBGetUser:
         user = UserInDB(**{
             "user_id": rows[0][0],
             "email": rows[0][1],
-            "phone_number": rows[0][2],
-            "password": rows[0][3]
+            "fullname": rows[0][2],
+            "phone_number": rows[0][3],
+            "password_hash": rows[0][4],
         })
 
         return user
@@ -102,7 +113,8 @@ class DBGetUser:
         user = User(**{
             "user_id": rows[0][0],
             "email": rows[0][1],
-            "phone_number": rows[0][2],
+            "fullname": rows[0][2],
+            "phone_number": rows[0][3],
         })
 
         return user
@@ -118,4 +130,4 @@ class DBAddUser:
         '''
         Add user to database
         '''
-        cursor.execute("INSERT INTO users (email, fullname, phone_number, hashed_password) VALUES (%s, %s, %s);", (user.email, user.fullname, user.phone_number, user.password))
+        cursor.execute("INSERT INTO users (email, fullname, phone_number, password_hash) VALUES (%s, %s, %s);", (user.email, user.fullname, user.phone_number, user.password))

@@ -2,10 +2,9 @@ from jose import JWTError, jwt
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from passlib.context import CryptContext
-from models import User
+from models import User, UserInDB
 from datetime import datetime, timedelta
 from db.user_interface import DBGetUser
-from models import User
 
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -51,7 +50,7 @@ def create_access_token(data: dict):
     return encoded_jwt
 
 
-def authenticate_user(email: str, password: str):
+def authenticate_user(email: str, password: str) -> UserInDB:
     '''
     Authenticate user by email and password
     '''
@@ -59,7 +58,7 @@ def authenticate_user(email: str, password: str):
     user = DBGetUser.get_user_by_email(email)
     if not user: # no user was found with that email
         return False
-    if not verify_password(password, user.hashed_password): # password hashes don't match
+    if not verify_password(password, user.password_hash): # password hashes don't match
         return False
     return user
 
