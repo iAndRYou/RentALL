@@ -44,10 +44,10 @@ CREATE TABLE users (
     email VARCHAR,
     phone_number VARCHAR,
     password VARCHAR);
-)
+
 '''
-#cursor.execute("DROP TABLE IF EXISTS users;")
-#cursor.execute(user_create_table)
+cursor.execute("DROP TABLE IF EXISTS users;")
+cursor.execute(user_create_table)
 print("Table user created")
 
 
