@@ -23,6 +23,7 @@ class User(BaseModel):
     phone_number: str = Field(default=...)
     user_id: int = Field(default=...)
 
+
 class UserRegister(BaseModel):
     fullname: str = Field(default=...)
     phone_number: str = Field(default=...)
