@@ -7,13 +7,9 @@ from db.user_interface import DBGetUser, DBAddUser
 from datetime import datetime, timedelta
 
 
-
 router = APIRouter()
 
 
-
-
-# Login for access token
 @router.post('/token', response_model=Token)
 async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
     '''
@@ -62,3 +58,4 @@ async def register_user(new_user: UserRegister = Body()):
     user.phone_number = new_user.phone_number
     DBAddUser.add_user(user)
     return {"message": "User created successfully"}
+    
