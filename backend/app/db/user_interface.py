@@ -9,6 +9,7 @@ class DatabaseDetails():
     '''
     Class to store database details
     '''
+    
     host = "rentall.postgres.database.azure.com"
     dbname = "postgres"
     user = "Kryson354@rentall"
