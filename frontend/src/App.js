@@ -7,6 +7,7 @@ import { StyledEnterCity, StyledEnterCommute, StyledLowerPrice, StyledOptionBar,
 import React, {useState, useEffect} from 'react';
 import Apartments from './components/exampleApartments.json';
 import {createApartment, sortApartments,} from './utilities/CreateApartment.js'
+import { StyledAddAdvertButton } from './components/AddAdvertPage.style';
 
 
 
@@ -20,7 +21,10 @@ function App() {
 
  
 
-  function getApartmentsJson(lowerPrice, upperPrice, city, commute) {
+  async function getApartmentsJson(lowerPrice, upperPrice, city, commute) {
+    setAddAdvertPage(false);
+    setLoginPage(false);
+    setRegisterPage(false);
 
     // TODO: Make a call to the backend to get the apartments
     fetch('http://127.0.0.1:8000/adverts')
@@ -45,14 +49,34 @@ function App() {
   const [apartments, setApartments] = useState([])
 
   //handles sorting of the json array
-  function handleSortApartment(sorting_method){
+  function handleSortApartment(sorting_method) {
     var copy = sortApartments(sorting_method, apartments)
     setApartments(copy)
   }
-  
+
+  //creates new apartment in backend
+  function handleAddAdvert(price, details, city, commute, image) {
+     // call to backend to add the advert
+
+     setAddAdvertPage(false);
+  }
+
+  // all the pages boolean variables
+  const [addAdvertPage, setAddAdvertPage] = useState(false);
+  const [loginPage, setLoginPage] = useState(false);
+  const [registerPage, setRegisterPage] = useState(false);
+  // handling pages change
+  function handlePages() {
+    if (addAdvertPage === false && loginPage === false && registerPage === false){
+      return (
+        createApartment(posts)
+      )
+    } else if (addAdvertPage === true) {
+    }
+  }
+
   return (
     <AppContainer>
-      {console.log("yooooo"+posts)}
       <HeaderWrapper>
         <StyledHeader>
           <Logo src={logo}></Logo>
@@ -134,12 +158,16 @@ function App() {
       
 
       <StyledMainContainer>
-        {createApartment(apartments)}
+        {handlePages()}
       </StyledMainContainer>
+
+      <StyledAddAdvertButton
+        type='submit'
+        onClick={() => setAddAdvertPage(true)}
+      > {"+"}
+      </StyledAddAdvertButton>
     </AppContainer>
     
   )
 }
-
-
 export default App;
