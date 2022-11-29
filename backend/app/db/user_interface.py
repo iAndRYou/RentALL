@@ -28,6 +28,7 @@ def get_connection(func):
         conn = psycopg2.connect(conn_string)
         cursor = conn.cursor()
         result = func(cursor, *args, **kwargs)
+        conn.commit()
         cursor.close()
         conn.close()
         return result

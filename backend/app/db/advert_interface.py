@@ -25,7 +25,7 @@ class DBGetAdvert:
             raise HTTPException(status_code=404, detail="Advert not found")
         advert = Advert(**{
             "advert_id": rows[0][0],
-            "latitute": rows[0][1],
+            "latitude": rows[0][1],
             "longitude": rows[0][2],
             "date": rows[0][3],
             "price": rows[0][4],
@@ -50,7 +50,7 @@ class DBGetAdvert:
         for row in rows:
             advert = Advert(**{
             "advert_id": row[0],
-            "latitute": row[1],
+            "latitude": row[1],
             "longitude": row[2],
             "date": row[3],
             "price": row[4],
@@ -67,7 +67,7 @@ class DBEditAdvert:
 
     @get_connection
     def add_advert(cursor, advert: Advert) -> None:
-        cursor.execute("INSERT INTO adverts (latitute, longitude, date, price, author_id, description, title, images) VALUES (%s, %s, %s, %s, %s, %s, %s, %s);", 
+        cursor.execute("INSERT INTO adverts (latitude, longitude, date, price, author_id, description, title, images) VALUES (%s, %s, %s, %s, %s, %s, %s, %s);", 
         (advert.latitude, advert.longitude, advert.date, advert.price, advert.author_id, advert.description, advert.title, advert.images))
     
     @get_connection
@@ -76,7 +76,7 @@ class DBEditAdvert:
 
     @get_connection
     def update_advert(cursor, advert_id: int, advert: Advert) -> None:
-        cursor.execute("UPDATE adverts SET latitute = %s, longitude = %s, date = %s, price = %s, author_id = %s, description = %s, title = %s, images = %s WHERE advert_id = %s;", 
+        cursor.execute("UPDATE adverts SET latitude = %s, longitude = %s, date = %s, price = %s, author_id = %s, description = %s, title = %s, images = %s WHERE advert_id = %s;", 
         (advert.latitude, advert.longitude, advert.date, advert.price, advert.author_id, advert.description, advert.title, advert.images, advert_id))
 
         
