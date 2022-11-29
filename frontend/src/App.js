@@ -18,22 +18,21 @@ function App() {
   const [commute, setCommute] = useState('');
   const [posts, setPosts] = useState([]);
 
-   useEffect(() => {
-      fetch('http://127.0.0.1:8000/adverts')
-         .then((data) => {
-            console.log(data);
-            setPosts(data);
-         })
-         .catch((err) => {
-            console.log(err.message);
-         });
-   }, []);
+ 
 
   function getApartmentsJson(lowerPrice, upperPrice, city, commute) {
 
     // TODO: Make a call to the backend to get the apartments
-
-
+    fetch('http://127.0.0.1:8000/adverts')
+        .then((response) => response.json())
+       .then((data) => {
+          console.log(data);
+          setPosts(data);
+       })
+       .catch((err) => {
+          console.log(err.message);
+       });
+    setApartments(posts);
     setLowerPrice('');
     setUpperPrice('');
     setCity('');
@@ -53,6 +52,7 @@ function App() {
   
   return (
     <AppContainer>
+      {console.log("yooooo"+posts)}
       <HeaderWrapper>
         <StyledHeader>
           <Logo src={logo}></Logo>
