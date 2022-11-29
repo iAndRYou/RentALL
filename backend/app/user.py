@@ -25,6 +25,16 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
     return {"access_token": access_token, "token_type": "bearer"}
 
 
+# get all users
+@router.get('/users', response_model=list[User])
+async def get_users():
+    '''
+    Get all users
+    '''
+    
+    return DBGetUser.get_all_users()
+
+
 @router.get('/users/{user_id}', response_model=User, tags=['users'])
 async def get_user(user: User = Depends(DBGetUser.get_user_by_id)):
     '''
@@ -32,6 +42,16 @@ async def get_user(user: User = Depends(DBGetUser.get_user_by_id)):
     '''
     
     return user
+
+# get user by email
+@router.get('/users/email/{email}', response_model=User, tags=['users'])
+async def get_user_by_email(email: str = Path(..., title="The email of the user to get", min_length=3, max_length=50)):
+    '''
+    Get user by email
+    '''
+    
+    return DBGetUser.get_user_by_email(email)
+
 
 
 @router.get('/users/me', response_model=User, tags=['users'])

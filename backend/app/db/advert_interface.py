@@ -14,11 +14,14 @@ class DBGetAdvert:
     '''
 
 
-    @get_connection
-    def get_advert_by_id(cursor, advert_id: int) -> Optional[Advert]:
+    # @get_connection
+    def get_advert_by_id(advert_id: int) -> Optional[Advert]:
         '''
         Get advert from database by id
         '''
+        conn = psycopg2.connect(conn_string)
+        cursor = conn.cursor()
+
         cursor.execute("SELECT * FROM adverts WHERE advert_id = %s;", (advert_id,))
         rows = cursor.fetchall()
         if len(rows) == 0:
@@ -35,13 +38,20 @@ class DBGetAdvert:
             "images": rows[0][8],
         })
 
+        # conn.commit()
+        cursor.close()
+        conn.close()
+
         return advert
     
-    @get_connection
-    def get_adverts_in_given_price(cursor, lower_price_bound: int, upper_price_bound: int) -> Optional[List[Advert]]:
+    # @get_connection
+    def get_adverts_in_given_price(lower_price_bound: int, upper_price_bound: int) -> Optional[List[Advert]]:
         '''
         Get adverts from database in given price
         '''
+        conn = psycopg2.connect(conn_string)
+        cursor = conn.cursor()
+
         cursor.execute("SELECT * FROM adverts WHERE price >= %s AND price <= %s;", (lower_price_bound,upper_price_bound))
         rows = cursor.fetchall()
         if len(rows) == 0:
@@ -60,24 +70,49 @@ class DBGetAdvert:
             "images": row[8],
             })
             adverts.append(advert)
+
+        # conn.commit()
+        cursor.close()
+        conn.close()
             
         return adverts
     
 class DBEditAdvert:
 
-    @get_connection
-    def add_advert(cursor, advert: Advert) -> None:
+    # @get_connection
+    def add_advert(advert: Advert) -> None:
+        conn = psycopg2.connect(conn_string)
+        cursor = conn.cursor()
+
         cursor.execute("INSERT INTO adverts (latitude, longitude, date, price, author_id, description, title, images) VALUES (%s, %s, %s, %s, %s, %s, %s, %s);", 
         (advert.latitude, advert.longitude, advert.date, advert.price, advert.author_id, advert.description, advert.title, advert.images))
+
+        # conn.commit()
+        cursor.close()
+        conn.close()
     
-    @get_connection
-    def delete_advert(cursor, advert_id: int) -> None:
+    # @get_connection
+    def delete_advert(advert_id: int) -> None:
+        conn = psycopg2.connect(conn_string)
+        cursor = conn.cursor()
+
         cursor.execute("DELETE FROM adverts WHERE advert_id = %s;", (advert_id,))
 
+        # conn.commit()
+        cursor.close()
+        conn.close()
+
     @get_connection
-    def update_advert(cursor, advert_id: int, advert: Advert) -> None:
+    def update_advert(advert_id: int, advert: Advert) -> None:
+        conn = psycopg2.connect(conn_string)
+        cursor = conn.cursor()
+
         cursor.execute("UPDATE adverts SET latitude = %s, longitude = %s, date = %s, price = %s, author_id = %s, description = %s, title = %s, images = %s WHERE advert_id = %s;", 
         (advert.latitude, advert.longitude, advert.date, advert.price, advert.author_id, advert.description, advert.title, advert.images, advert_id))
+
+        # conn.commit()
+        cursor.close()
+        conn.close()
 
         
 

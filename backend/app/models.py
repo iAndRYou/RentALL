@@ -18,10 +18,10 @@ class Advert(BaseModel):
 
 
 class User(BaseModel):
-    fullname: str = Field(default=...)
-    email: EmailStr = Field(default=...)
-    phone_number: str = Field(default=...)
     user_id: int = Field(default=...)
+    email: str = Field(default=...)
+    fullname: str = Field(default=...)
+    phone_number: str = Field(default=...)
 
 
 class UserRegister(BaseModel):
