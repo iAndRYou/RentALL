@@ -28,7 +28,7 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
 @router.get('/users/{user_id}', response_model=User, tags=['users'])
 async def get_user(user: User = Depends(DBGetUser.get_user_by_id)):
     '''
-    Get user {user_id}
+    Get user by user id
     '''
     
     return user
@@ -58,4 +58,3 @@ async def register_user(new_user: UserRegister = Body()):
     user.phone_number = new_user.phone_number
     DBAddUser.add_user(user)
     return {"message": "User created successfully"}
-    

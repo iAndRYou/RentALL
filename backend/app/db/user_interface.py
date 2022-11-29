@@ -9,7 +9,7 @@ class DatabaseDetails():
     '''
     Class to store database details
     '''
-    
+
     host = "rentall.postgres.database.azure.com"
     dbname = "postgres"
     user = "Kryson354@rentall"
@@ -86,7 +86,7 @@ class DBGetUser:
     @get_connection
     def get_dbuser_by_email(cursor, email: str) -> Optional[UserInDB]:
         '''
-        Get user from database by email
+        Get user with password hash from database by email
         '''
         cursor.execute("SELECT * FROM users WHERE email = %s;", (email,))
         rows = cursor.fetchall()
