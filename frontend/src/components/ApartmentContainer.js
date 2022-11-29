@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {ApartmentInfo, DefText, BetterText, StyledImage, StyledExpandableDiv, DetailsButton, AdvertButton } from './ApartmentContainer.style'
 
-export default function ApartmentContainer({className, price, city, street, picture, title, description, latitude, longtitude, author, date, advertId}) {
+export default function ApartmentContainer({className, price, city, street, images, title, description, latitude, longtitude, author, date, advertId}) {
    const [isOpen, setIsOpen] = useState(false)
    const [buttonText, setButtonText] = useState("Pokaż szczegóły")
    const toggle = () => {
@@ -15,15 +15,15 @@ export default function ApartmentContainer({className, price, city, street, pict
 
    return (
     <div className={className}>
-        <StyledImage src={picture} alt="W3Schools.com"></StyledImage> 
+        <StyledImage src={images} alt="W3Schools.com"></StyledImage> 
         <ApartmentInfo>
             <DefText>Cena:&nbsp;</DefText>
             <BetterText colour={changeColourDependingOnPrice(price)}>{price}&nbsp;zł / miesiąc</BetterText><br></br>
             <DefText>Lokalizacja:&nbsp;</DefText>
-            <BetterText colour='grey'>{city}, {street}</BetterText><br></br>
+            <BetterText colour='grey'>Kraków{/*city*/}, Skrzyneckiego 21/37h{/*street*/}</BetterText><br></br>
             <DefText>Dojazd do:&nbsp;</DefText><BetterText colour='grey'>AGH</BetterText><br></br>
             <DefText>Środek komunikacji:&nbsp;</DefText><BetterText colour='grey'>Autobus</BetterText><br></br>
-            <DefText>Dojazd:&nbsp;</DefText><BetterText colour='red'>&#8734;</BetterText>
+            <DefText>Dojazd: </DefText><BetterText colour='red'>30 min</BetterText>
         </ApartmentInfo>
         <ApartmentInfo>
             

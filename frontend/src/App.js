@@ -11,7 +11,6 @@ import {createApartment, sortApartments,} from './utilities/CreateApartment.js'
 
 
 function App() {
-
   const [lowerPrice, setLowerPrice] = useState('');
   const [upperPrice, setUpperPrice] = useState('');
   const [city, setCity] = useState('');
@@ -20,10 +19,12 @@ function App() {
 
  
 
-  function getApartmentsJson(lowerPrice, upperPrice, city, commute) {
-
+  async function getApartmentsJson(lowerPrice, upperPrice, city, commute) {
+    if(lowerPrice === ""){lowerPrice = "0.0"}
+    if(upperPrice === ""){upperPrice = "99999999.0"}
     // TODO: Make a call to the backend to get the apartments
-    fetch('http://127.0.0.1:8000/adverts')
+    var link = 'http://127.0.0.1:8000/adverts?lower_price_bound='+lowerPrice+'&upper_price_bound='+upperPrice;
+    await fetch(link)
         .then((response) => response.json())
        .then((data) => {
           console.log(data);
@@ -32,7 +33,7 @@ function App() {
        .catch((err) => {
           console.log(err.message);
        });
-    setApartments(posts);
+
     setLowerPrice('');
     setUpperPrice('');
     setCity('');
@@ -46,13 +47,12 @@ function App() {
 
   //handles sorting of the json array
   function handleSortApartment(sorting_method){
-    var copy = sortApartments(sorting_method, apartments)
-    setApartments(copy)
+    var copy = sortApartments(sorting_method, posts)
+    setPosts(copy)
   }
   
   return (
     <AppContainer>
-      {console.log("yooooo"+posts)}
       <HeaderWrapper>
         <StyledHeader>
           <Logo src={logo}></Logo>
@@ -134,7 +134,7 @@ function App() {
       
 
       <StyledMainContainer>
-        {createApartment(apartments)}
+        {createApartment(posts)}
       </StyledMainContainer>
     </AppContainer>
     
