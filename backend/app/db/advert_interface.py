@@ -3,7 +3,7 @@ import psycopg2
 from fastapi import APIRouter, Query, Path, Depends, Body, Form, HTTPException
 from typing import Optional, List
 from ..models import Advert
-from user_interface import DatabaseDetails, get_connection
+from .user_interface import DatabaseDetails, get_connection
 
 db = DatabaseDetails()
 conn_string = "host={0} user={1} dbname={2} password={3} sslmode={4}".format(db.host, db.user, db.dbname, db.password, db.sslmode)

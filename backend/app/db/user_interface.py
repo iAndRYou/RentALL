@@ -2,7 +2,6 @@ import psycopg2
 from fastapi import APIRouter, Query, Path, Depends, Body, Form, HTTPException
 from typing import Optional
 from ..models import User, UserInDB
-from auth.jwt_handler import oauth2_scheme, decode_token
 
 
 class DatabaseDetails():

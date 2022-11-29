@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Query, Path, Depends, Body, Form, HTTPException
 from .models import Advert
-from db.user_interface import DatabaseDetails, get_connection
-from db.advert_interface import DBGetAdvert, DBEditAdvert
+from .db.user_interface import DatabaseDetails, get_connection
+from .db.advert_interface import DBGetAdvert, DBEditAdvert
 from typing import List
 
 
