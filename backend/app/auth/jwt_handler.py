@@ -2,9 +2,9 @@ from jose import JWTError, jwt
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from passlib.context import CryptContext
-from models import User, UserInDB
+from ..models import User, UserInDB
 from datetime import datetime, timedelta
-from db.user_interface import DBGetUser
+from ..db.user_interface import DBGetUser
 
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")

@@ -32,3 +32,9 @@ class UserRegister(BaseModel):
 
 class UserInDB(User):
     password_hash: str = Field(default=...)
+
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
