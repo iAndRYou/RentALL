@@ -13,6 +13,7 @@ class DBGetAdvert:
     Class for getting adverts from database
     '''
 
+
     @get_connection
     def get_advert_by_id(cursor, advert_id: int) -> Optional[Advert]:
         '''

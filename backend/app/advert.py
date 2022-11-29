@@ -12,7 +12,7 @@ router = APIRouter()
 @router.get("/adverts", response_model=List[Advert], tags=['adverts'])
 async def get_adverts(lower_price_bound: float = Query(default=None), upper_price_bound: float = Query(default=None)):
     if lower_price_bound is None and upper_price_bound is None:
-        return DBGetAdvert.get_all_adverts()
+        return DBGetAdvert.get_adverts_in_given_price(0, 1000000000)
     elif lower_price_bound is None:
         return DBGetAdvert.get_adverts_in_given_price(0, upper_price_bound)
     elif upper_price_bound is None:
