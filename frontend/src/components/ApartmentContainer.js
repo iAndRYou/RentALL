@@ -39,8 +39,6 @@ export default function ApartmentContainer({className, price, city, street, pict
             <br></br>
             <DefText>{description}</DefText>
             <br></br>
-            <DefText>{description}</DefText>
-            <DefText>{description}</DefText>
         </StyledExpandableDiv>
     </div>
   )

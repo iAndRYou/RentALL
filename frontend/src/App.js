@@ -4,7 +4,7 @@ import {StyledMainContainer} from './components/MainContainer.style';
 import logo from "./assets/logo.png";
 import profile from "./assets/profile.png"
 import { StyledEnterCity, StyledEnterCommute, StyledLowerPrice, StyledOptionBar, StyledPriceTag, StyledSearchButton, StyledSortMethod, StyledSortMethodElement, StyledUpperPrice } from './components/OptionBar.style';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Apartments from './components/exampleApartments.json';
 import {createApartment, sortApartments,} from './utilities/CreateApartment.js'
 
@@ -16,10 +16,24 @@ function App() {
   const [upperPrice, setUpperPrice] = useState('');
   const [city, setCity] = useState('');
   const [commute, setCommute] = useState('');
+  const [posts, setPosts] = useState([]);
+
+   useEffect(() => {
+      fetch('https://cors-anywhere.herokuapp.com/{http://127.0.0.1:8000/adverts}')
+         .then((res) => res.json())
+         .then((data) => {
+            console.log(data);
+            setPosts(data);
+         })
+         .catch((err) => {
+            console.log(err.message);
+         });
+   }, []);
 
   function getApartmentsJson(lowerPrice, upperPrice, city, commute) {
 
     // TODO: Make a call to the backend to get the apartments
+
 
     setLowerPrice('');
     setUpperPrice('');
@@ -30,7 +44,7 @@ function App() {
   }
 
   //apartments - array of objects packed in JSON, setApartments - function that changes the state of the apartments' var and rerenders the components
-  const [apartments, setApartments] = useState(Apartments)
+  const [apartments, setApartments] = useState([])
 
   //handles sorting of the json array
   function handleSortApartment(sorting_method){
