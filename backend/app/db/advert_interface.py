@@ -37,6 +37,7 @@ class DBGetAdvert:
 
         return advert
     
+    @get_connection
     def get_adverts_in_given_price(cursor, lower_price_bound: int, upper_price_bound: int) -> Optional[List[Advert]]:
         '''
         Get adverts from database in given price
