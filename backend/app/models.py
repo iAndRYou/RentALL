@@ -14,7 +14,7 @@ class Advert(BaseModel):
     author_id: int = Field(default=...)
     description: Optional[str] = Field(default=...)
     title: str = Field(default=...)
-    images: Optional[List[str]] = Field(default=...)
+    images: str = Field(default=...)
 
 
 class User(BaseModel):
