@@ -19,8 +19,7 @@ function App() {
   const [posts, setPosts] = useState([]);
 
    useEffect(() => {
-      fetch('https://cors-anywhere.herokuapp.com/{http://127.0.0.1:8000/adverts}')
-         .then((res) => res.json())
+      fetch('http://127.0.0.1:8000/adverts')
          .then((data) => {
             console.log(data);
             setPosts(data);
