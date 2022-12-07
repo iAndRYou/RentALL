@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Query, Path, Depends, Body, Form, HTTPException
-from .models import Advert
+from typing import List
+from .models import Advert, User
 from .db.user_interface import DatabaseDetails, get_connection
 from .db.advert_interface import DBGetAdvert, DBEditAdvert
-from typing import List
-
+from .auth.jwt_handler import decode_token 
 
 router = APIRouter()
 
@@ -24,7 +24,7 @@ async def get_adverts(lower_price_bound: float = Query(default=None), upper_pric
 
 
 @router.post("/adverts", tags=['adverts'])
-async def post_advert(advert: Advert):
+async def post_advert(advert: Advert, current_user: User = Depends(decode_token)):
     DBEditAdvert.add_advert(advert)
     return {"message": "Advert added successfully"}
     
@@ -37,7 +37,7 @@ async def get_advert(advert: Advert = Depends(DBGetAdvert.get_advert_by_id)):
 
 
 @router.put("/adverts/{advert_id}", tags=['adverts'])
-async def update_user_advert(advert_id: int = Path(), advert: Advert = Body()):
+async def update_user_advert(advert_id: int = Path(), advert: Advert = Body(), current_user: User = Depends(decode_token)):
     """Update advert in the database"""
     DBEditAdvert.update_advert(advert_id, advert)
     return {"message": "Advert updated successfully"}
@@ -45,7 +45,7 @@ async def update_user_advert(advert_id: int = Path(), advert: Advert = Body()):
 
 
 @router.delete("/adverts/{advert_id}", tags=['adverts'])
-async def delete_user_advert(advert_id: int):
+async def delete_user_advert(advert_id: int, current_user: User = Depends(decode_token)):
     """Delete advert from the database"""
     DBEditAdvert.delete_advert(advert_id)
     return {"message": "Advert deleted successfully"}
