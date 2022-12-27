@@ -5,9 +5,10 @@ import logo from "./assets/logo.png";
 import profile from "./assets/profile.png"
 import { StyledEnterCity, StyledEnterCommute, StyledLowerPrice, StyledOptionBar, StyledPriceTag, StyledSearchButton, StyledSortMethod, StyledSortMethodElement, StyledUpperPrice } from './components/OptionBar.style';
 import React, {useState, useEffect} from 'react';
-import Apartments from './components/exampleApartments.json';
+import exampleApartments from './components/exampleApartments.json';
 import {createApartment, sortApartments,} from './utilities/CreateApartment.js'
-import { StyledAddAdvertButton } from './components/AddAdvertPage.style';
+import { StyledAddAdvertButton, StyledAddAdvertPage } from './components/AddAdvertPage.style';
+
 
 
 
@@ -16,6 +17,7 @@ function App() {
   const [upperPrice, setUpperPrice] = useState('');
   const [city, setCity] = useState('');
   const [commute, setCommute] = useState('');
+  // useState hook for adding appartments
   const [posts, setPosts] = useState([]);
 
  
@@ -35,6 +37,7 @@ function App() {
           setPosts(data);
        })
        .catch((err) => {
+          setPosts(exampleApartments)
           console.log(err.message);
        });
 
@@ -46,13 +49,11 @@ function App() {
     return null;
   }
 
-  //apartments - array of objects packed in JSON, setApartments - function that changes the state of the apartments' var and rerenders the components
-  const [apartments, setApartments] = useState([])
 
   //handles sorting of the json array
   function handleSortApartment(sorting_method){
-    var copy = sortApartments(sorting_method, apartments)
-    setApartments(copy)
+    var copy = sortApartments(sorting_method, posts)
+    setPosts(copy)
   }
 
   //creates new apartment in backend
@@ -76,6 +77,16 @@ function App() {
     }
   }
 
+  //test function for showing the add advert page
+  function testhandleAddAdvertPage(bool) {
+    if (bool === true) {
+
+      return(
+        console.log("set adverts!!!!"),
+        <StyledAddAdvertPage/>
+      )
+    }
+  }
   return (
     <AppContainer>
       {console.log("yooooo"+posts)}
@@ -160,12 +171,14 @@ function App() {
       
 
       <StyledMainContainer>
-        {createApartment(apartments)}
+        {createApartment(posts, !addAdvertPage)}
+        {testhandleAddAdvertPage(addAdvertPage)}
       </StyledMainContainer>
 
       <StyledAddAdvertButton
         type='submit'
-        onClick={() => setAddAdvertPage(true)}
+        onClick={() => setAddAdvertPage(!addAdvertPage)}
+    
       > {"+"}
       </StyledAddAdvertButton>
     </AppContainer>
