@@ -8,7 +8,7 @@ import React, {useState, useEffect} from 'react';
 import exampleApartments from './components/exampleApartments.json';
 import {createApartment, sortApartments,} from './utilities/CreateApartment.js'
 import { StyledAddAdvertButton, StyledAddAdvertPage } from './components/AddAdvertPage.style';
-
+import * as hp from './utilities/HandlePages.js';
 
 
 
@@ -23,9 +23,7 @@ function App() {
  
 
   async function getApartmentsJson(lowerPrice, upperPrice, city, commute) {
-    setAddAdvertPage(false);
-    setLoginPage(false);
-    setRegisterPage(false);
+    handlePages(hp.Pages.renderApartments);
     if(lowerPrice === ""){lowerPrice = "0.0"}
     if(upperPrice === ""){upperPrice = "99999999.0"}
     // TODO: Make a call to the backend to get the apartments
@@ -60,33 +58,46 @@ function App() {
   function handleAddAdvert(price, details, city, commute, image) {
      // call to backend to add the advert
 
-     setAddAdvertPage(false);
+    handlePages(hp.Pages.renderApartments);
   }
 
   // all the pages boolean variables
   const [addAdvertPage, setAddAdvertPage] = useState(false);
   const [loginPage, setLoginPage] = useState(false);
   const [registerPage, setRegisterPage] = useState(false);
-  // handling pages change
-  function handlePages() {
-    if (addAdvertPage === false && loginPage === false && registerPage === false){
-      return (
-        createApartment(posts)
-      )
-    } else if (addAdvertPage === true) {
-    }
+  const [renderApartments, setRenderApartments] = useState(true);
+ 
+  // Pages handling
+  // It sets only one of the pages to true and the rest to false
+  // It is used to render only one page at a time
+function handlePages(page){
+  if(page === hp.Pages.addAdvertPage){
+      setRenderApartments(false);
+      setLoginPage(false);
+      setRegisterPage(false);
+      setAddAdvertPage(true);
   }
-
-  //test function for showing the add advert page
-  function testhandleAddAdvertPage(bool) {
-    if (bool === true) {
-
-      return(
-        console.log("set adverts!!!!"),
-        <StyledAddAdvertPage/>
-      )
-    }
+  else if(page === hp.Pages.loginPage){
+      setRenderApartments(false);
+      setAddAdvertPage(false);
+      setRegisterPage(false);
+      setLoginPage(true);
   }
+  else if(page === hp.Pages.registerPage){
+      setRenderApartments(false);
+      setAddAdvertPage(false);
+      setLoginPage(false);
+      setRegisterPage(true);
+  }
+  else{
+      setAddAdvertPage(false);
+      setLoginPage(false);
+      setRegisterPage(false);
+      setRenderApartments(true);
+  }
+}
+// End of pages handling  
+
   return (
     <AppContainer>
       {console.log("yooooo"+posts)}
@@ -169,16 +180,23 @@ function App() {
         </StyledOptionBar>
       </HeaderWrapper>
       
-
+      {/*here we handle every page on the website, if one of them is toggled, the handlePages function disables the rest of them
+        What is to be rendered is determined by the createApartment function and handle- functions in the HandlePages.js file.
+        Everything that needs to be in those containers should be in those handle- functions
+      */}
       <StyledMainContainer>
-        {createApartment(posts, !addAdvertPage)}
-        {testhandleAddAdvertPage(addAdvertPage)}
+        {createApartment(posts, renderApartments)}
+        {hp.handleAddAdvertPage(addAdvertPage)}
+        {hp.handleLoginPage(loginPage)}
+        {hp.handleRegisterPage(registerPage)}
       </StyledMainContainer>
 
       <StyledAddAdvertButton
         type='submit'
-        onClick={() => setAddAdvertPage(!addAdvertPage)}
-    
+        onClick={() => {
+          if(!addAdvertPage){handlePages(hp.Pages.addAdvertPage)
+          }else{handlePages(hp.Pages.renderApartments)}
+        }}
       > {"+"}
       </StyledAddAdvertButton>
     </AppContainer>
