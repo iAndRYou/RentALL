@@ -25,7 +25,7 @@ export const StyledAddAdvertButton = styled.button`
 export const StyledAddAdvertPage = styled.div`
     background-color: white;
     color: white;
-    background: red;
+    background: red; // debug color
     min-height:85vh;
     width: 100%;
     padding-left: 2%;

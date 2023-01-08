@@ -1,12 +1,17 @@
 import React from 'react'
-import {StyledApartmentContainer} from '../components/ApartmentContainer.style';
+import {StyledApartmentContainer, NoResultsPage} from '../components/ApartmentContainer.style';
 
 export function createApartment(apartmentObj, renderBool) {
   if(renderBool === true){
-  return apartmentObj.map(apartment => {
-        return <StyledApartmentContainer price={apartment.price} city={apartment.city} street={apartment.street} images={apartment.images} 
-        description={apartment.description}  title={apartment.title} latitude={apartment.latitude} longtitude={apartment.longtitude}
-        author={apartment.author} date={apartment.date} advertId={apartment.advertId}/>})}
+      if(apartmentObj !== null){
+        return apartmentObj.map(apartment => {
+              return <StyledApartmentContainer price={apartment.price} city={apartment.city} street={apartment.street} images={apartment.images} 
+              description={apartment.description}  title={apartment.title} latitude={apartment.latitude} longtitude={apartment.longtitude}
+              author={apartment.author} date={apartment.date} advertId={apartment.advertId}/>})
+      }else{
+        return <NoResultsPage>No results found ;(</NoResultsPage>
+      }
+  }
 }
 export function sortBy(apartmentObj, variable, descending){
   if(variable === 'price'){

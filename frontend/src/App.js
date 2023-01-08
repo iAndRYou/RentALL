@@ -22,7 +22,7 @@ function App() {
 
  
 
-  async function getApartmentsJson(lowerPrice, upperPrice, city, commute) {
+  async function getApartmentsJson(lowerPrice, upperPrice, city, commute, debug) {
     handlePages(hp.Pages.renderApartments);
     if(lowerPrice === ""){lowerPrice = "0.0"}
     if(upperPrice === ""){upperPrice = "99999999.0"}
@@ -35,7 +35,11 @@ function App() {
           setPosts(data);
        })
        .catch((err) => {
-          setPosts(exampleApartments)
+          if(debug === true){
+            setPosts(exampleApartments)
+          }else{
+            setPosts(null)
+          }
           console.log(err.message);
        });
 
@@ -111,7 +115,11 @@ function handlePages(page){
               width="40px"
             ></img>
           </ProfileButton>
-          <LoginButton>{"Zaloguj się"}</LoginButton>
+          <LoginButton type='submit'
+        onClick={() => {
+          if(!loginPage){handlePages(hp.Pages.loginPage)
+          }else{handlePages(hp.Pages.renderApartments)}
+        }}>{"Zaloguj się"}</LoginButton>
         </StyledHeader>
           
         <StyledOptionBar>
@@ -174,7 +182,7 @@ function handlePages(page){
             type='submit'
 
             // here we call for backend to get the apartments
-            onClick={() => getApartmentsJson(lowerPrice, upperPrice, city, commute)}
+            onClick={() => getApartmentsJson(lowerPrice, upperPrice, city, commute, true/*debug*/)}
 
           >Szukaj</StyledSearchButton>
         </StyledOptionBar>
