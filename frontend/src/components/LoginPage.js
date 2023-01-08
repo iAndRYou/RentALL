@@ -15,6 +15,11 @@ export default function LoginPage({className}){
         console.log(login)
         console.log(password)
 
+        if(password === '' || login === ''){
+            setLoginStatus('Please fill all fields!')
+            return
+        }
+
         //TODO: fetch cos tam cos tam
         setLoginStatus('Login successful!') // albo
         //setLoginStatus('Login failed!') 
@@ -27,6 +32,15 @@ export default function LoginPage({className}){
         console.log(login)
         console.log(password)
         console.log(repeatPassword)
+
+        if(password !== repeatPassword){
+            setRegistrationStatus('Passwords do not match!')
+            return
+        }
+        if(password === '' || repeatPassword === '' || login === ''){
+            setRegistrationStatus('Please fill all fields!')
+            return
+        }
 
         //TODO: fetch cos tam cos tam
 
