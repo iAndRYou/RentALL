@@ -24,6 +24,7 @@ export const StyledInput = styled.input`
     float: right;
     outline: none !important;
     border:2px solid lightgray;
+    padding-left: 5px;
 
     color: gray;
     text-align: left;
@@ -40,6 +41,24 @@ export const StyledInput = styled.input`
         box-shadow: none;
     }
 
-    border-radius: 5px;
+    border-radius: 10px;
 `;
 
+export const StyledLoginButton = styled.button`
+    margin-left: 0px;
+    margin-top: 10px;
+    padding: 6px;
+    background-color: gray;
+    border-color: transparent;
+
+    border-radius: 15px;
+
+    color: white;
+    text-align: center;
+    font-size: 16px;
+
+    &:hover {
+        background-color: #52ACDF;
+        cursor: pointer;
+    }
+`;
