@@ -9,7 +9,6 @@ import exampleApartments from './components/exampleApartments.json';
 import {createApartment, sortApartments,} from './utilities/CreateApartment.js'
 import { StyledAddAdvertButton, StyledAddAdvertPage } from './components/AddAdvertPage.style';
 import * as hp from './utilities/HandlePages.js';
-import { getSessionToken, getUserID, setSessionToken, setUserID} from './utilities/GlobalVariables';
 
 
 
@@ -126,8 +125,7 @@ function handleLogInOutButton(){
 
 function logOut(){
   setIsLoggedIn(false);
-  setSessionToken(null);
-  setUserID(null);
+  sessionStorage.removeItem("token");
   handlePages(hp.Pages.renderApartments);
 }
 // End of pages handling  
