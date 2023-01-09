@@ -43,7 +43,8 @@ class DBGetAdvert:
         conn.close()
 
         return advert
-    
+
+
     # @get_connection
     def get_adverts_in_given_price(lower_price_bound: int, upper_price_bound: int) -> Optional[List[Advert]]:
         '''
@@ -76,7 +77,40 @@ class DBGetAdvert:
         conn.close()
             
         return adverts
+
+    def get_adverts_by_author(current_user: User):
+        '''
+        Get adverts from database by author id
+        '''
+        conn = psycopg2.connect(conn_string)
+        cursor = conn.cursor()
+
+        author_id = current_user.user_id
+        cursor.execute(f"SELECT * FROM adverts WHERE author_id = {author_id};")
+        rows = cursor.fetchall()
+        
+        adverts = []
+        for row in rows:
+            advert = Advert(**{
+            "advert_id": row[0],
+            "latitude": row[1],
+            "longitude": row[2],
+            "date": row[3],
+            "price": row[4],
+            "author_id": row[5],
+            "description": row[6],
+            "title": row[7],
+            "images": row[8],
+            })
+            adverts.append(advert)
+
+        # conn.commit()
+        cursor.close()
+        conn.close()
+            
+        return adverts
     
+
 class DBEditAdvert:
 
     # @get_connection
@@ -86,8 +120,12 @@ class DBEditAdvert:
 
         author_id = current_user.user_id
 
-        cursor.execute("INSERT INTO adverts (latitude, longitude, date, price, author_id, description, title, images) VALUES (%s, %s, %s, %s, %s, %s, %s, %s);", 
-        (advert.latitude, advert.longitude, advert.date, advert.price, author_id, advert.description, advert.title, advert.images))
+        if advert.advert_id is None:
+            cursor.execute("INSERT INTO adverts (latitude, longitude, date, price, author_id, description, title, images) VALUES (%s, %s, %s, %s, %s, %s, %s, %s);", 
+            (advert.latitude, advert.longitude, advert.date, advert.price, author_id, advert.description, advert.title, advert.images))
+        else:
+            cursor.execute("INSERT INTO adverts (advert_id, latitude, longitude, date, price, author_id, description, title, images) VALUES (%s, %s, %s, %s, %s, %s, %s, %s);", 
+            (advert.advert_id, advert.latitude, advert.longitude, advert.date, advert.price, author_id, advert.description, advert.title, advert.images))        
 
         # conn.commit()
         cursor.close()
