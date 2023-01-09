@@ -15,7 +15,7 @@ export default function ApartmentContainer({className, price, city, street, imag
 
    return (
     <div className={className}>
-        <StyledImage src={images} alt="W3Schools.com"></StyledImage> 
+        <StyledImage src={images} alt=""></StyledImage> 
         <ApartmentInfo>
             <DefText>Cena:&nbsp;</DefText>
             <BetterText colour={changeColourDependingOnPrice(price)}>{price}&nbsp;zł / miesiąc</BetterText><br></br>

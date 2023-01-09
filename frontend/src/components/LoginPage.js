@@ -32,8 +32,6 @@ export default function LoginPage({className, handlePages, setIsLoggedIn}){
         setLoginStatus('Login successful!') // albo
         //setLoginStatus('Login failed!') 
     
-        setUserID(2137)
-        setSessionToken(6969)
         setIsLoggedIn(true)
         handlePages(Pages.renderApartments)
         
