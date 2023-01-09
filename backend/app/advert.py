@@ -21,6 +21,10 @@ async def get_adverts(lower_price_bound: float = Query(default=None), upper_pric
         return DBGetAdvert.get_adverts_in_given_price(lower_price_bound, upper_price_bound)
 
 
+@router.get("/adverts", response_model=List[Advert], tags=['adverts'])
+async def get_user_adverts(current_user: User = Depends(decode_token)):
+    return DBGetAdvert.get_adverts_by_author(current_user)
+
 
 @router.post("/adverts", tags=['adverts'])
 async def post_advert(advert: Advert, current_user: User = Depends(decode_token)):
@@ -47,7 +51,9 @@ async def update_user_advert(advert: Advert = Body(), current_user: User = Depen
 @router.delete("/adverts/{advert_id}", tags=['adverts'])
 async def delete_user_advert(advert_id: int, current_user: User = Depends(decode_token)):
     """Delete advert from the database"""
-    DBEditAdvert.delete_advert(advert_id)
+
+
+    DBEditAdvert.delete_advert(advert_id, current_user)
 
     return {"message": "Advert deleted successfully"}
 
