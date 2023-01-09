@@ -1,7 +1,6 @@
 import {StyledInput, StyledLoginButton, StyledFormBreak } from './LoginPage.style'
 import React, { useRef } from 'react'
 import {Pages} from '../utilities/HandlePages.js'
-import {setUserID, setSessionToken} from '../utilities/GlobalVariables.js'
 export default function LoginPage({className, handlePages, setIsLoggedIn}){
     const loginInputRef = useRef('')
     const passwordInputRef = useRef('')
@@ -12,7 +11,7 @@ export default function LoginPage({className, handlePages, setIsLoggedIn}){
     const regPhoneInputRef = useRef('')
     const [loginStatus, setLoginStatus] = React.useState('')
     const [registrationStatus, setRegistrationStatus] = React.useState('')
-    
+    var token = null;
  
     function handleLoginForm (){
         const login = loginInputRef.current.value
@@ -42,7 +41,7 @@ export default function LoginPage({className, handlePages, setIsLoggedIn}){
             }
         }).then((data) => {
             console.log(data);
-            setSessionToken(data.access_token);
+            token = sessionStorage.setItem('token', data.access_token);
         })
 
         setLoginStatus('Logowanie udane!') // albo
