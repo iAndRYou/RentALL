@@ -14,10 +14,10 @@ export const Pages = {
 }
 
 
-export function handleAddAdvertPage(bool) {
+export function handleAddAdvertPage(bool, handlePages) {
     if (bool === true) {
         return(
-            <StyledAddAdvertPage/>
+            <StyledAddAdvertPage handlePages={handlePages}/>
         )
     }
 }

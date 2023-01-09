@@ -228,7 +228,7 @@ function logOut(){
       */}
       <StyledMainContainer>
         {createApartment(posts, renderApartments)}
-        {hp.handleAddAdvertPage(addAdvertPage)}
+        {hp.handleAddAdvertPage(addAdvertPage, handlePages)}
         {hp.handleLoginPage(loginPage, handlePages, setIsLoggedIn)}
         {hp.handleProfilePage(profilePage)}
       </StyledMainContainer>
