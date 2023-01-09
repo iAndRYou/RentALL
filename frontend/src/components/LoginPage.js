@@ -1,4 +1,4 @@
-import {StyledInput, StyledLoginButton } from './LoginPage.style'
+import {StyledInput, StyledLoginButton, StyledFormBreak } from './LoginPage.style'
 import React, { useRef } from 'react'
 import {Pages} from '../utilities/HandlePages.js'
 import {setUserID, setSessionToken} from '../utilities/GlobalVariables.js'
@@ -8,6 +8,8 @@ export default function LoginPage({className, handlePages, setIsLoggedIn}){
     const regRepeatPasswordInputRef = useRef('')
     const regLoginInputRef = useRef('')
     const regPasswordInputRef = useRef('')
+    const regEmailInputRef = useRef('')
+    const regPhoneInputRef = useRef('')
     const [loginStatus, setLoginStatus] = React.useState('')
     const [registrationStatus, setRegistrationStatus] = React.useState('')
     
@@ -19,7 +21,7 @@ export default function LoginPage({className, handlePages, setIsLoggedIn}){
         console.log(password)
 
         if(password === '' || login === ''){
-            setLoginStatus('Please fill all fields!')
+            setLoginStatus('Wypełnij wszystkie pola!')
             return
         }
         //Create object that will be sent to backend
@@ -29,7 +31,7 @@ export default function LoginPage({className, handlePages, setIsLoggedIn}){
 
 
         //TODO: fetch cos tam cos tam
-        setLoginStatus('Login successful!') // albo
+        setLoginStatus('Logowanie udane!') // albo
         //setLoginStatus('Login failed!') 
     
         setUserID(2137)
@@ -43,16 +45,18 @@ export default function LoginPage({className, handlePages, setIsLoggedIn}){
         const login = regLoginInputRef.current.value
         const password = regPasswordInputRef.current.value
         const repeatPassword = regRepeatPasswordInputRef.current.value
+        const email = regEmailInputRef.current.value
+        const phone = regPhoneInputRef.current.value
         console.log(login)
         console.log(password)
         console.log(repeatPassword)
 
         if(password !== repeatPassword){
-            setRegistrationStatus('Passwords do not match!')
+            setRegistrationStatus('Podano różne hasła!')
             return
         }
         if(password === '' || repeatPassword === '' || login === ''){
-            setRegistrationStatus('Please fill all fields!')
+            setRegistrationStatus('Wypełnij wszystkie pola!')
             return
         }
 
@@ -63,7 +67,7 @@ export default function LoginPage({className, handlePages, setIsLoggedIn}){
 
         //TODO: fetch cos tam cos tam
 
-        setRegistrationStatus('Registration successful!') // albo
+        setRegistrationStatus('Rejestracja nieudana!') // albo
         //setRegistrationStatus('Registration failed!')
 
 
@@ -71,51 +75,59 @@ export default function LoginPage({className, handlePages, setIsLoggedIn}){
 
     return(
         <div className={className}>
-            <h2>Do you have an account?</h2>
-            <h2>Log in</h2>
+            <h2>Witamy ponownie!</h2>
+            <h2>Logowanie</h2>
             <form>
                 <label>
-                    Login:
-                    <StyledInput type="text" name="login" placeholder='Enter login' ref={loginInputRef} />
+                    <StyledInput type="text" name="login" placeholder='Login' ref={loginInputRef} />
                 </label>
-                <br></br>
+                <StyledFormBreak></StyledFormBreak>
                 <label>
-                    Password:
-                    <StyledInput type="password" name="password" placeholder='Enter password' ref={passwordInputRef} />
+                    <StyledInput type="password" name="password" placeholder='Hasło' ref={passwordInputRef} />
                 </label>
-                <br></br>
-                <StyledLoginButton type="submit" 
+            </form>
+            <br></br>
+            <div>{loginStatus}</div>
+            <StyledFormBreak></StyledFormBreak>
+            <StyledLoginButton type="submit" 
                  onClick={e => {
                     e.preventDefault()
                     handleLoginForm()
-                    }}>Log in</StyledLoginButton>
-                <br></br>
-            </form>
-            <div>{loginStatus}</div>
-            <h2>Or...</h2>
-            <h2>Register</h2>
+                    }}>Log in
+            </StyledLoginButton>
+            <StyledFormBreak></StyledFormBreak>
+            <h2>Nie masz jeszcze konta?</h2>
+            <h2>Rejestracja</h2>
             <form>
                 <label>
-                    Login:
-                    <StyledInput type="text" name="login" placeholder='Enter new login' ref={regLoginInputRef}/>
+                    <StyledInput type="text" name="login" placeholder='Login' ref={regLoginInputRef}/>
                 </label>
-                <br></br>
+                <StyledFormBreak></StyledFormBreak>
                 <label>
-                    Password:
-                    <StyledInput type="password" name="password" placeholder='Enter new password' ref={regPasswordInputRef}/>
+                    <StyledInput type="password" name="password" placeholder='Hasło' ref={regPasswordInputRef}/>
                 </label>
-                <br></br>
+                <StyledFormBreak></StyledFormBreak>
                 <label>
-                    Repeat password:
-                    <StyledInput type="password" name="password" placeholder='Repeat new password' ref={regRepeatPasswordInputRef}/>
+                    <StyledInput type="password" name="password" placeholder='Powtórz hasło' ref={regRepeatPasswordInputRef}/>
                 </label>
-                <StyledLoginButton type="submit" 
+                <StyledFormBreak></StyledFormBreak>
+                <label>
+                    <StyledInput type="email" name="email" placeholder='E-mail' ref={regRepeatPasswordInputRef}/>
+                </label>
+                <StyledFormBreak></StyledFormBreak>
+                <label>
+                    <StyledInput type="tel" name="phone" placeholder='Numer telefonu' ref={regRepeatPasswordInputRef}/>
+                </label>
+            </form>
+            <br></br>
+            <div>{registrationStatus}</div>
+            <StyledFormBreak></StyledFormBreak>
+            <StyledLoginButton type="submit" 
                     onClick={e => {
                         e.preventDefault()
                         handleRegisterForm()
-                        }}>Register</StyledLoginButton>
-            </form>
-            <div>{registrationStatus}</div>
+                        }}>Register
+            </StyledLoginButton>
         </div>
     )
 }

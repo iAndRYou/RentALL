@@ -2,63 +2,78 @@ import styled from 'styled-components';
 import LoginPage from './LoginPage';
 
 export const StyledLoginPage = styled(LoginPage)`
-    background-color: #5c8fe0;
-    color: white;
-    min-height:70vh;
-    width: 22%;
-    margin-left: 36%;
-    margin-right: 41%;
-    margin-top: 1%;
-    border-radius: 40px;
-    padding-top: 2%;
+    background-color: transparent;
+    color: gray;
+    min-width: 300px;
+    width: 30%;
+    margin-left: 35%;
+    margin-right: 35%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 1%;
     padding-bottom: 2%;
     padding-left: 2%;
     padding-right: 2%;
     align-items: center;
     display: inline-block;
-  
 `;
 
 export const StyledInput = styled.input`
-    padding: 0px;
-    float: right;
+padding-top: 5px;
+    margin-right: 10%;
+    margin-left: 10%;
+    height: 10%;
+    width: 80%;
     outline: none !important;
     border:2px solid lightgray;
-    padding-left: 5px;
 
+    background: transparent;
     color: gray;
     text-align: left;
+    font-size: 20px;
+
+    border-radius: 0px;
+    border-top: transparent;
+    border-left: transparent;
+    border-right: transparent;
+    border-bottom: 2px solid gray;
 
     &:hover {
-        outline: none !important;
-        border:2px solid #52ACDF;
         box-shadow: none;
     }
 
-    &:focus {
-        outline: none !important;
-        border:2px solid #52ACDF;
-        box-shadow: none;
+    &::placeholder {
+        color: gray;
     }
-
-    border-radius: 10px;
 `;
 
 export const StyledLoginButton = styled.button`
-    margin-left: 0px;
-    margin-top: 10px;
-    padding: 6px;
-    background-color: gray;
-    border-color: transparent;
+    padding: 7px;
+    margin-bottom: 10px;
+    margin-right: 35%;
+    margin-left: 35%;
+    width: 30%;
+    background-color: transparent;
+    border: 2px solid gray;
+    outline: 20px white;
 
     border-radius: 15px;
 
-    color: white;
+    color: gray;
     text-align: center;
     font-size: 16px;
 
     &:hover {
         background-color: #52ACDF;
+        color: white;
+        border: 2px solid #52ACDF;
         cursor: pointer;
     }
+`;
+
+export const StyledFormBreak = styled.br`
+    line-height: 20px;
+    display: block;
+    margin: 20px 0;
+    content: " ";
 `;
