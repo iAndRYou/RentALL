@@ -26,26 +26,38 @@ export default function LoginPage({className, handlePages, setIsLoggedIn}){
         }
         //Create object that will be sent to backend
         var user = {};
-        user.login = login;
+        user.username = login;
         user.password = password;
 
 
-        //TODO: fetch cos tam cos tam
+        var link = "http://127.0.0.1:8000/token"
+        fetch (link, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(user)
+        }).then(response => {
+            if (!response.ok){ 
+                setLoginStatus('Logowanie nieudane!')
+                return response.json();
+            }
+        }).then((data) => {
+            console.log(data);
+            setSessionToken(data.access_token);
+        })
+
         setLoginStatus('Logowanie udane!') // albo
-        //setLoginStatus('Login failed!') 
-    
         setIsLoggedIn(true)
         handlePages(Pages.renderApartments)
         
     }
     
     function handleRegisterForm(){
-        const login = regLoginInputRef.current.value
+        const fullname = regLoginInputRef.current.value
         const password = regPasswordInputRef.current.value
         const repeatPassword = regRepeatPasswordInputRef.current.value
         const email = regEmailInputRef.current.value
         const phone = regPhoneInputRef.current.value
-        console.log(login)
+
         console.log(password)
         console.log(repeatPassword)
 
@@ -53,15 +65,21 @@ export default function LoginPage({className, handlePages, setIsLoggedIn}){
             setRegistrationStatus('Podano różne hasła!')
             return
         }
-        if(password === '' || repeatPassword === '' || login === ''){
+        if(password === '' || repeatPassword === '' || fullname === '' || email === '' || phone === ''){
             setRegistrationStatus('Wypełnij wszystkie pola!')
+            return
+        }
+        if(password.length < 6){
+            setRegistrationStatus('Hasło musi mieć conajmniej 6 znaków!')
             return
         }
 
         //Create object that will be sent to backend
         var user = {};
-        user.login = login;
+        user.fullname = fullname;
         user.password = password;
+        user.email = email;
+        user.phone = phone;
 
         //TODO: fetch cos tam cos tam
 
@@ -77,7 +95,7 @@ export default function LoginPage({className, handlePages, setIsLoggedIn}){
             <h2>Logowanie</h2>
             <form>
                 <label>
-                    <StyledInput type="text" name="login" placeholder='Login' ref={loginInputRef} />
+                    <StyledInput type="email" name="login" placeholder='E-mail' ref={loginInputRef} />
                 </label>
                 <StyledFormBreak></StyledFormBreak>
                 <label>
@@ -98,7 +116,7 @@ export default function LoginPage({className, handlePages, setIsLoggedIn}){
             <h2>Rejestracja</h2>
             <form>
                 <label>
-                    <StyledInput type="text" name="login" placeholder='Login' ref={regLoginInputRef}/>
+                    <StyledInput type="text" name="login" placeholder='Imie i nazwisko' ref={regLoginInputRef}/>
                 </label>
                 <StyledFormBreak></StyledFormBreak>
                 <label>
@@ -110,11 +128,11 @@ export default function LoginPage({className, handlePages, setIsLoggedIn}){
                 </label>
                 <StyledFormBreak></StyledFormBreak>
                 <label>
-                    <StyledInput type="email" name="email" placeholder='E-mail' ref={regRepeatPasswordInputRef}/>
+                    <StyledInput type="email" name="email" placeholder='E-mail' ref={regEmailInputRef}/>
                 </label>
                 <StyledFormBreak></StyledFormBreak>
                 <label>
-                    <StyledInput type="tel" name="phone" placeholder='Numer telefonu' ref={regRepeatPasswordInputRef}/>
+                    <StyledInput type="tel" name="phone" placeholder='Numer telefonu' ref={regPhoneInputRef}/>
                 </label>
             </form>
             <br></br>
