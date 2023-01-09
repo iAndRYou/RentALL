@@ -25,7 +25,6 @@ padding-top: 5px;
     height: 10%;
     width: 80%;
     outline: none !important;
-    border:2px solid lightgray;
 
     background: transparent;
     color: gray;
@@ -39,6 +38,21 @@ padding-top: 5px;
     border-bottom: 2px solid gray;
 
     &:hover {
+        outline: none !important;
+        border-top: transparent;
+        border-left: transparent;
+        border-right: transparent;
+        border-bottom:2px solid #52ACDF;
+        box-shadow: none;
+    }
+
+    &:focus {
+        color: #52ACDF;
+        outline: none !important;
+        border-top: transparent;
+        border-left: transparent;
+        border-right: transparent;
+        border-bottom:2px solid #52ACDF;
         box-shadow: none;
     }
 
