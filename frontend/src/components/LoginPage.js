@@ -109,14 +109,14 @@ export default function LoginPage({className, handlePages, setIsLoggedIn}){
                  onClick={e => {
                     e.preventDefault()
                     handleLoginForm()
-                    }}>Log in
+                    }}>Zaloguj
             </StyledLoginButton>
             <StyledFormBreak></StyledFormBreak>
             <h2>Nie masz jeszcze konta?</h2>
             <h2>Rejestracja</h2>
             <form>
                 <label>
-                    <StyledInput type="text" name="login" placeholder='Imie i nazwisko' ref={regLoginInputRef}/>
+                    <StyledInput type="text" name="login" placeholder='Imię i nazwisko' ref={regLoginInputRef}/>
                 </label>
                 <StyledFormBreak></StyledFormBreak>
                 <label>
@@ -142,7 +142,7 @@ export default function LoginPage({className, handlePages, setIsLoggedIn}){
                     onClick={e => {
                         e.preventDefault()
                         handleRegisterForm()
-                        }}>Register
+                        }}>Zarejestruj
             </StyledLoginButton>
         </div>
     )
