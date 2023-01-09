@@ -1,54 +1,55 @@
-import {StyledInput, StyledLoginButton } from './LoginPage.style'
+import {StyledInput, StyledAddButton, StyledFormBreak, StyledTextArea} from './AddAdvertPage.style'
 import React, { useRef } from 'react'
-export default function AddAdvertPage(){
-
+export default function AddAdvertPage({className}){
+    const titleInputRef = useRef('')
+    const streetInputRef = useRef('')
+    const buildingNumberInputRef = useRef('')
+    const flatNumberInputRef = useRef('')
+    const priceInputRef = useRef('')
+    const detailsInputRef = useRef('')
     return(
         <div className={className}>
-            <h2>Do you have an account?</h2>
-            <h2>Log in</h2>
+            <h2>Dodaj ogłoszenie</h2>
+            <h2>Podaj informacje:</h2>
             <form>
                 <label>
-                    Login:
-                    <StyledInput type="text" name="login" placeholder='Enter login' ref={loginInputRef} />
+                    Tytuł ogłoszenia:
+                    <StyledInput type="text" name="title" ref={titleInputRef}/>
                 </label>
-                <br></br>
+                <StyledFormBreak></StyledFormBreak>
                 <label>
-                    Password:
-                    <StyledInput type="password" name="password" placeholder='Enter password' ref={passwordInputRef} />
+                    Ulica:
+                    <StyledInput type="text" name="street" ref={streetInputRef}/>
                 </label>
-                <br></br>
-                <StyledLoginButton type="submit" 
-                 onClick={e => {
-                    e.preventDefault()
-
-                    }}>Log in</StyledLoginButton>
-                <br></br>
+                <StyledFormBreak></StyledFormBreak>
+                <label>
+                    Nr domu:
+                    <StyledInput type="text" name="building" ref={buildingNumberInputRef}/>
+                </label>
+                <StyledFormBreak></StyledFormBreak>
+                <label>
+                    Mieszkanie:
+                    <StyledInput type="text" name="flat" ref={flatNumberInputRef}/>
+                </label>
+                <StyledFormBreak></StyledFormBreak>
+                <label>
+                    Cena:
+                    <StyledInput type="number" name="price" ref={priceInputRef}/>
+                </label>
+                <StyledFormBreak></StyledFormBreak>
+                <label>
+                    Opis:
+                    <StyledTextArea type="text" name="password" ref={detailsInputRef}/>
+                </label>
             </form>
-            <div>{loginStatus}</div>
-            <h2>Or...</h2>
-            <h2>Register</h2>
-            <form>
-                <label>
-                    Login:
-                    <StyledInput type="text" name="login" placeholder='Enter new login' ref={regLoginInputRef}/>
-                </label>
-                <br></br>
-                <label>
-                    Password:
-                    <StyledInput type="password" name="password" placeholder='Enter new password' ref={regPasswordInputRef}/>
-                </label>
-                <br></br>
-                <label>
-                    Repeat password:
-                    <StyledInput type="password" name="password" placeholder='Repeat new password' ref={regRepeatPasswordInputRef}/>
-                </label>
-                <StyledLoginButton type="submit" 
+            <br></br>
+            <StyledFormBreak></StyledFormBreak>
+            <StyledAddButton type="submit" 
                     onClick={e => {
                         e.preventDefault()
-                        
-                        }}>Register</StyledLoginButton>
-            </form>
-            <div>{registrationStatus}</div>
+
+                        }}>Dodaj
+            </StyledAddButton>
         </div>
     )
 }
