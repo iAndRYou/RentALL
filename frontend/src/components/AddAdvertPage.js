@@ -34,7 +34,7 @@ export default function AddAdvertPage({className}){
                 <StyledFormBreak></StyledFormBreak>
                 <label>
                     Cena:
-                    <StyledInput type="number" name="price" ref={priceInputRef}/>
+                    <StyledInput type="number" min='0' name="price" ref={priceInputRef}/>
                 </label>
                 <StyledFormBreak></StyledFormBreak>
                 <label>
