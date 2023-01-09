@@ -86,8 +86,13 @@ class DBEditAdvert:
 
         author_id = current_user.user_id
 
-        cursor.execute("INSERT INTO adverts (latitude, longitude, date, price, author_id, description, title, images) VALUES (%s, %s, %s, %s, %s, %s, %s, %s);", 
-        (advert.latitude, advert.longitude, advert.date, advert.price, author_id, advert.description, advert.title, advert.images))
+
+        if advert.advert_id is None:
+            cursor.execute("INSERT INTO adverts (latitude, longitude, date, price, author_id, description, title, images) VALUES (%s, %s, %s, %s, %s, %s, %s, %s);", 
+            (advert.latitude, advert.longitude, advert.date, advert.price, author_id, advert.description, advert.title, advert.images))
+        else:
+            cursor.execute("INSERT INTO adverts (advert_id, latitude, longitude, date, price, author_id, description, title, images) VALUES (%s, %s, %s, %s, %s, %s, %s, %s);", 
+            (advert.advert_id, advert.latitude, advert.longitude, advert.date, advert.price, author_id, advert.description, advert.title, advert.images))        
 
         # conn.commit()
         cursor.close()
