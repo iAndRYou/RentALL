@@ -9,6 +9,7 @@ import exampleApartments from './components/exampleApartments.json';
 import {createApartment, sortApartments,} from './utilities/CreateApartment.js'
 import { StyledAddAdvertButton, StyledAddAdvertPage } from './components/AddAdvertPage.style';
 import * as hp from './utilities/HandlePages.js';
+import { getSessionToken, getUserID } from './utilities/GlobalVariables';
 
 
 
@@ -19,7 +20,7 @@ function App() {
   const [commute, setCommute] = useState('');
   // useState hook for adding appartments
   const [posts, setPosts] = useState([]);
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
  
 
   async function getApartmentsJson(lowerPrice, upperPrice, city, commute, debug) {
@@ -185,17 +186,24 @@ function handlePages(page){
       <StyledMainContainer>
         {createApartment(posts, renderApartments)}
         {hp.handleAddAdvertPage(addAdvertPage)}
-        {hp.handleLoginPage(loginPage, handlePages)}
+        {hp.handleLoginPage(loginPage, handlePages, setIsLoggedIn)}
       </StyledMainContainer>
-
+      
       <StyledAddAdvertButton
         type='submit'
         onClick={() => {
-          if(!addAdvertPage){handlePages(hp.Pages.addAdvertPage)
-          }else{handlePages(hp.Pages.renderApartments)}
+          if(!isLoggedIn){
+            if(!loginPage){handlePages(hp.Pages.loginPage)}
+            else{handlePages(hp.Pages.renderApartments)}
+          }
+          else{
+            if(!addAdvertPage){handlePages(hp.Pages.addAdvertPage)
+            }else{handlePages(hp.Pages.renderApartments)}
+          }
         }}
       > {"+"}
       </StyledAddAdvertButton>
+      
     </AppContainer>
     
   )

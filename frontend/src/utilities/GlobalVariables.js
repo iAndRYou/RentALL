@@ -3,18 +3,19 @@
 var userID = null;
 var sessionToken = null;
 
-export default function getUserID(){
+export function getUserID(){
     return userID;
 }
 
-export default function setUserID(id){
+export function setUserID(id){
     userID = id;
 }
 
-export default function getSessionToken(){
+export function getSessionToken(){
     return sessionToken;
 }
 
-export default function setSessionToken(token){
+export function setSessionToken(token){
     sessionToken = token;
 }
+

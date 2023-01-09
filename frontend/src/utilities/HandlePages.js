@@ -21,10 +21,10 @@ export function handleAddAdvertPage(bool) {
     }
 }
 
-export function handleLoginPage(bool, handlePages) {
+export function handleLoginPage(bool, handlePages, setIsLoggedIn) {
     if (bool === true) {
         return(
-            <StyledLoginPage handlePages={handlePages}/>
+            <StyledLoginPage handlePages={handlePages} setIsLoggedIn={setIsLoggedIn}/>
         )
     }
 }

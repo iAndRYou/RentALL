@@ -1,7 +1,8 @@
 import {StyledInput, StyledLoginButton } from './LoginPage.style'
 import React, { useRef } from 'react'
 import {Pages} from '../utilities/HandlePages.js'
-export default function LoginPage({className, handlePages}){
+import {setUserID, setSessionToken} from '../utilities/GlobalVariables.js'
+export default function LoginPage({className, handlePages, setIsLoggedIn}){
     const loginInputRef = useRef('')
     const passwordInputRef = useRef('')
     const regRepeatPasswordInputRef = useRef('')
@@ -30,9 +31,12 @@ export default function LoginPage({className, handlePages}){
         //TODO: fetch cos tam cos tam
         setLoginStatus('Login successful!') // albo
         //setLoginStatus('Login failed!') 
-        if(loginStatus === 'Login successful!'){
-            handlePages(Pages.renderApartments)
-        }
+    
+        setUserID(2137)
+        setSessionToken(6969)
+        setIsLoggedIn(true)
+        handlePages(Pages.renderApartments)
+        
     }
     
     function handleRegisterForm(){
