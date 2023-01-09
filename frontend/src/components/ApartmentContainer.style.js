@@ -94,29 +94,6 @@ export const DetailsButton = styled.button`
     }
 `;
 
-export const AdvertButton = styled.button`
-    width: 160px;
-    height: 36px;
-    margin: 10px;
-
-    background-color: white;
-    border: 2px solid #52ACDF;
-    border-radius: 20px;
-
-    color: #52ACDF;
-    text-align: center;
-    font-size: 18px;
-
-    float: center;
-
-    &:hover {
-        color: white;
-        background-color: #52ACDF;
-        border-color: transparent;
-        cursor: pointer;
-    }
-`;
-
 export const NoResultsPage = styled.div`
     text-align: center;
     margin-top: 10%;

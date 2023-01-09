@@ -32,7 +32,6 @@ export default function ApartmentContainer({className, price, city, street, imag
         </ApartmentInfo>
         <div>
             <DetailsButton onClick={toggle}>{buttonText}</DetailsButton>
-            <AdvertButton onClick={getActualAdvert}>Zobacz ofertę →</AdvertButton>
         </div>
         <StyledExpandableDiv isOpen={isOpen}>
             <DefText>Opis:&nbsp;</DefText>
