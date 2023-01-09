@@ -43,7 +43,8 @@ class DBGetAdvert:
         conn.close()
 
         return advert
-    
+
+
     # @get_connection
     def get_adverts_in_given_price(lower_price_bound: int, upper_price_bound: int) -> Optional[List[Advert]]:
         '''

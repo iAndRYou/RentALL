@@ -116,3 +116,11 @@ export const AdvertButton = styled.button`
         cursor: pointer;
     }
 `;
+
+export const NoResultsPage = styled.div`
+    text-align: center;
+    margin-top: 10%;
+    font-size: 50px;
+    color: #A9A9A9;
+    height: 100%;
+`;
