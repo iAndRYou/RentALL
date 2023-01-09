@@ -8,7 +8,7 @@ import { StyledLoginPage } from "../components/LoginPage.style";
 export const Pages = {
     addAdvertPage: 0,
     loginPage: 1,
-    registerPage: 2,
+    //registerPage: 2,
     renderApartments: 3
 }
 
@@ -21,21 +21,14 @@ export function handleAddAdvertPage(bool) {
     }
 }
 
-export function handleLoginPage(bool) {
+export function handleLoginPage(bool, handlePages) {
     if (bool === true) {
         return(
-            <StyledLoginPage/>
+            <StyledLoginPage handlePages={handlePages}/>
         )
     }
 }
 
-export function handleRegisterPage(bool) {
-    if (bool === true) {
-        return(
-           //<StyledRegisterPage/>
-           null
-        )
-    }
-}
+
 
 

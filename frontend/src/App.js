@@ -30,7 +30,7 @@ function App() {
     var link = 'http://127.0.0.1:8000/adverts?lower_price_bound='+lowerPrice+'&upper_price_bound='+upperPrice;
     await fetch(link)
         .then((response) => response.json())
-       .then((data) => {
+        .then((data) => {
           console.log(data);
           setPosts(data);
        })
@@ -68,7 +68,6 @@ function App() {
   // all the pages boolean variables
   const [addAdvertPage, setAddAdvertPage] = useState(false);
   const [loginPage, setLoginPage] = useState(false);
-  const [registerPage, setRegisterPage] = useState(false);
   const [renderApartments, setRenderApartments] = useState(true);
  
   // Pages handling
@@ -78,25 +77,16 @@ function handlePages(page){
   if(page === hp.Pages.addAdvertPage){
       setRenderApartments(false);
       setLoginPage(false);
-      setRegisterPage(false);
       setAddAdvertPage(true);
   }
   else if(page === hp.Pages.loginPage){
       setRenderApartments(false);
       setAddAdvertPage(false);
-      setRegisterPage(false);
       setLoginPage(true);
-  }
-  else if(page === hp.Pages.registerPage){
-      setRenderApartments(false);
-      setAddAdvertPage(false);
-      setLoginPage(false);
-      setRegisterPage(true);
   }
   else{
       setAddAdvertPage(false);
       setLoginPage(false);
-      setRegisterPage(false);
       setRenderApartments(true);
   }
 }
@@ -195,8 +185,7 @@ function handlePages(page){
       <StyledMainContainer>
         {createApartment(posts, renderApartments)}
         {hp.handleAddAdvertPage(addAdvertPage)}
-        {hp.handleLoginPage(loginPage)}
-        {hp.handleRegisterPage(registerPage)}
+        {hp.handleLoginPage(loginPage, handlePages)}
       </StyledMainContainer>
 
       <StyledAddAdvertButton

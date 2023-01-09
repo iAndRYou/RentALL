@@ -1,6 +1,7 @@
 import {StyledInput, StyledLoginButton } from './LoginPage.style'
 import React, { useRef } from 'react'
-export default function LoginPage({className}){
+import {Pages} from '../utilities/HandlePages.js'
+export default function LoginPage({className, handlePages}){
     const loginInputRef = useRef('')
     const passwordInputRef = useRef('')
     const regRepeatPasswordInputRef = useRef('')
@@ -8,8 +9,9 @@ export default function LoginPage({className}){
     const regPasswordInputRef = useRef('')
     const [loginStatus, setLoginStatus] = React.useState('')
     const [registrationStatus, setRegistrationStatus] = React.useState('')
-
-    function handleLoginForm(){
+    
+ 
+    function handleLoginForm (){
         const login = loginInputRef.current.value
         const password = passwordInputRef.current.value
         console.log(login)
@@ -19,10 +21,18 @@ export default function LoginPage({className}){
             setLoginStatus('Please fill all fields!')
             return
         }
+        //Create object that will be sent to backend
+        var user = {};
+        user.login = login;
+        user.password = password;
+
 
         //TODO: fetch cos tam cos tam
         setLoginStatus('Login successful!') // albo
         //setLoginStatus('Login failed!') 
+        if(loginStatus === 'Login successful!'){
+            handlePages(Pages.renderApartments)
+        }
     }
     
     function handleRegisterForm(){
@@ -41,6 +51,11 @@ export default function LoginPage({className}){
             setRegistrationStatus('Please fill all fields!')
             return
         }
+
+        //Create object that will be sent to backend
+        var user = {};
+        user.login = login;
+        user.password = password;
 
         //TODO: fetch cos tam cos tam
 
