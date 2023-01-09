@@ -11,7 +11,6 @@ export default function LoginPage({className, handlePages, setIsLoggedIn}){
     const regPhoneInputRef = useRef('')
     const [loginStatus, setLoginStatus] = React.useState('')
     const [registrationStatus, setRegistrationStatus] = React.useState('')
-    var token = null;
  
     function handleLoginForm (){
         const login = loginInputRef.current.value
@@ -41,7 +40,7 @@ export default function LoginPage({className, handlePages, setIsLoggedIn}){
             }
         }).then((data) => {
             console.log(data);
-            token = sessionStorage.setItem('token', data.access_token);
+            sessionStorage.setItem('token', data.access_token);
         })
 
         setLoginStatus('Logowanie udane!') // albo

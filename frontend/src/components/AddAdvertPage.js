@@ -7,6 +7,23 @@ export default function AddAdvertPage({className}){
     const flatNumberInputRef = useRef('')
     const priceInputRef = useRef('')
     const detailsInputRef = useRef('')
+
+    function handleAddAdvertForm(){
+        const title = titleInputRef.current.value
+        const adress = streetInputRef.current.value + ' ' + buildingNumberInputRef.current.value + '/' + flatNumberInputRef.current.value  
+        const price = priceInputRef.current.value
+        const details = detailsInputRef.current.value
+
+        const newAdvert = {
+            title: title,
+            adress: adress,
+            price: price,
+            details: details
+        }
+
+        
+    }
+
     return(
         <div className={className}>
             <h2>Dodaj ogłoszenie</h2>
