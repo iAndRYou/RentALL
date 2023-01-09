@@ -9,7 +9,7 @@ import exampleApartments from './components/exampleApartments.json';
 import {createApartment, sortApartments,} from './utilities/CreateApartment.js'
 import { StyledAddAdvertButton, StyledAddAdvertPage } from './components/AddAdvertPage.style';
 import * as hp from './utilities/HandlePages.js';
-import { getSessionToken, getUserID } from './utilities/GlobalVariables';
+import { getSessionToken, getUserID, setSessionToken, setUserID} from './utilities/GlobalVariables';
 
 
 
@@ -91,6 +91,35 @@ function handlePages(page){
       setRenderApartments(true);
   }
 }
+
+function handleLogInOutButton(){
+  if(isLoggedIn){
+    return(
+      <LoginButton type='submit'
+        onClick={() => {
+          logOut();
+        }}>{"Wyloguj się"}
+      </LoginButton>
+    )
+  }
+  else{
+    return(
+      <LoginButton type='submit'
+        onClick={() => {
+          if(!loginPage){handlePages(hp.Pages.loginPage)
+          }else{handlePages(hp.Pages.renderApartments)}
+        }}>{"Zaloguj się"}
+      </LoginButton>
+    )
+  }
+}
+
+function logOut(){
+  setIsLoggedIn(false);
+  setSessionToken(null);
+  setUserID(null);
+  handlePages(hp.Pages.renderApartments);
+}
 // End of pages handling  
 
   return (
@@ -100,17 +129,19 @@ function handlePages(page){
         <StyledHeader>
           <Logo src={logo}></Logo>
           <AppTitle>RentALL</AppTitle>
-          <ProfileButton>
+          <ProfileButton type='submit'
+                  onClick={() => {
+                  if(!isLoggedIn){
+                    if(!loginPage){handlePages(hp.Pages.loginPage)
+                    }else{handlePages(hp.Pages.renderApartments)}
+                  }
+                  }}>
             <img 
               src={profile} 
               width="40px"
             ></img>
           </ProfileButton>
-          <LoginButton type='submit'
-        onClick={() => {
-          if(!loginPage){handlePages(hp.Pages.loginPage)
-          }else{handlePages(hp.Pages.renderApartments)}
-        }}>{"Zaloguj się"}</LoginButton>
+          {handleLogInOutButton()}
         </StyledHeader>
           
         <StyledOptionBar>
