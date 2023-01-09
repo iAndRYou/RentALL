@@ -20,6 +20,10 @@ async def get_adverts(lower_price_bound: float = Query(default=None), upper_pric
     else:
         return DBGetAdvert.get_adverts_in_given_price(lower_price_bound, upper_price_bound)
 
+@router.get("/adverts", response_model = Advert, tags=['adverts'])
+async def get_user_adverts(id: int = Query(default=None)):
+    return DBGetAdvert.get_user_adverts(id)
+
 
 
 

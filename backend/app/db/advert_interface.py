@@ -43,7 +43,39 @@ class DBGetAdvert:
         conn.close()
 
         return advert
-    
+
+    def get_user_adverts(id: int)-> Optional[List[Advert]]:
+        '''
+        Get adverts of one user
+        '''
+        conn = psycopg2.connect(conn_string)
+        cursor = conn.cursor()
+
+        cursor.execute("SELECT * FROM adverts a join user u on a.author_id = u.user_id where u.user_id = %s", (id,))
+        rows = cursor.fetchall()
+        if len(rows) == 0:
+            raise HTTPException(status_code=404, detail="Adverts not found")
+        adverts = []
+        for row in rows:
+            advert = Advert(**{
+            "advert_id": row[0],
+            "latitude": row[1],
+            "longitude": row[2],
+            "date": row[3],
+            "price": row[4],
+            "author_id": row[5],
+            "description": row[6],
+            "title": row[7],
+            "images": row[8],
+            })
+            adverts.append(advert)
+
+        # conn.commit()
+        cursor.close()
+        conn.close()
+            
+        return adverts
+
     # @get_connection
     def get_adverts_in_given_price(lower_price_bound: int, upper_price_bound: int) -> Optional[List[Advert]]:
         '''
