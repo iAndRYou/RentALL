@@ -69,6 +69,7 @@ function App() {
   // all the pages boolean variables
   const [addAdvertPage, setAddAdvertPage] = useState(false);
   const [loginPage, setLoginPage] = useState(false);
+  const [profilePage, setProfilePage] = useState(false);
   const [renderApartments, setRenderApartments] = useState(true);
  
   // Pages handling
@@ -78,16 +79,25 @@ function handlePages(page){
   if(page === hp.Pages.addAdvertPage){
       setRenderApartments(false);
       setLoginPage(false);
+      setProfilePage(false);
       setAddAdvertPage(true);
   }
   else if(page === hp.Pages.loginPage){
       setRenderApartments(false);
       setAddAdvertPage(false);
+      setProfilePage(false);
       setLoginPage(true);
+  }
+  else if(page === hp.Pages.profilePage){
+      setRenderApartments(false);
+      setAddAdvertPage(false);
+      setLoginPage(false);
+      setProfilePage(true);
   }
   else{
       setAddAdvertPage(false);
       setLoginPage(false);
+      setProfilePage(false);
       setRenderApartments(true);
   }
 }
@@ -133,6 +143,10 @@ function logOut(){
                   onClick={() => {
                   if(!isLoggedIn){
                     if(!loginPage){handlePages(hp.Pages.loginPage)
+                    }else{handlePages(hp.Pages.renderApartments)}
+                  }
+                  else{
+                    if(!profilePage){handlePages(hp.Pages.profilePage)
                     }else{handlePages(hp.Pages.renderApartments)}
                   }
                   }}>
@@ -218,6 +232,7 @@ function logOut(){
         {createApartment(posts, renderApartments)}
         {hp.handleAddAdvertPage(addAdvertPage)}
         {hp.handleLoginPage(loginPage, handlePages, setIsLoggedIn)}
+        {hp.handleProfilePage(profilePage)}
       </StyledMainContainer>
       
       <StyledAddAdvertButton

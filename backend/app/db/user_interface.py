@@ -164,7 +164,7 @@ class DBGetUser:
                 "user_id": row[0],
                 "email": row[1],
                 "fullname": row[2],
-                "phone_number": row[3],
+                "phone_number": row[3], 
             })
             users.append(user)
 
