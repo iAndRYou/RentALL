@@ -2,6 +2,7 @@ import {StyledInput, StyledAddButton, StyledFormBreak, StyledTextArea} from './A
 import React, { useRef } from 'react'
 export default function AddAdvertPage({className}){
     const titleInputRef = useRef('')
+    const cityInputRef = useRef('')
     const streetInputRef = useRef('')
     const buildingNumberInputRef = useRef('')
     const flatNumberInputRef = useRef('')
@@ -15,6 +16,11 @@ export default function AddAdvertPage({className}){
                 <label>
                     Tytuł ogłoszenia:
                     <StyledInput type="text" name="title" ref={titleInputRef}/>
+                </label>
+                <StyledFormBreak></StyledFormBreak>
+                <label>
+                    Miasto:
+                    <StyledInput type="text" name="city" ref={cityInputRef}/>
                 </label>
                 <StyledFormBreak></StyledFormBreak>
                 <label>
