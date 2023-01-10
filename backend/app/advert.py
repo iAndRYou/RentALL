@@ -35,14 +35,18 @@ async def post_advert(advert: Advert, current_user: User = Depends(decode_token)
 
 
 @router.get("/adverts/{advert_id}", response_model = Advert, tags=['adverts'])
-async def get_advert(advert: Advert = Depends(DBGetAdvert.get_advert_by_id)):
-    return advert
+async def get_advert(advert_id: int = Path()):
+    advert = DBGetAdvert.get_advert_by_id(advert_id)
+
+    if advert is None:
+        raise HTTPException(status_code=404, detail="Advert not found")
 
 
 
 @router.put("/adverts", tags=['adverts'])
 async def update_user_advert(advert: Advert = Body(), current_user: User = Depends(decode_token)):
     """Update advert in the database"""
+    
     DBEditAdvert.update_advert(advert.advert_id, advert)
 
     return advert

@@ -36,10 +36,15 @@ async def get_users():
 
 
 @router.get('/users/{user_id}', response_model=User, tags=['users'])
-async def get_user(user: User = Depends(DBGetUser.get_user_by_id)):
+async def get_user(user_id: int = Path()):
     '''
     Get user by user id
     '''
+
+    user = DBGetUser.get_user_by_id(user_id)
+
+    if user is None:
+        raise HTTPException(status_code=404, detail="User not found")
     
     return user
 
@@ -50,7 +55,13 @@ async def get_user_by_email(email: str = Path(..., title="The email of the user 
     Get user by email
     '''
     
-    return DBGetUser.get_user_by_email(email)
+    user = DBGetUser.get_user_by_email(email)
+
+    if user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    return user
+
 
 
 

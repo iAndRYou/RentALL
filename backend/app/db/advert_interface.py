@@ -25,7 +25,10 @@ class DBGetAdvert:
         cursor.execute("SELECT * FROM adverts WHERE advert_id = %s;", (advert_id,))
         rows = cursor.fetchall()
         if len(rows) == 0:
-            raise HTTPException(status_code=404, detail="Advert not found")
+            cursor.close()
+            conn.close()
+            return None
+            # raise HTTPException(status_code=404, detail="Advert not found")
         advert = Advert(**{
             "advert_id": rows[0][0],
             "latitude": rows[0][1],
@@ -55,8 +58,11 @@ class DBGetAdvert:
 
         cursor.execute("SELECT * FROM adverts WHERE price >= %s AND price <= %s;", (lower_price_bound,upper_price_bound))
         rows = cursor.fetchall()
-        if len(rows) == 0:
-            raise HTTPException(status_code=404, detail="Advert not found")
+        # if len(rows) == 0:
+        #     cursor.close()
+        #     conn.close()
+        #     return None
+            # raise HTTPException(status_code=404, detail="Advert not found")
         adverts = []
         for row in rows:
             advert = Advert(**{

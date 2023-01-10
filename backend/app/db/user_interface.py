@@ -58,7 +58,10 @@ class DBGetUser:
         cursor.execute("SELECT * FROM users WHERE user_id = %s;", (user_id,))
         rows = cursor.fetchall()
         if len(rows) == 0:
-            raise HTTPException(status_code=404, detail="User not found")
+            cursor.close()
+            conn.close()
+            return None
+            # raise HTTPException(status_code=404, detail="User not found")
         user = User(**{
             "user_id": rows[0][0],
             "email": rows[0][1],
@@ -83,7 +86,10 @@ class DBGetUser:
         cursor.execute("SELECT * FROM users WHERE email = %s;", (email,))
         rows = cursor.fetchall()
         if len(rows) == 0:
-            raise HTTPException(status_code=404, detail="User not found")
+            cursor.close()
+            conn.close()
+            return None
+            # raise HTTPException(status_code=404, detail="User not found")
         user = User(**{
             "user_id": rows[0][0],
             "email": rows[0][1],
@@ -109,7 +115,10 @@ class DBGetUser:
         cursor.execute("SELECT * FROM users WHERE email = %s;", (email,))
         rows = cursor.fetchall()
         if len(rows) == 0:
-            raise HTTPException(status_code=404, detail="User not found")
+            cursor.close()
+            conn.close()
+            return None
+            # raise HTTPException(status_code=404, detail="User not found")
         user = UserInDB(**{
             "user_id": rows[0][0],
             "email": rows[0][1],
@@ -135,7 +144,10 @@ class DBGetUser:
         cursor.execute("SELECT * FROM users WHERE phone_number = %s;", (phone,))
         rows = cursor.fetchall()
         if len(rows) == 0:
-            raise HTTPException(status_code=404, detail="User not found")
+            cursor.close()
+            conn.close()
+            return None
+            # raise HTTPException(status_code=404, detail="User not found")
         user = User(**{
             "user_id": rows[0][0],
             "email": rows[0][1],
