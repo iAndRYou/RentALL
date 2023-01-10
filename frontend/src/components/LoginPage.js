@@ -20,13 +20,11 @@ export default function LoginPage({className, handlePages, setIsLoggedIn}){
             setLoginStatus('Wypełnij wszystkie pola!')
             return
         }
-        //Create object that will be sent to backend
+        
         var user = {};
         user.username = login;
         user.password = password;
-
-
-        console.log(JSON.stringify(user))
+       
         var link = "http://127.0.0.1:8000/token"
         fetch (link, {
             method: 'POST',
@@ -35,9 +33,12 @@ export default function LoginPage({className, handlePages, setIsLoggedIn}){
                 "Access-Control-Allow-Origin": "*", // Required for CORS support to work
                 "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
                 "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With, append,delete,entries,foreach,get,has,keys,set,values",
-                "Content-Type": "application/json"
-        },
-            body: JSON.stringify(user)
+                "Content-Type": "application/x-www-form-urlencoded"
+        }, 
+            body: new URLSearchParams({
+            'username': user.username,
+            'password': user.password
+        })
         }).then((response) => {
             if(response.ok) {
               console.log('Everything went ok: ' + response.status)
@@ -59,6 +60,7 @@ export default function LoginPage({className, handlePages, setIsLoggedIn}){
             console.log(err.message);
             setLoginStatus('Logowanie nie powiodło się!')
        });
+       setIsLoggedIn(true)
     }
     
     function handleRegisterForm(){
