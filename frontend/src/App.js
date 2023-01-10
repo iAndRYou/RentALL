@@ -9,7 +9,6 @@ import exampleApartments from './components/exampleApartments.json';
 import {createApartment, sortApartments,} from './utilities/CreateApartment.js'
 import { StyledAddAdvertButton, StyledAddAdvertPage } from './components/AddAdvertPage.style';
 import * as hp from './utilities/HandlePages.js';
-import { getSessionToken, getUserID, setSessionToken, setUserID} from './utilities/GlobalVariables';
 
 
 
@@ -30,7 +29,15 @@ function App() {
     // TODO: Make a call to the backend to get the apartments
     var link = 'http://127.0.0.1:8000/adverts?lower_price_bound='+lowerPrice+'&upper_price_bound='+upperPrice;
     await fetch(link)
-        .then((response) => response.json())
+        .then((response) => {
+            if(response.ok) {
+              console.log('Everything went ok: ' + response.status)
+              return response.json()
+            }else{
+              throw new Error('Something went wrong ... \n' + response.status);
+            }
+          }
+          )
         .then((data) => {
           console.log(data);
           setPosts(data);
@@ -69,6 +76,7 @@ function App() {
   // all the pages boolean variables
   const [addAdvertPage, setAddAdvertPage] = useState(false);
   const [loginPage, setLoginPage] = useState(false);
+  const [profilePage, setProfilePage] = useState(false);
   const [renderApartments, setRenderApartments] = useState(true);
  
   // Pages handling
@@ -78,16 +86,25 @@ function handlePages(page){
   if(page === hp.Pages.addAdvertPage){
       setRenderApartments(false);
       setLoginPage(false);
+      setProfilePage(false);
       setAddAdvertPage(true);
   }
   else if(page === hp.Pages.loginPage){
       setRenderApartments(false);
       setAddAdvertPage(false);
+      setProfilePage(false);
       setLoginPage(true);
+  }
+  else if(page === hp.Pages.profilePage){
+      setRenderApartments(false);
+      setAddAdvertPage(false);
+      setLoginPage(false);
+      setProfilePage(true);
   }
   else{
       setAddAdvertPage(false);
       setLoginPage(false);
+      setProfilePage(false);
       setRenderApartments(true);
   }
 }
@@ -116,15 +133,13 @@ function handleLogInOutButton(){
 
 function logOut(){
   setIsLoggedIn(false);
-  setSessionToken(null);
-  setUserID(null);
+  sessionStorage.removeItem("token");
   handlePages(hp.Pages.renderApartments);
 }
 // End of pages handling  
 
   return (
     <AppContainer>
-      {console.log("yooooo"+posts)}
       <HeaderWrapper>
         <StyledHeader>
           <Logo src={logo}></Logo>
@@ -133,6 +148,10 @@ function logOut(){
                   onClick={() => {
                   if(!isLoggedIn){
                     if(!loginPage){handlePages(hp.Pages.loginPage)
+                    }else{handlePages(hp.Pages.renderApartments)}
+                  }
+                  else{
+                    if(!profilePage){handlePages(hp.Pages.profilePage)
                     }else{handlePages(hp.Pages.renderApartments)}
                   }
                   }}>
@@ -216,8 +235,9 @@ function logOut(){
       */}
       <StyledMainContainer>
         {createApartment(posts, renderApartments)}
-        {hp.handleAddAdvertPage(addAdvertPage)}
+        {hp.handleAddAdvertPage(addAdvertPage, handlePages)}
         {hp.handleLoginPage(loginPage, handlePages, setIsLoggedIn)}
+        {hp.handleProfilePage(profilePage)}
       </StyledMainContainer>
       
       <StyledAddAdvertButton

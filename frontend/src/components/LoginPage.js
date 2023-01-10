@@ -1,16 +1,16 @@
-import {StyledInput, StyledLoginButton } from './LoginPage.style'
+import {StyledInput, StyledLoginButton, StyledFormBreak } from './LoginPage.style'
 import React, { useRef } from 'react'
 import {Pages} from '../utilities/HandlePages.js'
-import {setUserID, setSessionToken} from '../utilities/GlobalVariables.js'
 export default function LoginPage({className, handlePages, setIsLoggedIn}){
     const loginInputRef = useRef('')
     const passwordInputRef = useRef('')
     const regRepeatPasswordInputRef = useRef('')
     const regLoginInputRef = useRef('')
     const regPasswordInputRef = useRef('')
+    const regEmailInputRef = useRef('')
+    const regPhoneInputRef = useRef('')
     const [loginStatus, setLoginStatus] = React.useState('')
     const [registrationStatus, setRegistrationStatus] = React.useState('')
-    
  
     function handleLoginForm (){
         const login = loginInputRef.current.value
@@ -19,103 +19,162 @@ export default function LoginPage({className, handlePages, setIsLoggedIn}){
         console.log(password)
 
         if(password === '' || login === ''){
-            setLoginStatus('Please fill all fields!')
+            setLoginStatus('Wypełnij wszystkie pola!')
             return
         }
         //Create object that will be sent to backend
         var user = {};
-        user.login = login;
+        user.username = login;
         user.password = password;
 
 
-        //TODO: fetch cos tam cos tam
-        setLoginStatus('Login successful!') // albo
-        //setLoginStatus('Login failed!') 
-    
-        setUserID(2137)
-        setSessionToken(6969)
-        setIsLoggedIn(true)
-        handlePages(Pages.renderApartments)
-        
+        var link = "http://127.0.0.1:8000/token"
+        fetch (link, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(user)
+        }).then((response) => {
+            if(response.ok) {
+              console.log('Everything went ok: ' + response.status)
+              return response.json()
+            }else{
+              throw new Error('Something went wrong ... \n' + response.status);
+            }
+          }
+          )
+        .then((data) => {
+            console.log(data);
+            sessionStorage.setItem('token', data.access_token)
+            setLoginStatus('Logowanie udane!') 
+            setIsLoggedIn(true)
+            handlePages(Pages.renderApartments)
+       })
+       .catch((err) => {
+            console.log(err.message);
+            setLoginStatus('Logowanie nie powiodło się!')
+       });
     }
     
     function handleRegisterForm(){
-        const login = regLoginInputRef.current.value
+        const fullname = regLoginInputRef.current.value
         const password = regPasswordInputRef.current.value
         const repeatPassword = regRepeatPasswordInputRef.current.value
-        console.log(login)
-        console.log(password)
-        console.log(repeatPassword)
+        const email = regEmailInputRef.current.value
+        const phone = regPhoneInputRef.current.value
+
 
         if(password !== repeatPassword){
-            setRegistrationStatus('Passwords do not match!')
+            setRegistrationStatus('Podano różne hasła!')
             return
         }
-        if(password === '' || repeatPassword === '' || login === ''){
-            setRegistrationStatus('Please fill all fields!')
+        if(password === '' || repeatPassword === '' || fullname === '' || email === '' || phone === ''){
+            setRegistrationStatus('Wypełnij wszystkie pola!')
+            return
+        }
+        if(password.length < 6){
+            setRegistrationStatus('Hasło musi mieć conajmniej 6 znaków!')
+            return
+        }
+        if(phone.length !== 9){
+            setRegistrationStatus('Numer telefonu musi mieć co najmniej 9 cyfr!')
             return
         }
 
         //Create object that will be sent to backend
         var user = {};
-        user.login = login;
+        user.fullname = fullname;
+        user.phone_number = phone;
+        user.email = email;
         user.password = password;
+        
+        
 
-        //TODO: fetch cos tam cos tam
-
-        setRegistrationStatus('Registration successful!') // albo
-        //setRegistrationStatus('Registration failed!')
-
-
+        console.log(JSON.stringify(user))
+        var link = "http://127.0.0.1:8000/register"
+        fetch (link, {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+                "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
+                "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With, append,delete,entries,foreach,get,has,keys,set,values",
+                "Content-Type": "application/json"
+        },
+            body: JSON.stringify(user)
+        }).then((response) => {
+            if(response.ok) {
+              console.log('Everything went ok: ' + response.status)
+              return response.json()
+            }else{
+              throw new Error('Something went wrong ... \n' + response.status);
+            }
+          }
+          )
+        .then((data) => {
+            console.log(data);
+            setRegistrationStatus('Rejestracja udana!')
+       })
+       .catch((err) => {
+            console.log(err.message);
+            setRegistrationStatus('Rejestracja nie powiodła się!')
+       });
     }
 
     return(
         <div className={className}>
-            <h2>Do you have an account?</h2>
-            <h2>Log in</h2>
+            <h2>Witamy ponownie!</h2>
+            <h2>Logowanie</h2>
             <form>
                 <label>
-                    Login:
-                    <StyledInput type="text" name="login" placeholder='Enter login' ref={loginInputRef} />
+                    <StyledInput type="email" name="login" placeholder='E-mail' ref={loginInputRef} />
                 </label>
-                <br></br>
+                <StyledFormBreak></StyledFormBreak>
                 <label>
-                    Password:
-                    <StyledInput type="password" name="password" placeholder='Enter password' ref={passwordInputRef} />
+                    <StyledInput type="password" name="password" placeholder='Hasło' ref={passwordInputRef} />
                 </label>
-                <br></br>
-                <StyledLoginButton type="submit" 
+            </form>
+            <br></br>
+            <div>{loginStatus}</div>
+            <StyledFormBreak></StyledFormBreak>
+            <StyledLoginButton type="submit" 
                  onClick={e => {
                     e.preventDefault()
                     handleLoginForm()
-                    }}>Log in</StyledLoginButton>
-                <br></br>
-            </form>
-            <div>{loginStatus}</div>
-            <h2>Or...</h2>
-            <h2>Register</h2>
+                    }}>Zaloguj
+            </StyledLoginButton>
+            <StyledFormBreak></StyledFormBreak>
+            <h2>Nie masz jeszcze konta?</h2>
+            <h2>Rejestracja</h2>
             <form>
                 <label>
-                    Login:
-                    <StyledInput type="text" name="login" placeholder='Enter new login' ref={regLoginInputRef}/>
+                    <StyledInput type="text" name="login" placeholder='Imię i nazwisko' ref={regLoginInputRef}/>
                 </label>
-                <br></br>
+                <StyledFormBreak></StyledFormBreak>
                 <label>
-                    Password:
-                    <StyledInput type="password" name="password" placeholder='Enter new password' ref={regPasswordInputRef}/>
+                    <StyledInput type="password" name="password" placeholder='Hasło' ref={regPasswordInputRef}/>
                 </label>
-                <br></br>
+                <StyledFormBreak></StyledFormBreak>
                 <label>
-                    Repeat password:
-                    <StyledInput type="password" name="password" placeholder='Repeat new password' ref={regRepeatPasswordInputRef}/>
+                    <StyledInput type="password" name="password" placeholder='Powtórz hasło' ref={regRepeatPasswordInputRef}/>
                 </label>
-                <StyledLoginButton type="submit" 
+                <StyledFormBreak></StyledFormBreak>
+                <label>
+                    <StyledInput type="email" name="email" placeholder='E-mail' ref={regEmailInputRef}/>
+                </label>
+                <StyledFormBreak></StyledFormBreak>
+                <label>
+                    <StyledInput type="tel" name="phone" placeholder='Numer telefonu' ref={regPhoneInputRef}/>
+                </label>
+            </form>
+            <br></br>
+            <div>{registrationStatus}</div>
+            <StyledFormBreak></StyledFormBreak>
+            <StyledLoginButton type="submit" 
                     onClick={e => {
                         e.preventDefault()
                         handleRegisterForm()
-                        }}>Register</StyledLoginButton>
-            </form>
-            <div>{registrationStatus}</div>
+                        }}>Zarejestruj
+            </StyledLoginButton>
         </div>
     )
 }
