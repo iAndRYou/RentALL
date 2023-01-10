@@ -15,8 +15,6 @@ export default function LoginPage({className, handlePages, setIsLoggedIn}){
     function handleLoginForm (){
         const login = loginInputRef.current.value
         const password = passwordInputRef.current.value
-        console.log(login)
-        console.log(password)
 
         if(password === '' || login === ''){
             setLoginStatus('Wypełnij wszystkie pola!')
@@ -28,10 +26,17 @@ export default function LoginPage({className, handlePages, setIsLoggedIn}){
         user.password = password;
 
 
+        console.log(JSON.stringify(user))
         var link = "http://127.0.0.1:8000/token"
         fetch (link, {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            mode: 'cors',
+            headers: {
+                "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+                "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
+                "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With, append,delete,entries,foreach,get,has,keys,set,values",
+                "Content-Type": "application/json"
+        },
             body: JSON.stringify(user)
         }).then((response) => {
             if(response.ok) {
@@ -45,7 +50,8 @@ export default function LoginPage({className, handlePages, setIsLoggedIn}){
         .then((data) => {
             console.log(data);
             sessionStorage.setItem('token', data.access_token)
-            setLoginStatus('Logowanie udane!') 
+            console.log(sessionStorage.getItem('token'))
+            setLoginStatus('Logowanie powiodło się!')
             setIsLoggedIn(true)
             handlePages(Pages.renderApartments)
        })
