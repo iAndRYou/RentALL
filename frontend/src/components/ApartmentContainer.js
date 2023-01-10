@@ -17,10 +17,11 @@ export default function ApartmentContainer({className, price, city, street, imag
     <div className={className}>
         <StyledImage src={images} alt=""></StyledImage> 
         <ApartmentInfo>
+            <h2>{title}</h2>
             <DefText>Cena:&nbsp;</DefText>
             <BetterText colour={changeColourDependingOnPrice(price)}>{price}&nbsp;zł / miesiąc</BetterText><br></br>
             <DefText>Lokalizacja:&nbsp;</DefText>
-            <BetterText colour='grey'>Kraków{/*city*/}, Skrzyneckiego 21/37h{/*street*/}</BetterText><br></br>
+            <BetterText colour='grey'>{city}, {street}</BetterText><br></br>
             <DefText>Dojazd do:&nbsp;</DefText><BetterText colour='grey'>AGH</BetterText><br></br>
             <DefText>Środek komunikacji:&nbsp;</DefText><BetterText colour='grey'>Autobus</BetterText><br></br>
             <DefText>Dojazd: </DefText><BetterText colour='red'>30 min</BetterText>
@@ -47,7 +48,7 @@ export default function ApartmentContainer({className, price, city, street, imag
 export function changeColourDependingOnPrice(price){
    var num = Number(price);
    if(num >= 5000){
-      return 'red';
+      return 'orangered';
    }else if(num >= 2500){
       return '#F28C28';
    }else if(num >= 2000){

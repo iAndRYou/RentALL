@@ -5,9 +5,11 @@ import ApartmentContainer from './ApartmentContainer';
 export const StyledApartmentContainer = styled(ApartmentContainer)`
     min-height: 25vh;
     background-color: #EEEEEE;
+    color: gray;
     margin-top: 1%;
     border-radius: 35px;
     font-size: larger;
+    line-height: 1.1;
 
     &:hover {
         cursor: default;
@@ -18,7 +20,6 @@ export const ApartmentInfo = styled.div`
     padding-left: 1%;
     display: inline-block;
     width: 50%;
-    margin-top: 1.5%;
 
     &:hover {
         cursor: default;

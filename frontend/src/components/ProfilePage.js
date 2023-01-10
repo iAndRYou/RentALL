@@ -34,11 +34,12 @@ export default function ProfilePage({className}){
                 // delete button that knows its index in userAdverts array
                 <StyledUserAdvert>
                     <StyledImageProfile src={apartment.images}></StyledImageProfile>
-                    <h3>{apartment.title}</h3>
-                    <p>{apartment.price}</p>
-                    <StyledEditButton index={index}>Edit</StyledEditButton>
+                    <h2>{apartment.title}</h2>
+                    <h3>{apartment.city}, {apartment.street}</h3>
+                    <h3>{apartment.price} zł / miesiąc</h3>
+                    <StyledEditButton index={index}>Edytuj</StyledEditButton>
                     <br></br>
-                    <StyledDeleteButton index={index}>Delete</StyledDeleteButton>
+                    <StyledDeleteButton index={index}>Usuń</StyledDeleteButton>
                 </StyledUserAdvert>
             )
         })
@@ -46,6 +47,9 @@ export default function ProfilePage({className}){
 
     return(
         <div className={className}>
+            <div>
+                <h1 color='gray'>Twoje ogłoszenia</h1>
+            </div>
             {getUserAdverts(true/*debug*/)}
         </div>
     )

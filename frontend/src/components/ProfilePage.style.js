@@ -2,51 +2,98 @@ import styled from 'styled-components';
 import ProfilePage from './ProfilePage';
 
 export const StyledProfilePage = styled(ProfilePage)`
-    background-color: #5c8fe0;
-    color: white;
-    min-height:70vh;
-    width: 70%;
-    margin-left: 12%;
-    margin-right: 15%;
-    margin-top: 1%;
-    border-radius: 40px;
-    padding-top: 2%;
-    padding-bottom: 2%;
+    background-color: red;
+    color: gray;
+   
+    background: white;
+    min-height:85vh;
     padding-left: 2%;
-    padding-right: 2%;
-    align-items: center;
-    display: block;
-  
+    padding-right: 2%;  
 `;
 
 export const StyledUserAdvert = styled.div`
-    background-color: gray;
-    width: 80%;
-    margin-left: 10%;
-    margin-right: 10%;
-    margin-top: 1%;
-    padding: 1%;
-    color: black;
+    min-height: 25vh;
+    min-width: 25vh;
+    width: 49%;
+    background-color: #EEEEEE;
+    margin: 1%;
+    margin-right: 0%;
+    margin-bottom: 0%;
     border-radius: 35px;
-    display: block;
+    line-height: 0.8;
+    font-size: larger;
+    color: gray;
+    display: inline-block;
+    
+    &:hover {
+        cursor: default;
+    }
 `;
 
 export const StyledImageProfile= styled.img`
     float: left;
-    width: 13.5vh;
-    height: 12.5vh;
+    width: 22.5vh;
+    height: 22.5vh;
     padding: 15px;
-    border-radius: 35px;
+    border-radius: 45px;
 
     &:hover {
         cursor: default;
     }
-`
+`;
 
 export const StyledEditButton = styled.button`
-    float: right;
+    color: #52ACDF;
+    background-color: transparent;
+    border: 2px solid #52ACDF;
+    outline: 20px #52ACDF;
+    border-radius: 15px;
+    padding: 7px;
+    margin-bottom: 10px;
+
+    height: max-content;
+    width: 70px;
+
+    text-align: center;
+    font-weight: 400;
+    font-size: 18px;
+
+    &:hover {
+        background-color: #52ACDF;
+        color: white;
+        border: 2px solid #52ACDF;
+        cursor: pointer;
+    }
+
+    &::selection {
+        background-color: transparent;
+    }
 `;
 
 export const StyledDeleteButton = styled.button`
-    float: right;
+    color: orangered;
+    background-color: transparent;
+    border: 2px solid orangered;
+    outline: 20px orangered;
+    border-radius: 15px;
+    padding: 7px;
+    margin-bottom: 10px;
+
+    height: max-content;
+    width: 70px;
+
+    text-align: center;
+    font-weight: 400;
+    font-size: 18px;
+
+    &:hover {
+        background-color: orangered;
+        color: white;
+        border: 2px solid orangered;
+        cursor: pointer;
+    }
+
+    &::selection {
+        background-color: transparent;
+    }
 `;
