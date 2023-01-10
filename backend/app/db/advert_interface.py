@@ -41,7 +41,7 @@ class DBGetAdvert:
             "images": rows[0][8],
         })
 
-        # conn.commit()
+        conn.commit()
         cursor.close()
         conn.close()
 
@@ -78,7 +78,7 @@ class DBGetAdvert:
             })
             adverts.append(advert)
 
-        # conn.commit()
+        conn.commit()
         cursor.close()
         conn.close()
             
@@ -110,7 +110,7 @@ class DBGetAdvert:
             })
             adverts.append(advert)
 
-        # conn.commit()
+        conn.commit()
         cursor.close()
         conn.close()
             
@@ -133,7 +133,7 @@ class DBEditAdvert:
             cursor.execute("INSERT INTO adverts (advert_id, latitude, longitude, date, price, author_id, description, title, images) VALUES (%s, %s, %s, %s, %s, %s, %s, %s);", 
             (advert.advert_id, advert.latitude, advert.longitude, advert.date, advert.price, author_id, advert.description, advert.title, advert.images))        
 
-        # conn.commit()
+        conn.commit()
         cursor.close()
         conn.close()
     
@@ -154,7 +154,7 @@ class DBEditAdvert:
 
         cursor.execute("DELETE FROM adverts WHERE advert_id = %s;", (advert_id,))
 
-        # conn.commit()
+        conn.commit()
         cursor.close()
         conn.close()
 
@@ -176,7 +176,7 @@ class DBEditAdvert:
         cursor.execute("UPDATE adverts SET latitude = %s, longitude = %s, date = %s, price = %s, author_id = %s, description = %s, title = %s, images = %s WHERE advert_id = %s;", 
         (advert.latitude, advert.longitude, advert.date, advert.price, author_id, advert.description, advert.title, advert.images, advert_id))
 
-        # conn.commit()
+        conn.commit()
         cursor.close()
         conn.close()
 
