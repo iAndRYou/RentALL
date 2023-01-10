@@ -18,7 +18,7 @@ class Advert(BaseModel):
 
 
 class User(BaseModel):
-    user_id: int = Field(default=...)
+    user_id: int = Field(default=None)
     email: str = Field(default=...)
     fullname: str = Field(default=...)
     phone_number: str = Field(default=...)
