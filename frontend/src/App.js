@@ -29,7 +29,15 @@ function App() {
     // TODO: Make a call to the backend to get the apartments
     var link = 'http://127.0.0.1:8000/adverts?lower_price_bound='+lowerPrice+'&upper_price_bound='+upperPrice;
     await fetch(link)
-        .then((response) => response.json())
+        .then((response) => {
+            if(response.ok) {
+              console.log('Everything went ok: ' + response.status)
+              return response.json()
+            }else{
+              throw new Error('Something went wrong ... \n' + response.status);
+            }
+          }
+          )
         .then((data) => {
           console.log(data);
           setPosts(data);
@@ -132,7 +140,6 @@ function logOut(){
 
   return (
     <AppContainer>
-      {console.log("yooooo"+posts)}
       <HeaderWrapper>
         <StyledHeader>
           <Logo src={logo}></Logo>

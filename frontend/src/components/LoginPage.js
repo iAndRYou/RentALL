@@ -33,20 +33,26 @@ export default function LoginPage({className, handlePages, setIsLoggedIn}){
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(user)
-        }).then(response => {
-            if (!response.ok){ 
-                setLoginStatus('Logowanie nieudane!')
-                return response.json();
+        }).then((response) => {
+            if(response.ok) {
+              console.log('Everything went ok: ' + response.status)
+              return response.json()
+            }else{
+              throw new Error('Something went wrong ... \n' + response.status);
             }
-        }).then((data) => {
+          }
+          )
+        .then((data) => {
             console.log(data);
-            sessionStorage.setItem('token', data.access_token);
-        })
-
-        setLoginStatus('Logowanie udane!') // albo
-        setIsLoggedIn(true)
-        handlePages(Pages.renderApartments)
-        
+            sessionStorage.setItem('token', data.access_token)
+            setLoginStatus('Logowanie udane!') 
+            setIsLoggedIn(true)
+            handlePages(Pages.renderApartments)
+       })
+       .catch((err) => {
+            console.log(err.message);
+            setLoginStatus('Logowanie nie powiodło się!')
+       });
     }
     
     function handleRegisterForm(){
@@ -71,6 +77,10 @@ export default function LoginPage({className, handlePages, setIsLoggedIn}){
             setRegistrationStatus('Hasło musi mieć conajmniej 6 znaków!')
             return
         }
+        if(phone.length !== 9){
+            setRegistrationStatus('Numer telefonu musi mieć co najmniej 9 cyfr!')
+            return
+        }
 
         //Create object that will be sent to backend
         var user = {};
@@ -79,12 +89,34 @@ export default function LoginPage({className, handlePages, setIsLoggedIn}){
         user.email = email;
         user.phone = phone;
 
-        //TODO: fetch cos tam cos tam
-
-        setRegistrationStatus('Rejestracja nieudana!') // albo
-        //setRegistrationStatus('Registration failed!')
-
-
+        var link = "http://127.0.0.1:8000/register"
+        fetch (link, {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+                "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
+                "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With, append,delete,entries,foreach,get,has,keys,set,values",
+                "Content-Type": "application/json"
+        },
+            body: JSON.stringify(user)
+        }).then((response) => {
+            if(response.ok) {
+              console.log('Everything went ok: ' + response.status)
+              return response.json()
+            }else{
+              throw new Error('Something went wrong ... \n' + response.status);
+            }
+          }
+          )
+        .then((data) => {
+            console.log(data);
+            setRegistrationStatus('Rejestracja udana!')
+       })
+       .catch((err) => {
+            console.log(err.message);
+            setRegistrationStatus('Rejestracja nie powiodła się!')
+       });
     }
 
     return(
