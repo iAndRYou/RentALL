@@ -202,7 +202,7 @@ class DBAddUser:
         conn = psycopg2.connect(conn_string)
         cursor = conn.cursor()
 
-        cursor.execute("INSERT INTO users (email, fullname, phone_number, password_hash) VALUES (%s, %s, %s);", (user.email, user.fullname, user.phone_number, user.password))
+        cursor.execute("INSERT INTO users (email, fullname, phone_number, password_hash) VALUES (%s, %s, %s);", (user.email, user.fullname, user.phone_number, user.password_hash))
 
         # conn.commit()
         cursor.close()
