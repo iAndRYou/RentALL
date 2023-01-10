@@ -62,8 +62,6 @@ export default function LoginPage({className, handlePages, setIsLoggedIn}){
         const email = regEmailInputRef.current.value
         const phone = regPhoneInputRef.current.value
 
-        console.log(password)
-        console.log(repeatPassword)
 
         if(password !== repeatPassword){
             setRegistrationStatus('Podano różne hasła!')
@@ -85,10 +83,13 @@ export default function LoginPage({className, handlePages, setIsLoggedIn}){
         //Create object that will be sent to backend
         var user = {};
         user.fullname = fullname;
-        user.password = password;
+        user.phone_number = phone;
         user.email = email;
-        user.phone = phone;
+        user.password = password;
+        
+        
 
+        console.log(JSON.stringify(user))
         var link = "http://127.0.0.1:8000/register"
         fetch (link, {
             method: 'POST',
