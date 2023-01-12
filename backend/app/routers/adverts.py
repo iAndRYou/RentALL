@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Query, Path, Depends, Body, Form, HTTPException
 from typing import List
-from .models import Advert, User, Token
-from .db.user_interface import DatabaseDetails, get_connection
-from .db.advert_interface import DBGetAdvert, DBEditAdvert
-from .auth.jwt_handler import decode_token 
+from ..models import Advert, User, Token
+from ..db.user_interface import DatabaseDetails, get_connection
+from ..db.advert_interface import DBGetAdvert, DBEditAdvert
+from ..auth.jwt_handler import decode_token 
 
 router = APIRouter()
 
