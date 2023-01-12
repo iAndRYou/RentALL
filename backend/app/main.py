@@ -1,10 +1,8 @@
 from fastapi import FastAPI
-import psycopg2
-
 from fastapi.middleware.cors import CORSMiddleware
-
 from pydantic import BaseModel, Field
 from typing import List, Optional
+
 from .routers import users, adverts, location_details
 
 app = FastAPI()

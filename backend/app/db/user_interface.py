@@ -32,6 +32,7 @@ def get_connection(func):
         cursor.close()
         conn.close()
         return result
+        
     return wrapper
 
 class DBGetUser:
@@ -47,19 +48,15 @@ class DBGetUser:
     # password_hash VARCHAR
 
 
-    # @get_connection
-    def get_user_by_id(user_id: int) -> Optional[User]:
+    @get_connection
+    def get_user_by_id(cursor, user_id: int) -> Optional[User]:
         '''
         Get user from database by id
         '''
-        conn = psycopg2.connect(conn_string)
-        cursor = conn.cursor()
 
         cursor.execute("SELECT * FROM users WHERE user_id = %s;", (user_id,))
         rows = cursor.fetchall()
         if len(rows) == 0:
-            cursor.close()
-            conn.close()
             return None
             # raise HTTPException(status_code=404, detail="User not found")
         user = User(**{
@@ -69,25 +66,17 @@ class DBGetUser:
             "phone_number": rows[0][3],
         })
 
-        conn.commit()
-        cursor.close()
-        conn.close()
-
         return user
 
-    # @get_connection
-    def get_user_by_email(email: str) -> Optional[User]:
+    @get_connection
+    def get_user_by_email(cursor, email: str) -> Optional[User]:
         '''
         Get user from database by email
         '''
-        conn = psycopg2.connect(conn_string)
-        cursor = conn.cursor()
 
         cursor.execute("SELECT * FROM users WHERE email = %s;", (email,))
         rows = cursor.fetchall()
         if len(rows) == 0:
-            cursor.close()
-            conn.close()
             return None
             # raise HTTPException(status_code=404, detail="User not found")
         user = User(**{
@@ -97,26 +86,17 @@ class DBGetUser:
             "phone_number": rows[0][3],
         })
 
-        conn.commit()
-        cursor.close()
-        conn.close()
-
-
         return user
 
-    # @get_connection
-    def get_dbuser_by_email(email: str) -> Optional[UserInDB]:
+    @get_connection
+    def get_dbuser_by_email(cursor, email: str) -> Optional[UserInDB]:
         '''
         Get user with password hash from database by email
         '''
-        conn = psycopg2.connect(conn_string)
-        cursor = conn.cursor()
 
         cursor.execute("SELECT * FROM users WHERE email = %s;", (email,))
         rows = cursor.fetchall()
         if len(rows) == 0:
-            cursor.close()
-            conn.close()
             return None
             # raise HTTPException(status_code=404, detail="User not found")
         user = UserInDB(**{
@@ -127,25 +107,17 @@ class DBGetUser:
             "password_hash": rows[0][4],
         })
 
-        conn.commit()
-        cursor.close()
-        conn.close()
-
         return user
 
-    # @get_connection
-    def get_user_by_phone(phone: str) -> Optional[User]:
+    @get_connection
+    def get_user_by_phone(cursor, phone: str) -> Optional[User]:
         '''
         Get user from database by phone number
         '''
-        conn = psycopg2.connect(conn_string)
-        cursor = conn.cursor()
 
         cursor.execute("SELECT * FROM users WHERE phone_number = %s;", (phone,))
         rows = cursor.fetchall()
         if len(rows) == 0:
-            cursor.close()
-            conn.close()
             return None
             # raise HTTPException(status_code=404, detail="User not found")
         user = User(**{
@@ -155,18 +127,13 @@ class DBGetUser:
             "phone_number": rows[0][3],
         })
 
-        conn.commit()
-        cursor.close()
-        conn.close()
-
         return user
     
-    def get_all_users() -> list[User]:
+    @get_connection
+    def get_all_users(cursor) -> list[User]:
         '''
         Get all users from database
         '''
-        conn = psycopg2.connect(conn_string)
-        cursor = conn.cursor()
 
         cursor.execute("SELECT * FROM users;")
         rows = cursor.fetchall()
@@ -180,11 +147,6 @@ class DBGetUser:
             })
             users.append(user)
 
-        conn.commit()
-        cursor.close()
-        conn.close()
-
-
         return users
         
     
@@ -194,16 +156,10 @@ class DBAddUser:
     Class for adding users to database
     '''
 
-    # @get_connection
-    def add_user(user: UserInDB) -> None:
+    @get_connection
+    def add_user(cursor, user: UserInDB) -> None:
         '''
         Add user to database
         '''
-        conn = psycopg2.connect(conn_string)
-        cursor = conn.cursor()
 
         cursor.execute("INSERT INTO users (email, fullname, phone_number, password_hash) VALUES (%s, %s, %s, %s);", (user.email, user.fullname, user.phone_number, user.password_hash))
-
-        conn.commit()
-        cursor.close()
-        conn.close()

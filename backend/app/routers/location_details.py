@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Path, Body, Query
-from .models import LocationDetails
+from ..models import LocationDetails
 
 router = APIRouter()
 
