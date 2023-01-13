@@ -5,14 +5,16 @@ import exampleApartments from './exampleApartments.json';
 export default function ProfilePage({className}){
     const [userAdverts, setUserAdverts] = React.useState([])
 
+
     function getUserAdverts(debug){
         //fetch user adverts
-
+        console.log("Fetching user adverts")
         if(debug && userAdverts.length === 0){
             setUserAdverts(exampleApartments)
         }
 
         if(userAdverts.length === 0){
+            console.log("No user adverts")
             return(
                 <div>
                     Nie masz żadnych ogłoszeń
@@ -20,13 +22,14 @@ export default function ProfilePage({className}){
             )
         }
         else{
+            console.log("User adverts found")
             return(
-                showApartments()
+                renderApartments()
             )
         }
     }
 
-    function showApartments(){
+    function renderApartments(){
         return userAdverts.map((apartment, index) => {
             return(
                 // container with apartment
