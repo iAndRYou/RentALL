@@ -1,10 +1,9 @@
 from fastapi import APIRouter, Query, Path, Depends, Body, Form, HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
-from typing import Optional
-from .models import User, UserRegister, UserInDB, Token
-from .auth.jwt_handler import pwd_context, create_access_token, decode_token, oauth2_scheme, get_password_hash, verify_password, authenticate_user
-from .db.user_interface import DBGetUser, DBAddUser
-from datetime import datetime, timedelta
+
+from ..models import User, UserRegister, UserInDB, Token
+from ..auth.jwt_handler import pwd_context, create_access_token, decode_token, oauth2_scheme, get_password_hash, verify_password, authenticate_user
+from ..db.user_interface import DBGetUser, DBAddUser
 
 
 router = APIRouter()
@@ -15,6 +14,8 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
     '''
     Login for access token
     '''
+
+    form_data = form_data.parse()
     
     user = authenticate_user(form_data.username, form_data.password)
     if not user:
@@ -85,4 +86,4 @@ async def register_user(new_user: UserRegister = Body()):
         raise HTTPException(status_code=400, detail="Email already registered")
     user = UserInDB(fullname= new_user.fullname, email=new_user.email, password_hash=get_password_hash(new_user.password), phone_number=new_user.phone_number)
     DBAddUser.add_user(user)
-    return {"message": "User created successfully"}
+    return user
