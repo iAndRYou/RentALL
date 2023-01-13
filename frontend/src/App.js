@@ -78,6 +78,7 @@ function App() {
   const [loginPage, setLoginPage] = useState(false);
   const [profilePage, setProfilePage] = useState(false);
   const [renderApartments, setRenderApartments] = useState(true);
+  const [editPage, setEditPage] = useState(false);
  
   // Pages handling
   // It sets only one of the pages to true and the rest to false
@@ -87,24 +88,35 @@ function handlePages(page){
       setRenderApartments(false);
       setLoginPage(false);
       setProfilePage(false);
+      setEditPage(false);
       setAddAdvertPage(true);
   }
   else if(page === hp.Pages.loginPage){
       setRenderApartments(false);
       setAddAdvertPage(false);
       setProfilePage(false);
+      setEditPage(false);
       setLoginPage(true);
   }
   else if(page === hp.Pages.profilePage){
       setRenderApartments(false);
       setAddAdvertPage(false);
       setLoginPage(false);
+      setEditPage(false);
       setProfilePage(true);
+  }
+  else if(page === hp.Pages.editPage){
+      setRenderApartments(false);
+      setAddAdvertPage(false);
+      setLoginPage(false);
+      setProfilePage(false);
+      setEditPage(true);
   }
   else{
       setAddAdvertPage(false);
       setLoginPage(false);
       setProfilePage(false);
+      setEditPage(false);
       setRenderApartments(true);
   }
 }
@@ -237,7 +249,8 @@ function logOut(){
         {createApartment(posts, renderApartments)}
         {hp.handleAddAdvertPage(addAdvertPage, handlePages)}
         {hp.handleLoginPage(loginPage, handlePages, setIsLoggedIn)}
-        {hp.handleProfilePage(profilePage)}
+        {hp.handleProfilePage(profilePage, handlePages)}
+        {hp.handleEditPage(editPage, handlePages)}
       </StyledMainContainer>
       
       <StyledAddAdvertButton

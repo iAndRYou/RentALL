@@ -1,7 +1,7 @@
-import {StyledInput, StyledAddButton, StyledFormBreak, StyledTextArea} from './AddAdvertPage.style'
+import {StyledInput, StyledAddButton, StyledFormBreak, StyledTextArea} from './EditAdvertPage.style'
 import React, { useRef } from 'react'
 import {Pages} from '../utilities/HandlePages.js'
-export default function AddAdvertPage({className, handlePages}){
+export default function EditAdvertPage({className, handlePages}){
     const titleInputRef = useRef('')
     const cityInputRef = useRef('')
     const streetInputRef = useRef('')
@@ -10,9 +10,18 @@ export default function AddAdvertPage({className, handlePages}){
     const priceInputRef = useRef('')
     const detailsInputRef = useRef('')
     const imageLinkRef = useRef('')
-    const [addStatus, setAddStatus] = React.useState('')
+    const [editStatus, setEditStatus] = React.useState('')
 
-    function handleAddAdvertForm(){
+    console.log("Parsing advert from session storage...")
+    var obj = {}
+    try {
+        obj = JSON.parse(sessionStorage.getItem('advert'))
+    } catch (ex) {
+        console.error(ex);
+    }
+    console.log(obj)
+
+    function handleEditAdvertForm(){
         const title = titleInputRef.current.value
         const city = cityInputRef.current.value
         const street = streetInputRef.current.value
@@ -23,12 +32,12 @@ export default function AddAdvertPage({className, handlePages}){
         const imageLink = imageLinkRef.current.value
 
         if(title === '' || city === '' || street === '' || buildingNumber === '' || flatNumber === '' || price === '' || imageLink === ''){
-            setAddStatus('Wypełnij wszystkie pola!')
+            setEditStatus('Wypełnij wszystkie pola!')
             return
         }
 
         const adress = city + ' ' + street + ' ' + buildingNumber + ' ' + flatNumber
-        const newAdvert = {
+        const updatedAdvert = {
             title: title,
             adress: adress,
             price: price,
@@ -39,27 +48,27 @@ export default function AddAdvertPage({className, handlePages}){
         var link = "http://127.0.0.1:8000/adverts"
         //fetch TODO
 
-        handlePages(Pages.renderApartments)
+        handlePages(Pages.profilePage)
     }
 
     return(
         <div className={className}>
-            <h2>Dodaj ogłoszenie</h2>
+            <h2>Edytuj ogłoszenie</h2>
             <h2>Podaj informacje:</h2>
             <form>
                 <label>
                     Tytuł ogłoszenia:
-                    <StyledInput type="text" name="title" ref={titleInputRef}/>
+                    <StyledInput type="text" name="title" value={obj.title} ref={titleInputRef}/>
                 </label>
                 <StyledFormBreak></StyledFormBreak>
                 <label>
                     Miasto:
-                    <StyledInput type="text" name="city" ref={cityInputRef}/>
+                    <StyledInput type="text" name="city" value={obj.city} ref={cityInputRef}/>
                 </label>
                 <StyledFormBreak></StyledFormBreak>
                 <label>
                     Ulica:
-                    <StyledInput type="text" name="street" ref={streetInputRef}/>
+                    <StyledInput type="text" name="street" value={obj.street} ref={streetInputRef}/>
                 </label>
                 <StyledFormBreak></StyledFormBreak>
                 <label>
@@ -74,12 +83,12 @@ export default function AddAdvertPage({className, handlePages}){
                 <StyledFormBreak></StyledFormBreak>
                 <label>
                     Cena:
-                    <StyledInput type="number" min='0' name="price" ref={priceInputRef}/>
+                    <StyledInput type="number" min='0' name="price" value={obj.price} ref={priceInputRef}/>
                 </label>
                 <StyledFormBreak></StyledFormBreak>
                 <label>
                     Opis:
-                    <StyledTextArea type="text" name="password" ref={detailsInputRef}/>
+                    <StyledTextArea type="text" name="password" value={obj.description} ref={detailsInputRef}/>
                 </label>
             </form>
             <br></br>
@@ -87,10 +96,10 @@ export default function AddAdvertPage({className, handlePages}){
             <StyledAddButton type="submit" 
                     onClick={e => {
                         e.preventDefault()
-                        handleAddAdvertForm()
-                        }}>Dodaj
+                        handleEditAdvertForm()
+                        }}>Edytuj
             </StyledAddButton>
-            {addStatus}
+            {editStatus}
         </div>
     )
 }
