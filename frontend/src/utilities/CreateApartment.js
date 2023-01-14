@@ -6,7 +6,7 @@ export function createApartment(apartmentObj, renderBool) {
       if(apartmentObj !== null){
         return apartmentObj.map(apartment => {
               return <StyledApartmentContainer price={apartment.price} city={apartment.city} street={apartment.street} images={apartment.images} 
-              description={apartment.description}  title={apartment.title} latitude={apartment.latitude} longtitude={apartment.longtitude}
+              description={apartment.description}  title={apartment.title} score={apartment.score} latitude={apartment.latitude} longtitude={apartment.longtitude}
               author={apartment.author} date={apartment.date} advertId={apartment.advertId}/>})
       }else{
         return <NoResultsPage>No results found ;(</NoResultsPage>
@@ -29,15 +29,24 @@ export function sortBy(apartmentObj, variable, descending){
       return parseFloat(a.travelTime) - parseFloat(b.travelTime);
   })
   }
+  else if(variable === 'score'){
+    apartmentObj.sort(function(a, b) {
+      return parseFloat(b.score) - parseFloat(a.score);
+  })
+  }
   return apartmentObj;
 };
 
 export function sortApartments(value, apartmentObj){
     var shallowCopyOfApartmentObj = [...apartmentObj];
-    if(value == 0){
+    if(value === 0){
       shallowCopyOfApartmentObj = sortBy(shallowCopyOfApartmentObj, 'price', false)
-    }else if(value == 1){
+    }else if(value === 1){
       shallowCopyOfApartmentObj = sortBy(shallowCopyOfApartmentObj, 'price', true)
+    }else if(value === 2){
+      shallowCopyOfApartmentObj = sortBy(shallowCopyOfApartmentObj, 'travelTime', false)
+    }else if(value === 3){
+      shallowCopyOfApartmentObj = sortBy(shallowCopyOfApartmentObj, 'score', false)
     }
     return shallowCopyOfApartmentObj
 }

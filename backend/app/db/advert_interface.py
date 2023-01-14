@@ -1,20 +1,23 @@
 '''
 Advert database structure:
 advert_id serial PRIMARY KEY,
-latitude,
-longitude,
+latitude FLOAT,
+longitude FLOAT,
 date VARCHAR,
-price,
+price FLOAT,
 author_id INT,
 description VARCHAR,
 title VARCHAR,
-images VARCHAR
+images VARCHAR[],
+address VARCHAR,
+score FLOAT
 '''
 
 
 import psycopg2
 from fastapi import APIRouter, Query, Path, Depends, Body, Form, HTTPException
 from typing import Optional, List
+import datetime
 
 from ..models import Advert, User
 from .connection import get_connection
@@ -48,6 +51,8 @@ class DBGetAdvert:
             "description": rows[0][6],
             "title": rows[0][7],
             "images": rows[0][8],
+            "address": rows[0][9],
+            "score": rows[0][10]
         })
 
         return advert
@@ -78,6 +83,8 @@ class DBGetAdvert:
             "description": row[6],
             "title": row[7],
             "images": row[8],
+            "address": row[9],
+            "score": row[10]
             })
             adverts.append(advert)
 
@@ -85,7 +92,7 @@ class DBGetAdvert:
 
 
     @get_connection
-    def get_adverts_by_author_id(cursor, current_user: User):
+    def get_adverts_by_author(cursor, current_user: User):
         '''
         Get adverts from database by author id
         '''
@@ -106,6 +113,8 @@ class DBGetAdvert:
             "description": row[6],
             "title": row[7],
             "images": row[8],
+            "address": row[9],
+            "score": row[10]
             })
             adverts.append(advert)
 
@@ -120,14 +129,19 @@ class DBEditAdvert:
         Insert new advert into database
         '''
 
-        author_id = current_user.user_id
+        if advert.author_id is None:
+            advert.author_id = current_user.user_id
+
+        if advert.date is None:
+            advert.date = datetime.date.today()
+        
 
         if advert.advert_id is None:
-            cursor.execute("INSERT INTO adverts (latitude, longitude, date, price, author_id, description, title, images) VALUES (%s, %s, %s, %s, %s, %s, %s, %s);", 
-            (advert.latitude, advert.longitude, advert.date, advert.price, author_id, advert.description, advert.title, advert.images))
+            cursor.execute("INSERT INTO adverts (latitude, longitude, date, price, author_id, description, title, images, address, score) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);", 
+            (advert.latitude, advert.longitude, advert.date, advert.price, advert.author_id, advert.description, advert.title, advert.images, advert.address, advert.score))
         else:
-            cursor.execute("INSERT INTO adverts (advert_id, latitude, longitude, date, price, author_id, description, title, images) VALUES (%s, %s, %s, %s, %s, %s, %s, %s);", 
-            (advert.advert_id, advert.latitude, advert.longitude, advert.date, advert.price, author_id, advert.description, advert.title, advert.images))        
+            cursor.execute("INSERT INTO adverts (advert_id, latitude, longitude, date, price, author_id, description, title, images, address, score) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);", 
+            (advert.advert_id, advert.latitude, advert.longitude, advert.date, advert.price, advert.author_id, advert.description, advert.title, advert.images, advert.address, advert.score))        
 
 
     @get_connection
@@ -165,5 +179,12 @@ class DBEditAdvert:
             raise HTTPException(status_code=403, detail="You are not the author of this advert")
 
 
-        cursor.execute("UPDATE adverts SET latitude = %s, longitude = %s, date = %s, price = %s, author_id = %s, description = %s, title = %s, images = %s WHERE advert_id = %s;", 
-        (advert.latitude, advert.longitude, advert.date, advert.price, author_id, advert.description, advert.title, advert.images, advert_id))
+        if advert.author_id is None:
+            advert.author_id = current_user.user_id
+
+        if advert.date is None:
+            advert.date = datetime.date.today()
+
+
+        cursor.execute("UPDATE adverts SET latitude = %s, longitude = %s, date = %s, price = %s, author_id = %s, description = %s, title = %s, images = %s, address = %s, score = %s WHERE advert_id = %s;", 
+        (advert.latitude, advert.longitude, advert.date, advert.price, author_id, advert.description, advert.title, advert.images, advert_id, advert.address, advert.score))

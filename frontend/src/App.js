@@ -113,12 +113,19 @@ function handlePages(page){
       setProfilePage(false);
       setEditPage(true);
   }
-  else{
+  else if(page === hp.Pages.renderApartments){
       setAddAdvertPage(false);
       setLoginPage(false);
       setProfilePage(false);
       setEditPage(false);
       setRenderApartments(true);
+  } 
+  else{
+      setAddAdvertPage(false);
+      setLoginPage(false);
+      setProfilePage(false);
+      setEditPage(false);
+      setRenderApartments(false);
   }
 }
 
@@ -147,7 +154,7 @@ function handleLogInOutButton(){
 function logOut(){
   setIsLoggedIn(false);
   sessionStorage.removeItem("token");
-  handlePages(hp.Pages.renderApartments);
+  handlePages(hp.Pages.plain);
 }
 // End of pages handling  
 
@@ -155,8 +162,12 @@ function logOut(){
     <AppContainer>
       <HeaderWrapper>
         <StyledHeader>
-          <Logo src={logo}></Logo>
-          <AppTitle>RentALL</AppTitle>
+          <Logo src={logo} onClick = {() => {
+            handlePages(hp.Pages.plain);
+          }}></Logo>
+          <AppTitle onClick={() => {
+            handlePages(hp.Pages.plain);
+          }}>RentALL</AppTitle>
           <ProfileButton type='submit'
                   onClick={() => {
                   if(!isLoggedIn){
@@ -216,6 +227,11 @@ function logOut(){
             <StyledSortMethodElement 
               value={2}
             >{"Czas dojazdu"}
+            </StyledSortMethodElement>
+
+            <StyledSortMethodElement 
+              value={3}
+            >{"Punkty RentALL"}
             </StyledSortMethodElement>
             
           </StyledSortMethod>

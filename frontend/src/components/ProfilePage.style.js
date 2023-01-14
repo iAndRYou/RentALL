@@ -71,10 +71,10 @@ export const StyledEditButton = styled.button`
 `;
 
 export const StyledDeleteButton = styled.button`
-    color: orangered;
+    color: red;
     background-color: transparent;
-    border: 2px solid orangered;
-    outline: 20px orangered;
+    border: 2px solid red;
+    outline: 20px red;
     border-radius: 15px;
     padding: 7px;
     margin-bottom: 10px;
@@ -87,9 +87,9 @@ export const StyledDeleteButton = styled.button`
     font-size: 18px;
 
     &:hover {
-        background-color: orangered;
+        background-color: red;
         color: white;
-        border: 2px solid orangered;
+        border: 2px solid red;
         cursor: pointer;
     }
 

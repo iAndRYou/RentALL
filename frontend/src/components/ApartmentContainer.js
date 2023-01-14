@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
-import {ApartmentInfo, DefText, BetterText, StyledImage, StyledExpandableDiv, DetailsButton, AdvertButton } from './ApartmentContainer.style'
+import {ApartmentInfo, DefText, BetterText, StyledImage, StyledExpandableDiv, DetailsButton, ScoreGraph, ScoreFill, ScoreText} from './ApartmentContainer.style'
 
-export default function ApartmentContainer({className, price, city, street, images, title, description, latitude, longtitude, author, date, advertId}) {
+export default function ApartmentContainer({className, price, city, street, images, title, description, score, latitude, longtitude, author, date, advertId}) {
    const [isOpen, setIsOpen] = useState(false)
    const [buttonText, setButtonText] = useState("Pokaż szczegóły")
    const toggle = () => {
@@ -24,13 +24,14 @@ export default function ApartmentContainer({className, price, city, street, imag
             <BetterText colour='grey'>{city}, {street}</BetterText><br></br>
             <DefText>Dojazd do:&nbsp;</DefText><BetterText colour='grey'>AGH</BetterText><br></br>
             <DefText>Środek komunikacji:&nbsp;</DefText><BetterText colour='grey'>Autobus</BetterText><br></br>
-            <DefText>Dojazd: </DefText><BetterText colour='red'>30 min</BetterText>
+            <DefText>Dojazd: </DefText>
+            <BetterText colour='red'>30 min</BetterText>         
         </ApartmentInfo>
-        <ApartmentInfo>
-            
-            
-            
-        </ApartmentInfo>
+        <ScoreGraph colour={scoreColor(score)} degree={scoreString(score)}>
+            <ScoreFill>
+               <ScoreText colour={scoreColor(score)}>{score}</ScoreText>
+            </ScoreFill>
+        </ScoreGraph>
         <div>
             <DetailsButton onClick={toggle}>{buttonText}</DetailsButton>
         </div>
@@ -47,13 +48,37 @@ export default function ApartmentContainer({className, price, city, street, imag
 //'#00cc00'
 export function changeColourDependingOnPrice(price){
    var num = Number(price);
-   if(num >= 5000){
-      return 'orangered';
-   }else if(num >= 2500){
-      return '#F28C28';
-   }else if(num >= 2000){
-      return '#FFBF00';
+   if(num >= 2000){
+      return 'red';
+   }else if(num >= 1600){
+      return 'darkorange';
+   }else if(num >= 1300){
+      return 'goldenrod';
+   }else if(num >= 1000){
+      return 'yellowgreen';
    }else{
-      return 'green';
+      return 'seagreen';
    }
+}
+
+export function scoreColor(score){
+   var num = Number(score);
+   if(num >= 90){
+      return 'seagreen';
+   }else if(num >= 70){
+      return 'yellowgreen';
+   }else if(num >= 50){
+      return 'goldenrod';
+   }else if(num >= 30){
+      return 'darkorange';
+   } else{
+      return 'red';
+   }
+}
+
+export function scoreString(score){
+   var num = Number(score);
+   num = num * 3.6;
+   var text = num.toString();
+   return text + "deg";
 }
