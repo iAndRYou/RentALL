@@ -5,8 +5,6 @@ export default function AddAdvertPage({className, handlePages}){
     const titleInputRef = useRef('')
     const cityInputRef = useRef('')
     const streetInputRef = useRef('')
-    const buildingNumberInputRef = useRef('')
-    const flatNumberInputRef = useRef('')
     const priceInputRef = useRef('')
     const detailsInputRef = useRef('')
     const imageLinkRef = useRef('')
@@ -16,18 +14,16 @@ export default function AddAdvertPage({className, handlePages}){
         const title = titleInputRef.current.value
         const city = cityInputRef.current.value
         const street = streetInputRef.current.value
-        const buildingNumber = buildingNumberInputRef.current.value
-        const flatNumber = flatNumberInputRef.current.value
         const price = priceInputRef.current.value
         const details = detailsInputRef.current.value
         const imageLink = imageLinkRef.current.value
 
-        if(title === '' || city === '' || street === '' || buildingNumber === '' || flatNumber === '' || price === '' || imageLink === ''){
+        if(title === '' || city === '' || street === '' || price === '' || imageLink === ''){
             setAddStatus('Wypełnij wszystkie pola!')
             return
         }
 
-        const adress = city + ' ' + street + ' ' + buildingNumber + ' ' + flatNumber
+        const adress = city + ', ' + street
         const newAdvert = {
             title: title,
             adress: adress,
@@ -58,23 +54,18 @@ export default function AddAdvertPage({className, handlePages}){
                 </label>
                 <StyledFormBreak></StyledFormBreak>
                 <label>
-                    Ulica:
-                    <StyledInput type="text" name="street" ref={streetInputRef}/>
+                    Adres:
+                    <StyledInput type="text" name="adress" ref={cityInputRef}/>
                 </label>
                 <StyledFormBreak></StyledFormBreak>
                 <label>
-                    Nr domu:
-                    <StyledInput type="text" name="building" ref={buildingNumberInputRef}/>
-                </label>
-                <StyledFormBreak></StyledFormBreak>
-                <label>
-                    Mieszkanie:
-                    <StyledInput type="text" name="flat" ref={flatNumberInputRef}/>
-                </label>
-                <StyledFormBreak></StyledFormBreak>
-                <label>
-                    Cena:
+                    Cena/miesiąc:
                     <StyledInput type="number" min='0' name="price" ref={priceInputRef}/>
+                </label>
+                <StyledFormBreak></StyledFormBreak>
+                <label>
+                    Link zdjęcia:
+                    <StyledInput type="text" name="link" ref={priceInputRef}/>
                 </label>
                 <StyledFormBreak></StyledFormBreak>
                 <label>

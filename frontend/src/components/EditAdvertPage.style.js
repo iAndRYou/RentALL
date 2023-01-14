@@ -162,3 +162,14 @@ export const StyledEditAdvertPage = styled(EditAdvertPage)`
     align-items: center;
     display: inline-block;
 `;
+
+export const StyledImage = styled.img`
+    width: 22.5vh;
+    height: 22.5vh;
+    padding: 15px;
+    border-radius: 45px;
+
+    &:hover {
+        cursor: default;
+    }
+`
