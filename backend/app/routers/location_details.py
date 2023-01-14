@@ -10,18 +10,18 @@ from ..models import LocationDetails
 router = APIRouter()
 
 @router.get('/location_details/{advert_id}', response_model=LocationDetails, tags=['location details'])
-async def get_location_details(advert_id: int = Path(), destination_latitude: float = Query(alias="latitude"), destination_longitude: float = Query(alias="longitude")) -> float:
+async def get_location_details(advert_id: int = Path(), destination_latitude: float = Query(alias="latitude"), destination_longitude: float = Query(alias="longitude")) -> LocationDetails:
     #TODO: get location details from Google Maps API
     
-    return round(3600*random.random(), 0) # in seconds
+    return LocationDetails(travel_time = round(3600*random.random(), 0)) # in seconds
 
-@router.post('/score/{advert_id}', response_model=int, tags=['location details'])
+@router.post('/score/{advert_id}', response_model=float, tags=['location details'])
 async def fetch_advert_score(advert_id: int = Path(), location_details: LocationDetails = Body()) -> float:
     #TODO: calculate advert score based on location details
     
     return round(100*random.random(), 0)
 
-@router.get('/coordinates')
+@router.get('/coordinates', tags=['location details'])
 async def get_coordinates(address: str = Query(default=...)):
     # gmaps.geocode(address)
     return {'latitude': 90.0, 'longitude': 100.0}

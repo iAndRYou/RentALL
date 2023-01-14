@@ -1,4 +1,5 @@
 from pydantic import BaseModel, EmailStr, Field
+import datetime
 from typing import Optional, List
 
 
@@ -9,12 +10,14 @@ class Advert(BaseModel):
     advert_id: Optional[int] = Field(default=None)
     latitude: float = Field(default=...)
     longitude: float = Field(default=...)
-    date: str = Field(default=...)
-    price: int = Field(default=...)
+    date: datetime.date = Field(default=None)
+    price: float = Field(default=...)
     author_id: int = Field(default=None)
     description: str = Field(default=...)
     title: str = Field(default=...)
-    images: str = Field(default=...)
+    images: List[str] = Field(default=...)
+    address: str = Field(default=...)
+    score: float = Field(default=None)
 
 
 class User(BaseModel):
