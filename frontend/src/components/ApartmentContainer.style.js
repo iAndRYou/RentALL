@@ -10,6 +10,7 @@ export const StyledApartmentContainer = styled(ApartmentContainer)`
     border-radius: 35px;
     font-size: larger;
     line-height: 1.1;
+    display: block;
 
     &:hover {
         cursor: default;
@@ -83,7 +84,6 @@ export const DetailsButton = styled.button`
     text-align: center;
     font-weight: 400;
     font-size: 18px;
-
     &:hover {
         background-color: transparent;
         text-decoration: underline;
@@ -101,4 +101,35 @@ export const NoResultsPage = styled.div`
     font-size: 50px;
     color: #A9A9A9;
     height: 100%;
+`;
+
+export const ScoreGraph = styled.div`
+    width: 12vh;
+    height: 12vh;
+    border-radius: 6vh;
+    background: conic-gradient( 
+        ${(props) => props.colour} ${(props) => props.degree}, #EEEEEE 0deg);
+
+    margin: 15px;
+    float: right;
+`;
+
+export const ScoreFill = styled.div`
+    width: 10vh;
+    height: 10vh;
+    border-radius: 5vh;
+    background-color: #EEEEEE;
+
+    margin: 1vh;
+    float: right;
+`;
+
+export const ScoreText = styled.p`
+    color: ${(props) => props.colour};
+    margin: 1.5vh;
+    margin-top: 2.5vh;
+
+    font-size: 4vh;
+    font-weight: 700;
+    text-align: center;
 `;

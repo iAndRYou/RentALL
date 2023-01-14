@@ -12,7 +12,8 @@ export const Pages = {
     loginPage: 1,
     profilePage: 2,
     renderApartments: 3,
-    editPage: 4
+    editPage: 4,
+    plain: 5
 }
 
 
