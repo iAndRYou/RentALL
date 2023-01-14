@@ -227,6 +227,11 @@ function logOut(){
               value={2}
             >{"Czas dojazdu"}
             </StyledSortMethodElement>
+
+            <StyledSortMethodElement 
+              value={3}
+            >{"Punkty RentALL"}
+            </StyledSortMethodElement>
             
           </StyledSortMethod>
           <StyledEnterCommute 

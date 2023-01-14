@@ -29,6 +29,11 @@ export function sortBy(apartmentObj, variable, descending){
       return parseFloat(a.travelTime) - parseFloat(b.travelTime);
   })
   }
+  else if(variable === 'score'){
+    apartmentObj.sort(function(a, b) {
+      return parseFloat(b.score) - parseFloat(a.score);
+  })
+  }
   return apartmentObj;
 };
 
@@ -38,6 +43,10 @@ export function sortApartments(value, apartmentObj){
       shallowCopyOfApartmentObj = sortBy(shallowCopyOfApartmentObj, 'price', false)
     }else if(value == 1){
       shallowCopyOfApartmentObj = sortBy(shallowCopyOfApartmentObj, 'price', true)
+    }else if(value == 2){
+      shallowCopyOfApartmentObj = sortBy(shallowCopyOfApartmentObj, 'travelTime', false)
+    }else if(value == 3){
+      shallowCopyOfApartmentObj = sortBy(shallowCopyOfApartmentObj, 'score', false)
     }
     return shallowCopyOfApartmentObj
 }
