@@ -5,6 +5,8 @@ export default function AddAdvertPage({className, handlePages}){
     const titleInputRef = useRef('')
     const cityInputRef = useRef('')
     const streetInputRef = useRef('')
+    const buildingNumberInputRef = useRef('')
+    const flatNumberInputRef = useRef('')
     const priceInputRef = useRef('')
     const detailsInputRef = useRef('')
     const imageLinkRef = useRef('')
@@ -14,16 +16,18 @@ export default function AddAdvertPage({className, handlePages}){
         var title = titleInputRef.current.value
         var city = cityInputRef.current.value
         var street = streetInputRef.current.value
+        var buildingNumber = buildingNumberInputRef.current.value
+        var flatNumber = flatNumberInputRef.current.value
         var price = priceInputRef.current.value
         var details = detailsInputRef.current.value
         var imageLink = imageLinkRef.current.value
 
-        if(title === '' || city === '' || street === '' || price === '' || imageLink === ''){
+        if(title === '' || city === '' || street === '' || buildingNumber === '' || flatNumber === '' ||  price === '' || imageLink === ''){
             setAddStatus('Wypełnij wszystkie pola!')
             return
         }
 
-        var adress = city + ', ' + street
+        var adress = city + ', ' + street + ' ' + buildingNumber + '/' + flatNumber
         const newAdvert = {
             title: title,
             adress: adress,
@@ -56,8 +60,18 @@ export default function AddAdvertPage({className, handlePages}){
                 </label>
                 <StyledFormBreak></StyledFormBreak>
                 <label>
-                    Adres:
+                    Ulica:
                     <StyledInput type="text" name="adress" ref={streetInputRef}/>
+                </label>
+                <StyledFormBreak></StyledFormBreak>
+                <label>
+                    Nr domu:
+                    <StyledInput type="text" name="adress" ref={buildingNumberInputRef}/>
+                </label>
+                <StyledFormBreak></StyledFormBreak>
+                <label>
+                    Mieszkanie:
+                    <StyledInput type="text" name="adress" ref={flatNumberInputRef}/>
                 </label>
                 <StyledFormBreak></StyledFormBreak>
                 <label>
