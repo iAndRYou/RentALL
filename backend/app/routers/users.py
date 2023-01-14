@@ -96,7 +96,7 @@ async def delete_user(user_id: int, current_user: User = Depends(decode_token)):
     Delete user from the database
     '''
 
-    user_adverts = DBGetAdvert.get_adverts_by_author_id(current_user)
+    user_adverts = DBGetAdvert.get_adverts_by_author(current_user)
     for advert in user_adverts:
         DBEditAdvert.delete_advert(advert.advert_id, current_user)
 

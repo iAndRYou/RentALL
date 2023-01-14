@@ -29,7 +29,7 @@ async def get_user_adverts(current_user: User = Depends(decode_token)):
     Get adverts of current user
     '''
 
-    return DBGetAdvert.get_adverts_by_author_id(current_user)
+    return DBGetAdvert.get_adverts_by_author(current_user)
 
 
 @router.post("/adverts", tags=['adverts'])
@@ -57,13 +57,13 @@ async def get_advert(advert_id: int = Path()):
     return advert
 
 
-@router.put("/adverts", tags=['adverts'])
-async def update_user_advert(advert: Advert = Body(), current_user: User = Depends(decode_token)):
+@router.put("/adverts/{advert_id}", tags=['adverts'])
+async def update_user_advert(advert_id: int = Path(), advert: Advert = Body(), current_user: User = Depends(decode_token)):
     '''
     Update advert in the database
     '''
     
-    DBEditAdvert.update_advert(advert.advert_id, advert)
+    DBEditAdvert.update_advert(advert_id, advert, current_user)
 
     return advert
 
