@@ -20,21 +20,21 @@ export default function EditAdvertPage({className, handlePages}){
     console.log(obj)
 
     function handleEditAdvertForm(){
-        const title = titleInputRef.current.value
-        const city = cityInputRef.current.value
-        const street = streetInputRef.current.value
-        const price = priceInputRef.current.value
-        const details = detailsInputRef.current.value
-        const imageLink = imageLinkRef.current.value
+        var title = titleInputRef.current.value
+        var city = cityInputRef.current.value
+        var street = streetInputRef.current.value
+        var price = priceInputRef.current.value
+        var details = detailsInputRef.current.value
+        var imageLink = imageLinkRef.current.value
 
         title === '' ? title = obj.title : title = title
         city === '' ? city = obj.city : city = city
         street === '' ? street = obj.street : street = street
         price === '' ? price = obj.price : price = price
-        details === '' ? details = obj.details : details = details
+        details === '' ? details = obj.description : details = details
         imageLink === '' ? imageLink = obj.images : imageLink = imageLink
 
-        const adress = city + ', ' + street
+        var adress = city + ', ' + street
         const updatedAdvert = {
             title: title,
             adress: adress,
@@ -42,6 +42,8 @@ export default function EditAdvertPage({className, handlePages}){
             details: details,
             images: imageLink
         }
+
+        console.log(updatedAdvert)
 
         var link = "http://127.0.0.1:8000/adverts"
         //fetch TODO
@@ -66,7 +68,7 @@ export default function EditAdvertPage({className, handlePages}){
                 <StyledFormBreak></StyledFormBreak>
                 <label>
                     Adres:
-                    <StyledInput type="text" name="adress" placeholder={obj.street} ref={cityInputRef}/>
+                    <StyledInput type="text" name="adress" placeholder={obj.street} ref={streetInputRef}/>
                 </label>
                 <StyledFormBreak></StyledFormBreak>
                 <label>
@@ -76,7 +78,7 @@ export default function EditAdvertPage({className, handlePages}){
                 <StyledFormBreak></StyledFormBreak>
                 <label>
                     Link zdjęcia:
-                    <StyledInput type="text" name="link" placeholder={obj.images} ref={priceInputRef}/>
+                    <StyledInput type="text" name="link" placeholder={obj.images} ref={imageLinkRef}/>
                 </label>
                 <StyledFormBreak></StyledFormBreak>
                 <label>

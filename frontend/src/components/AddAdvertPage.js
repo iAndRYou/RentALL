@@ -11,19 +11,19 @@ export default function AddAdvertPage({className, handlePages}){
     const [addStatus, setAddStatus] = React.useState('')
 
     function handleAddAdvertForm(){
-        const title = titleInputRef.current.value
-        const city = cityInputRef.current.value
-        const street = streetInputRef.current.value
-        const price = priceInputRef.current.value
-        const details = detailsInputRef.current.value
-        const imageLink = imageLinkRef.current.value
+        var title = titleInputRef.current.value
+        var city = cityInputRef.current.value
+        var street = streetInputRef.current.value
+        var price = priceInputRef.current.value
+        var details = detailsInputRef.current.value
+        var imageLink = imageLinkRef.current.value
 
         if(title === '' || city === '' || street === '' || price === '' || imageLink === ''){
             setAddStatus('Wypełnij wszystkie pola!')
             return
         }
 
-        const adress = city + ', ' + street
+        var adress = city + ', ' + street
         const newAdvert = {
             title: title,
             adress: adress,
@@ -31,6 +31,8 @@ export default function AddAdvertPage({className, handlePages}){
             details: details,
             images: imageLink
         }
+
+        console.log(newAdvert)
 
         var link = "http://127.0.0.1:8000/adverts"
         //fetch TODO
@@ -55,7 +57,7 @@ export default function AddAdvertPage({className, handlePages}){
                 <StyledFormBreak></StyledFormBreak>
                 <label>
                     Adres:
-                    <StyledInput type="text" name="adress" ref={cityInputRef}/>
+                    <StyledInput type="text" name="adress" ref={streetInputRef}/>
                 </label>
                 <StyledFormBreak></StyledFormBreak>
                 <label>
@@ -65,7 +67,7 @@ export default function AddAdvertPage({className, handlePages}){
                 <StyledFormBreak></StyledFormBreak>
                 <label>
                     Link zdjęcia:
-                    <StyledInput type="text" name="link" ref={priceInputRef}/>
+                    <StyledInput type="text" name="link" ref={imageLinkRef}/>
                 </label>
                 <StyledFormBreak></StyledFormBreak>
                 <label>
