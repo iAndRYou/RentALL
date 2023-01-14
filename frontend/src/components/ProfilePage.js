@@ -2,18 +2,49 @@ import React from 'react'
 import { StyledUserAdvert, StyledDeleteButton, StyledEditButton, StyledImageProfile } from "../components/ProfilePage.style";
 import exampleApartments from './exampleApartments.json';
 import { Pages } from '../utilities/HandlePages';
-
 export default function ProfilePage({className, handlePages}){
     const [userAdverts, setUserAdverts] = React.useState([])
+    
 
 
-    function getUserAdverts(debug){
-        //fetch user adverts
+    function fetchAdverts(debug){
         console.log("Fetching user adverts")
-        if(debug && userAdverts.length === 0){
+
+        //debug
+        if(debug){
             setUserAdverts(exampleApartments)
+            return
         }
 
+        var link = "http://127.0.0.1:8000/adverts/me"
+        fetch(link,  {
+            method: 'GET',
+            mode: 'cors',
+            headers: {
+                "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+                "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
+                "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With, append,delete,entries,foreach,get,has,keys,set,values",
+                "Content-Type": "application/json",
+                "Authorization": sessionStorage.getItem("token_type") + " " + sessionStorage.getItem('token')
+        }})
+        .then((response) => {
+            if(response.ok) {
+              console.log('Everything went ok: ' + response.status)
+              return response.json()
+            }else{
+              throw new Error('Something went wrong ... \n' + response.status);
+            }
+          }
+          )
+        .then((data) => {
+            console.log(data);
+            setUserAdverts(data)
+       })
+       .catch((err) => {
+          console.log(err.message);
+       });
+    }
+    function getUserAdverts(debug){
         if(userAdverts.length === 0){
             console.log("No user adverts")
             return(
@@ -62,14 +93,16 @@ export default function ProfilePage({className, handlePages}){
             )
         })
     }
-
     return(
         <div className={className}>
             <div>
                 <h1 color='gray'>Twoje ogłoszenia</h1>
             </div>
-            {getUserAdverts(true/*debug*/)}
+            <StyledEditButton onClick={e => {
+                        e.preventDefault()
+                        fetchAdverts(false)
+                        }}>Twoje ogłoszenia</StyledEditButton>
+            {getUserAdverts(true)}
         </div>
     )
-
 }

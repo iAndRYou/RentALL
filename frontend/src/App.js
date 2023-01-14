@@ -21,6 +21,7 @@ function App() {
   const [posts, setPosts] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
  
+ 
 
   async function getApartmentsJson(lowerPrice, upperPrice, city, commute, debug) {
     handlePages(hp.Pages.renderApartments);

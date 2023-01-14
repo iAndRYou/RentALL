@@ -31,10 +31,10 @@ export default function AddAdvertPage({className, handlePages}){
         var address = city + ', ' + street + ' ' + buildingNumber + '/' + flatNumber
         const newAdvert = {
             title: title,
-            //address: address,
+            address: address,
             price: parseFloat(price),
             description: details,
-            images: imageLink,
+            images: [imageLink],
             latitude: '',
             longitude: ''
         }
@@ -72,7 +72,7 @@ export default function AddAdvertPage({className, handlePages}){
     }
 
     function addAdvert(newAdvert){
-        newAdvert.date = "2020-12-12"
+        newAdvert.score = 69
         var link = "http://127.0.0.1:8000/adverts"
         fetch (link, {
             method: 'POST',
