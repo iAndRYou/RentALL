@@ -1,3 +1,15 @@
+'''
+Advert database structure:
+advert_id serial PRIMARY KEY,
+latitude,
+longitude,
+date VARCHAR,
+author_id INT,
+description VARCHAR,
+title VARCHAR,
+images VARCHAR
+'''
+
 
 import psycopg2
 from fastapi import APIRouter, Query, Path, Depends, Body, Form, HTTPException
@@ -69,6 +81,7 @@ class DBGetAdvert:
 
         return adverts
 
+
     @get_connection
     def get_adverts_by_author(cursor, current_user: User):
         '''
@@ -101,6 +114,10 @@ class DBEditAdvert:
 
     @get_connection
     def add_advert(cursor, advert: Advert, current_user: User) -> None:
+        '''
+        Insert new advert into database
+        '''
+
         author_id = current_user.user_id
 
         if advert.advert_id is None:
@@ -110,8 +127,13 @@ class DBEditAdvert:
             cursor.execute("INSERT INTO adverts (advert_id, latitude, longitude, date, price, author_id, description, title, images) VALUES (%s, %s, %s, %s, %s, %s, %s, %s);", 
             (advert.advert_id, advert.latitude, advert.longitude, advert.date, advert.price, author_id, advert.description, advert.title, advert.images))        
 
+
     @get_connection
     def delete_advert(cursor, advert_id: int, current_user: User) -> None:
+        '''
+        Delete advert from database
+        '''
+
         cursor.execute("SELECT * FROM adverts WHERE advert_id = %s;", (advert_id,))
         rows = cursor.fetchall()
         if len(rows) == 0:
@@ -124,8 +146,13 @@ class DBEditAdvert:
 
         cursor.execute("DELETE FROM adverts WHERE advert_id = %s;", (advert_id,))
 
+
     @get_connection
     def update_advert(cursor, advert_id: int, advert: Advert, current_user: User) -> None:
+        '''
+        Update advert in database
+        '''
+
         cursor.execute("SELECT * FROM adverts WHERE advert_id = %s;", (advert_id,))
         rows = cursor.fetchall()
         if len(rows) == 0:

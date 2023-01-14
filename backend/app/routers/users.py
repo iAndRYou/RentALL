@@ -3,7 +3,7 @@ from fastapi.security import OAuth2PasswordRequestForm
 
 from ..models import User, UserRegister, UserInDB, Token
 from ..auth.jwt_handler import pwd_context, create_access_token, decode_token, oauth2_scheme, get_password_hash, verify_password, authenticate_user
-from ..db.user_interface import DBGetUser, DBAddUser
+from ..db.user_interface import DBGetUser, DBEditUser
 
 
 router = APIRouter()
@@ -34,7 +34,7 @@ async def register_user(new_user: UserRegister = Body()):
     if user:
         raise HTTPException(status_code=400, detail="Email already registered")
     user = UserInDB(fullname= new_user.fullname, email=new_user.email, password_hash=get_password_hash(new_user.password), phone_number=new_user.phone_number)
-    DBAddUser.add_user(user)
+    DBEditUser.add_user(user)
     return user
 
 
@@ -62,7 +62,6 @@ async def get_user(user_id: int = Path()):
     return user
 
 
-# get user by email
 @router.get('/users/email/{email}', response_model=User, tags=['users'])
 async def get_user_by_email(email: str = Path(..., title="The email of the user to get", min_length=3, max_length=50)):
     '''
@@ -85,4 +84,14 @@ async def get_current_user(current_user: User = Depends(decode_token)):
     
     return current_user
 
+
+@router.delete("/users/{user_id}", tags=['users'])
+async def delete_user(user_id: int, current_user: User = Depends(decode_token)):
+    '''
+    Delete user from the database
+    '''
+
+    DBEditUser.delete_user(user_id, current_user)
+
+    return {"message": "User deleted successfully"}
 

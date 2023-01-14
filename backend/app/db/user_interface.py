@@ -1,3 +1,13 @@
+'''
+User database structure:
+user_id serial PRIMARY KEY,
+email VARCHAR,
+fullname VARCHAR,
+phone_number VARCHAR,
+password_hash VARCHAR
+'''
+
+
 import psycopg2
 from fastapi import APIRouter, Query, Path, Depends, Body, Form, HTTPException
 from typing import Optional
@@ -10,14 +20,6 @@ class DBGetUser:
     '''
     Class for getting users from database
     '''
-
-    # User database structure:
-    # user_id serial PRIMARY KEY,
-    # email VARCHAR,
-    # fullname VARCHAR,
-    # phone_number VARCHAR,
-    # password_hash VARCHAR
-
 
     @get_connection
     def get_user_by_id(cursor, user_id: int) -> Optional[User]:
@@ -39,6 +41,7 @@ class DBGetUser:
 
         return user
 
+
     @get_connection
     def get_user_by_email(cursor, email: str) -> Optional[User]:
         '''
@@ -58,6 +61,7 @@ class DBGetUser:
         })
 
         return user
+
 
     @get_connection
     def get_dbuser_by_email(cursor, email: str) -> Optional[UserInDB]:
@@ -80,6 +84,7 @@ class DBGetUser:
 
         return user
 
+
     @get_connection
     def get_user_by_phone(cursor, phone: str) -> Optional[User]:
         '''
@@ -100,6 +105,7 @@ class DBGetUser:
 
         return user
     
+
     @get_connection
     def get_all_users(cursor) -> list[User]:
         '''
@@ -122,9 +128,9 @@ class DBGetUser:
         
     
 
-class DBAddUser:
+class DBEditUser:
     '''
-    Class for adding users to database
+    Class for adding and deleting users in database
     '''
 
     @get_connection
@@ -134,3 +140,15 @@ class DBAddUser:
         '''
 
         cursor.execute("INSERT INTO users (email, fullname, phone_number, password_hash) VALUES (%s, %s, %s, %s);", (user.email, user.fullname, user.phone_number, user.password_hash))
+
+
+    @get_connection
+    def delete_user(cursor, user_id: int, current_user: User) -> None:
+        '''
+        Delete user from database
+        '''
+
+        if current_user.user_id != user_id:
+            raise HTTPException(status_code=403, detail="You cannot delete other users")
+
+        cursor.execute("DELETE FROM users WHERE user_id = %s;", (user_id,))

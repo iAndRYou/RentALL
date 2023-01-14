@@ -1,6 +1,6 @@
 class DatabaseDetails():
     '''
-    Class to store database details
+    Class to store database connection details
     '''
 
     host = "rentall.postgres.database.azure.com"

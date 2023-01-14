@@ -25,12 +25,14 @@ class User(BaseModel):
 
 
 class UserRegister(BaseModel):
+    '''User model for register purposes'''
     fullname: str = Field(default=...)
     phone_number: str = Field(default=...)
     email: EmailStr = Field(default=...)
     password: str = Field(default=...)
 
 class UserInDB(User):
+    '''User in database'''
     password_hash: str = Field(default=...)
 
 
