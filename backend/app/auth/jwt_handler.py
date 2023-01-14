@@ -55,12 +55,12 @@ def authenticate_user(email: str, password: str) -> UserInDB:
     Authenticate user by email and password
     '''
     
-    user = DBGetUser.get_user_by_email(email)
-    if not user: # no user was found with that email
+    dbuser = DBGetUser.get_dbuser_by_email(email)
+    if dbuser is None: # no user was found with that email
         return False
-    if not verify_password(password, user.password_hash): # password hashes don't match
+    if not verify_password(password, dbuser.password_hash): # password hashes don't match
         return False
-    return user
+    return dbuser
 
 
 def get_password_hash(password):

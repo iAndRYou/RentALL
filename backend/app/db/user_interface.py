@@ -32,7 +32,7 @@ def get_connection(func):
         cursor.close()
         conn.close()
         return result
-        
+
     return wrapper
 
 class DBGetUser:
