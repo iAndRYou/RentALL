@@ -1,12 +1,10 @@
-import {StyledInput, StyledAddButton, StyledFormBreak, StyledTextArea} from './EditAdvertPage.style'
-import React, { useRef } from 'react'
+import {StyledInput, StyledAddButton, StyledFormBreak, StyledTextArea, StyledImage} from './EditAdvertPage.style'
+import React, { useRef, useState } from 'react'
 import {Pages} from '../utilities/HandlePages.js'
 export default function EditAdvertPage({className, handlePages}){
     const titleInputRef = useRef('')
     const cityInputRef = useRef('')
     const streetInputRef = useRef('')
-    const buildingNumberInputRef = useRef('')
-    const flatNumberInputRef = useRef('')
     const priceInputRef = useRef('')
     const detailsInputRef = useRef('')
     const imageLinkRef = useRef('')
@@ -22,21 +20,21 @@ export default function EditAdvertPage({className, handlePages}){
     console.log(obj)
 
     function handleEditAdvertForm(){
-        const title = titleInputRef.current.value
-        const city = cityInputRef.current.value
-        const street = streetInputRef.current.value
-        const buildingNumber = buildingNumberInputRef.current.value
-        const flatNumber = flatNumberInputRef.current.value
-        const price = priceInputRef.current.value
-        const details = detailsInputRef.current.value
-        const imageLink = imageLinkRef.current.value
+        var title = titleInputRef.current.value
+        var city = cityInputRef.current.value
+        var street = streetInputRef.current.value
+        var price = priceInputRef.current.value
+        var details = detailsInputRef.current.value
+        var imageLink = imageLinkRef.current.value
 
-        if(title === '' || city === '' || street === '' || buildingNumber === '' || flatNumber === '' || price === '' || imageLink === ''){
-            setEditStatus('Wypełnij wszystkie pola!')
-            return
-        }
+        title === '' ? title = obj.title : title = title
+        city === '' ? city = obj.city : city = city
+        street === '' ? street = obj.street : street = street
+        price === '' ? price = obj.price : price = price
+        details === '' ? details = obj.description : details = details
+        imageLink === '' ? imageLink = obj.images : imageLink = imageLink
 
-        const adress = city + ' ' + street + ' ' + buildingNumber + ' ' + flatNumber
+        var adress = city + ', ' + street
         const updatedAdvert = {
             title: title,
             adress: adress,
@@ -44,6 +42,8 @@ export default function EditAdvertPage({className, handlePages}){
             details: details,
             images: imageLink
         }
+
+        console.log(updatedAdvert)
 
         var link = "http://127.0.0.1:8000/adverts"
         //fetch TODO
@@ -58,37 +58,38 @@ export default function EditAdvertPage({className, handlePages}){
             <form>
                 <label>
                     Tytuł ogłoszenia:
-                    <StyledInput type="text" name="title" value={obj.title} ref={titleInputRef}/>
+                    <StyledInput type="text" name="title" placeholder={obj.title} ref={titleInputRef}/>
                 </label>
                 <StyledFormBreak></StyledFormBreak>
                 <label>
                     Miasto:
-                    <StyledInput type="text" name="city" value={obj.city} ref={cityInputRef}/>
+                    <StyledInput type="text" name="city" placeholder={obj.city} ref={cityInputRef}/>
                 </label>
                 <StyledFormBreak></StyledFormBreak>
                 <label>
-                    Ulica:
-                    <StyledInput type="text" name="street" value={obj.street} ref={streetInputRef}/>
+                    Adres:
+                    <StyledInput type="text" name="adress" placeholder={obj.street} ref={streetInputRef}/>
                 </label>
                 <StyledFormBreak></StyledFormBreak>
                 <label>
-                    Nr domu:
-                    <StyledInput type="text" name="building" ref={buildingNumberInputRef}/>
+                    Cena/miesiąc:
+                    <StyledInput type="number" min='0' name="price" placeholder={obj.price} ref={priceInputRef}/>
                 </label>
                 <StyledFormBreak></StyledFormBreak>
                 <label>
-                    Mieszkanie:
-                    <StyledInput type="text" name="flat" ref={flatNumberInputRef}/>
+                    Link zdjęcia:
+                    <StyledInput type="text" name="link" placeholder={obj.images} ref={imageLinkRef}/>
                 </label>
                 <StyledFormBreak></StyledFormBreak>
                 <label>
-                    Cena:
-                    <StyledInput type="number" min='0' name="price" value={obj.price} ref={priceInputRef}/>
+                    Obecne zdjęcie:
+                    <StyledFormBreak></StyledFormBreak>
+                    <StyledImage src={obj.images}></StyledImage>
                 </label>
                 <StyledFormBreak></StyledFormBreak>
                 <label>
                     Opis:
-                    <StyledTextArea type="text" name="password" value={obj.description} ref={detailsInputRef}/>
+                    <StyledTextArea type="text" name="password" placeholder={obj.description} ref={detailsInputRef}/>
                 </label>
             </form>
             <br></br>

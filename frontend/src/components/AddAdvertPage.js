@@ -13,33 +13,96 @@ export default function AddAdvertPage({className, handlePages}){
     const [addStatus, setAddStatus] = React.useState('')
 
     function handleAddAdvertForm(){
-        const title = titleInputRef.current.value
-        const city = cityInputRef.current.value
-        const street = streetInputRef.current.value
-        const buildingNumber = buildingNumberInputRef.current.value
-        const flatNumber = flatNumberInputRef.current.value
-        const price = priceInputRef.current.value
-        const details = detailsInputRef.current.value
-        const imageLink = imageLinkRef.current.value
+        var title = titleInputRef.current.value
+        var city = cityInputRef.current.value
+        var street = streetInputRef.current.value
+        var buildingNumber = buildingNumberInputRef.current.value
+        var flatNumber = flatNumberInputRef.current.value
+        var price = priceInputRef.current.value
+        var details = detailsInputRef.current.value
+        var imageLink = imageLinkRef.current.value
+        var coordinates = ''
 
-        if(title === '' || city === '' || street === '' || buildingNumber === '' || flatNumber === '' || price === '' || imageLink === ''){
+        if(title === '' || city === '' || street === '' || buildingNumber === '' || flatNumber === '' ||  price === '' || imageLink === ''){
             setAddStatus('Wypełnij wszystkie pola!')
             return
         }
 
-        const adress = city + ' ' + street + ' ' + buildingNumber + ' ' + flatNumber
+        var address = city + ', ' + street + ' ' + buildingNumber + '/' + flatNumber
         const newAdvert = {
             title: title,
-            adress: adress,
-            price: price,
-            details: details,
-            images: imageLink
+            //address: address,
+            price: parseFloat(price),
+            description: details,
+            images: imageLink,
+            latitude: '',
+            longitude: ''
         }
 
-        var link = "http://127.0.0.1:8000/adverts"
-        //fetch TODO
+        console.log(newAdvert)
+        var link = "http://127.0.0.1:8000/coordinates?address=" + address
+        fetch(link)
+        .then((response) => {
+            if(response.ok) {
+              console.log('Everything went ok: ' + response.status)
+              return response.json()
+            }else{
+              throw new Error('Something went wrong ... \n' + response.status);
+            }
+          }
+          )
+        .then((data) => {
+          console.log(data);
+          coordinates = data
+          if(coordinates === ''){
+            setAddStatus('Niepoprawny adres!')
+            throw new Error('Couldnt fetch coordinates ... \n');
+          }
+          else{
+                newAdvert['latitude'] = coordinates['latitude']
+                newAdvert['longitude'] = coordinates['longitude']
+                console.log(newAdvert)
+                addAdvert(newAdvert)
+           }
+       })
+       .catch((err) => {
+          console.log(err.message);
+       });
 
-        handlePages(Pages.renderApartments)
+    }
+
+    function addAdvert(newAdvert){
+        newAdvert.date = "2020-12-12"
+        var link = "http://127.0.0.1:8000/adverts"
+        fetch (link, {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+                "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
+                "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With, append,delete,entries,foreach,get,has,keys,set,values",
+                "Content-Type": "application/json",
+                "Authorization": sessionStorage.getItem("token_type") + " " + sessionStorage.getItem('token')
+        },
+            body: JSON.stringify(newAdvert)
+        }).then((response) => {
+            if(response.ok) {
+              console.log('Everything went ok: ' + response.status)
+              return response.json()
+            }else{
+              throw new Error('Something went wrong with adding the advert... \n' + response.status);
+            }
+          }
+          )
+        .then((data) => {
+            console.log(data);
+            setAddStatus('Dodanie powiodło się!')
+       })
+       .catch((err) => {
+            console.log(err.message);
+            setAddStatus('Dodanie mieszkania nie powiodło się!')
+       });
+       handlePages(Pages.renderApartments)
     }
 
     return(
@@ -59,22 +122,27 @@ export default function AddAdvertPage({className, handlePages}){
                 <StyledFormBreak></StyledFormBreak>
                 <label>
                     Ulica:
-                    <StyledInput type="text" name="street" ref={streetInputRef}/>
+                    <StyledInput type="text" name="address" ref={streetInputRef}/>
                 </label>
                 <StyledFormBreak></StyledFormBreak>
                 <label>
                     Nr domu:
-                    <StyledInput type="text" name="building" ref={buildingNumberInputRef}/>
+                    <StyledInput type="text" name="address" ref={buildingNumberInputRef}/>
                 </label>
                 <StyledFormBreak></StyledFormBreak>
                 <label>
                     Mieszkanie:
-                    <StyledInput type="text" name="flat" ref={flatNumberInputRef}/>
+                    <StyledInput type="text" name="address" ref={flatNumberInputRef}/>
                 </label>
                 <StyledFormBreak></StyledFormBreak>
                 <label>
-                    Cena:
+                    Cena/miesiąc:
                     <StyledInput type="number" min='0' name="price" ref={priceInputRef}/>
+                </label>
+                <StyledFormBreak></StyledFormBreak>
+                <label>
+                    Link zdjęcia:
+                    <StyledInput type="text" name="link" ref={imageLinkRef}/>
                 </label>
                 <StyledFormBreak></StyledFormBreak>
                 <label>

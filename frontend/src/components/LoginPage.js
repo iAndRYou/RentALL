@@ -51,7 +51,9 @@ export default function LoginPage({className, handlePages, setIsLoggedIn}){
         .then((data) => {
             console.log(data);
             sessionStorage.setItem('token', data.access_token)
+            sessionStorage.setItem('token_type', data.token_type)
             console.log(sessionStorage.getItem('token'))
+            console.log(sessionStorage.getItem('token_type'))
             setLoginStatus('Logowanie powiodło się!')
             setIsLoggedIn(true)
             handlePages(Pages.renderApartments)
