@@ -4,6 +4,7 @@ advert_id serial PRIMARY KEY,
 latitude,
 longitude,
 date VARCHAR,
+price,
 author_id INT,
 description VARCHAR,
 title VARCHAR,
@@ -36,6 +37,7 @@ class DBGetAdvert:
         if len(rows) == 0:
             return None
             # raise HTTPException(status_code=404, detail="Advert not found")
+        print(rows)
         advert = Advert(**{
             "advert_id": rows[0][0],
             "latitude": rows[0][1],
@@ -83,7 +85,7 @@ class DBGetAdvert:
 
 
     @get_connection
-    def get_adverts_by_author(cursor, current_user: User):
+    def get_adverts_by_author_id(cursor, current_user: User):
         '''
         Get adverts from database by author id
         '''

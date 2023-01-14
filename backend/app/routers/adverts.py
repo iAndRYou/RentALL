@@ -23,13 +23,13 @@ async def get_adverts(lower_price_bound: float = Query(default=None), upper_pric
         return DBGetAdvert.get_adverts_in_given_price(lower_price_bound, upper_price_bound)
 
 
-@router.get("/adverts", response_model=List[Advert], tags=['adverts'])
+@router.get("/adverts/me", response_model=List[Advert], tags=['adverts'])
 async def get_user_adverts(current_user: User = Depends(decode_token)):
     '''
     Get adverts of current user
     '''
 
-    return DBGetAdvert.get_adverts_by_author(current_user)
+    return DBGetAdvert.get_adverts_by_author_id(current_user)
 
 
 @router.post("/adverts", tags=['adverts'])
@@ -38,12 +38,12 @@ async def post_advert(advert: Advert, current_user: User = Depends(decode_token)
     Post new advert
     '''
 
-    DBEditAdvert.add_advert(advert)
+    DBEditAdvert.add_advert(advert, current_user)
 
     return {"message": "Advert added successfully"}
     
 
-@router.get("/adverts/{advert_id}", response_model = Advert, tags=['adverts'])
+@router.get("/adverts/{advert_id}", response_model=Advert, tags=['adverts'])
 async def get_advert(advert_id: int = Path()):
     '''
     Get advert by id
@@ -53,6 +53,8 @@ async def get_advert(advert_id: int = Path()):
 
     if advert is None:
         raise HTTPException(status_code=404, detail="Advert not found")
+
+    return advert
 
 
 @router.put("/adverts", tags=['adverts'])

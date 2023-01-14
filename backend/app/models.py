@@ -11,7 +11,7 @@ class Advert(BaseModel):
     longitude: float = Field(default=...)
     date: str = Field(default=...)
     price: int = Field(default=...)
-    author_id: int = Field(default=...)
+    author_id: int = Field(default=None)
     description: str = Field(default=...)
     title: str = Field(default=...)
     images: str = Field(default=...)
