@@ -140,7 +140,7 @@ class DBEditAdvert:
         rows = cursor.fetchall()
         if len(rows) == 0:
             raise HTTPException(status_code=404, detail="Advert not found")
-        author_id = rows[0][4]
+        author_id = int(rows[0][5])
 
         if current_user.user_id != author_id:
             raise HTTPException(status_code=403, detail="You are not the author of this advert")
@@ -159,7 +159,7 @@ class DBEditAdvert:
         rows = cursor.fetchall()
         if len(rows) == 0:
             raise HTTPException(status_code=404, detail="Advert not found")
-        author_id = rows[0][4]
+        author_id = int(rows[0][5])
 
         if current_user.user_id != author_id:
             raise HTTPException(status_code=403, detail="You are not the author of this advert")
