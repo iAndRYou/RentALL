@@ -24,6 +24,20 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
     return {"access_token": access_token, "token_type": "bearer"}
 
 
+@router.post('/register', tags=['users'])
+async def register_user(new_user: UserRegister = Body()):
+    '''
+    Register a new user
+    '''
+    
+    user = DBGetUser.get_user_by_email(new_user.email)
+    if user:
+        raise HTTPException(status_code=400, detail="Email already registered")
+    user = UserInDB(fullname= new_user.fullname, email=new_user.email, password_hash=get_password_hash(new_user.password), phone_number=new_user.phone_number)
+    DBAddUser.add_user(user)
+    return user
+
+
 # get all users
 @router.get('/users', response_model=list[User])
 async def get_users():
@@ -47,6 +61,7 @@ async def get_user(user_id: int = Path()):
     
     return user
 
+
 # get user by email
 @router.get('/users/email/{email}', response_model=User, tags=['users'])
 async def get_user_by_email(email: str = Path(..., title="The email of the user to get", min_length=3, max_length=50)):
@@ -62,8 +77,6 @@ async def get_user_by_email(email: str = Path(..., title="The email of the user 
     return user
 
 
-
-
 @router.get('/users/me', response_model=User, tags=['users'])
 async def get_current_user(current_user: User = Depends(decode_token)):
     '''
@@ -73,15 +86,3 @@ async def get_current_user(current_user: User = Depends(decode_token)):
     return current_user
 
 
-@router.post('/register', tags=['users'])
-async def register_user(new_user: UserRegister = Body()):
-    '''
-    Register a new user
-    '''
-    
-    user = DBGetUser.get_user_by_email(new_user.email)
-    if user:
-        raise HTTPException(status_code=400, detail="Email already registered")
-    user = UserInDB(fullname= new_user.fullname, email=new_user.email, password_hash=get_password_hash(new_user.password), phone_number=new_user.phone_number)
-    DBAddUser.add_user(user)
-    return user

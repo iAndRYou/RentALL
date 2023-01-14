@@ -8,7 +8,6 @@ from ..auth.jwt_handler import decode_token
 router = APIRouter()
 
 
-#TODO:
 @router.get("/adverts", response_model=List[Advert], tags=['adverts'])
 async def get_adverts(lower_price_bound: float = Query(default=None), upper_price_bound: float = Query(default=None)):
     if lower_price_bound is None and upper_price_bound is None:

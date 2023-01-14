@@ -1,39 +1,10 @@
 import psycopg2
 from fastapi import APIRouter, Query, Path, Depends, Body, Form, HTTPException
 from typing import Optional
+
 from ..models import User, UserInDB
+from .connection import get_connection
 
-
-class DatabaseDetails():
-    '''
-    Class to store database details
-    '''
-
-    host = "rentall.postgres.database.azure.com"
-    dbname = "postgres"
-    user = "Kryson354@rentall"
-    password = "Rentall!"
-    sslmode = "require"
-
-db = DatabaseDetails()
-conn_string = "host={0} user={1} dbname={2} password={3} sslmode={4}".format(db.host, db.user, db.dbname, db.password, db.sslmode)
-
-
-def get_connection(func):
-    '''
-    Decorator for getting connection to database
-    '''
-    
-    def wrapper(*args, **kwargs):
-        conn = psycopg2.connect(conn_string)
-        cursor = conn.cursor()
-        result = func(cursor, *args, **kwargs)
-        conn.commit()
-        cursor.close()
-        conn.close()
-        return result
-
-    return wrapper
 
 class DBGetUser:
     '''
