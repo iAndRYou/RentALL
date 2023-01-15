@@ -67,6 +67,7 @@ function App() {
   //handles sorting of the json array
   function handleSortApartment(sorting_method){
     var copy = sortApartments(sorting_method, posts)
+    console.log(copy)
     setPosts(copy)
   }
 
