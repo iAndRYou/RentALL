@@ -172,10 +172,10 @@ class DBEditAdvert:
         rows = cursor.fetchall()
         if len(rows) == 0:
             raise HTTPException(status_code=404, detail="Advert not found")
-        old_latitude = int(rows[0][1])
-        old_longitude = int(rows[0][2])
+        old_latitude = float(rows[0][1])
+        old_longitude = float(rows[0][2])
         author_id = int(rows[0][5])
-        old_address = int(rows[0][9])
+        old_address = rows[0][9]
 
         if current_user.user_id != author_id:
             raise HTTPException(status_code=403, detail="You are not the author of this advert")
