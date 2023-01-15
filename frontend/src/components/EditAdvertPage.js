@@ -41,39 +41,11 @@ export default function EditAdvertPage({className, handlePages}){
 
         console.log(updatedAdvert)
 
-        var link = "http://127.0.0.1:8000/coordinates?address=" + address
-        fetch(link)
-        .then((response) => {
-            if(response.ok) {
-              console.log('Everything went ok: ' + response.status)
-              return response.json()
-            }else{
-              throw new Error('Something went wrong ... \n' + response.status);
-            }
-          }
-          )
-        .then((data) => {
-          console.log(data);
-          coordinates = data
-          if(coordinates === ''){
-            setEditStatus('Niepoprawny adres!')
-            throw new Error('Couldnt fetch coordinates ... \n');
-          }
-          else{
-                updatedAdvert['latitude'] = coordinates['latitude']
-                updatedAdvert['longitude'] = coordinates['longitude']
-                console.log(updatedAdvert)
-                updateAdvert(updatedAdvert)
-           }
-       })
-       .catch((err) => {
-          console.log(err.message);
-       });
+        updateAdvert(updatedAdvert)
 
     }
 
     function updateAdvert(newAdvert){
-        newAdvert.score = 12
         var link = "http://127.0.0.1:8000/adverts/" + obj.advert_id
         fetch (link, {
             method: 'PUT',

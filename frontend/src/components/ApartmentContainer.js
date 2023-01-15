@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {ApartmentInfo, DefText, BetterText, StyledImage, StyledExpandableDiv, DetailsButton, ScoreGraph, ScoreFill, ScoreText} from './ApartmentContainer.style'
 
-export default function ApartmentContainer({className, price, city, street, images, title, description, score, latitude, longtitude, author, date, advertId}) {
+export default function ApartmentContainer({className, price, address, images, title, description, score, travel_time, author, date, advertId}) {
    const [isOpen, setIsOpen] = useState(false)
    const [buttonText, setButtonText] = useState("Pokaż szczegóły")
    const toggle = () => {
@@ -21,11 +21,11 @@ export default function ApartmentContainer({className, price, city, street, imag
             <DefText>Cena:&nbsp;</DefText>
             <BetterText colour={changeColourDependingOnPrice(price)}>{price}&nbsp;zł / miesiąc</BetterText><br></br>
             <DefText>Lokalizacja:&nbsp;</DefText>
-            <BetterText colour='grey'>{city}, {street}</BetterText><br></br>
-            <DefText>Dojazd do:&nbsp;</DefText><BetterText colour='grey'>AGH</BetterText><br></br>
-            <DefText>Środek komunikacji:&nbsp;</DefText><BetterText colour='grey'>Autobus</BetterText><br></br>
-            <DefText>Dojazd: </DefText>
-            <BetterText colour='red'>30 min</BetterText>         
+            <BetterText colour='grey'>{address}</BetterText><br></br>
+            {/*<DefText>Dojazd do:&nbsp;</DefText><BetterText colour='grey'>AGH</BetterText><br></br>*/}
+            {/*<DefText>Środek komunikacji:&nbsp;</DefText><BetterText colour='grey'>Autobus</BetterText><br></br>*/}
+            <DefText>Dojazd komunikacją miejską: </DefText>
+            <BetterText colour='red'>{travel_time}</BetterText>         
         </ApartmentInfo>
         <ScoreGraph colour={scoreColor(score)} degree={scoreString(score)}>
             <ScoreFill>

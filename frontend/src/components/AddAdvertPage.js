@@ -35,44 +35,14 @@ export default function AddAdvertPage({className, handlePages}){
             price: parseFloat(price),
             description: details,
             images: [imageLink],
-            latitude: '',
-            longitude: ''
         }
 
         console.log(newAdvert)
-        var link = "http://127.0.0.1:8000/coordinates?address=" + address
-        fetch(link)
-        .then((response) => {
-            if(response.ok) {
-              console.log('Everything went ok: ' + response.status)
-              return response.json()
-            }else{
-              throw new Error('Something went wrong ... \n' + response.status);
-            }
-          }
-          )
-        .then((data) => {
-          console.log(data);
-          coordinates = data
-          if(coordinates === ''){
-            setAddStatus('Niepoprawny adres!')
-            throw new Error('Couldnt fetch coordinates ... \n');
-          }
-          else{
-                newAdvert['latitude'] = coordinates['latitude']
-                newAdvert['longitude'] = coordinates['longitude']
-                console.log(newAdvert)
-                addAdvert(newAdvert)
-           }
-       })
-       .catch((err) => {
-          console.log(err.message);
-       });
+        addAdvert(newAdvert)
 
     }
 
     function addAdvert(newAdvert){
-        newAdvert.score = 12
         var link = "http://127.0.0.1:8000/adverts"
         fetch (link, {
             method: 'POST',

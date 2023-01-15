@@ -27,8 +27,11 @@ function App() {
     handlePages(hp.Pages.renderApartments);
     if(lowerPrice === ""){lowerPrice = "0.0"}
     if(upperPrice === ""){upperPrice = "99999999.0"}
+    if(city !== ""){city = city +",+"}
+
     // TODO: Make a call to the backend to get the apartments
-    var link = 'http://127.0.0.1:8000/adverts?lower_price_bound='+lowerPrice+'&upper_price_bound='+upperPrice;
+    var link = 'http://127.0.0.1:8000/adverts?lower_price_bound='+lowerPrice+'&upper_price_bound='+upperPrice+'&address='+city+commute;
+    console.log(link);
     await fetch(link)
         .then((response) => {
             if(response.ok) {
@@ -54,8 +57,8 @@ function App() {
 
     setLowerPrice('');
     setUpperPrice('');
-    setCity('');
-    setCommute('');
+    //setCity('');
+    //setCommute('');
     // TODO: Return apartments got from the backend
     return null;
   }
@@ -67,12 +70,7 @@ function App() {
     setPosts(copy)
   }
 
-  //creates new apartment in backend
-  function handleAddAdvert(price, details, city, commute, image) {
-     // call to backend to add the advert
-
-    handlePages(hp.Pages.renderApartments);
-  }
+  
 
   // all the pages boolean variables
   const [addAdvertPage, setAddAdvertPage] = useState(false);
