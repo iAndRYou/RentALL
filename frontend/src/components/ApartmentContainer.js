@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
-import {ApartmentInfo, DefText, BetterText, StyledImage, StyledExpandableDiv, DetailsButton, ScoreGraph, ScoreFill, ScoreText} from './ApartmentContainer.style'
+import {ApartmentInfo, DefText, BetterText, StyledImage, StyledExpandableDiv, DetailsButton, ScoreGraph, ScoreFill, ScoreText, ContactInfo} from './ApartmentContainer.style'
 
-export default function ApartmentContainer({className, price, address, images, title, description, score, travel_time, author, date, advertId}) {
+export default function ApartmentContainer({className, price, address, images, title, description, score, travel_time, fullname, phone_number, email, advertId}) {
    const [isOpen, setIsOpen] = useState(false)
    const [buttonText, setButtonText] = useState("Pokaż szczegóły")
    const toggle = () => {
@@ -9,9 +9,6 @@ export default function ApartmentContainer({className, price, address, images, t
       setIsOpen(!isOpen);
     };
 
-   const getActualAdvert = () => { 
-      return null;
-   }
 
    function travelTime(travel_time, debug){
       if(travel_time !== null || debug){
@@ -47,8 +44,18 @@ export default function ApartmentContainer({className, price, address, images, t
         <StyledExpandableDiv isOpen={isOpen}>
             <DefText>Opis:&nbsp;</DefText>
             <br></br>
-            <DefText>{description}</DefText>
+            <DefText>&nbsp;{description}</DefText>
             <br></br>
+            <br></br>
+            <ContactInfo>
+               <DefText>Dane kontaktowe:</DefText><br></br>
+               <DefText>Imię i nazwisko:&nbsp;</DefText>
+               <BetterText colour='#4f8fe8'>{fullname}</BetterText><br></br>
+               <DefText>Telefon:&nbsp;</DefText>
+               <BetterText colour='#4f8fe8'>{phone_number}</BetterText><br></br>
+               <DefText>Email:&nbsp;</DefText>
+               <BetterText colour='#4f8fe8'>{email}</BetterText><br></br>
+            </ContactInfo>
         </StyledExpandableDiv>
     </div>
   )

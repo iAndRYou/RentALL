@@ -21,14 +21,15 @@ export default function AddAdvertPage({className, handlePages}){
         var price = priceInputRef.current.value
         var details = detailsInputRef.current.value
         var imageLink = imageLinkRef.current.value
-        var coordinates = ''
 
-        if(title === '' || city === '' || street === '' || buildingNumber === '' || flatNumber === '' ||  price === '' || imageLink === ''){
+        if(title === '' || city === '' || street === '' || buildingNumber === '' ||  price === '' || imageLink === ''){
             setAddStatus('Wypełnij wszystkie pola!')
             return
         }
-
-        var address = city + ', ' + street + ' ' + buildingNumber + '/' + flatNumber
+        if(flatNumber !== ''){
+            flatNumber = '/'+flatNumber
+        }
+        var address = city + ', ' + street + ' ' + buildingNumber +  flatNumber
         const newAdvert = {
             title: title,
             address: address,
