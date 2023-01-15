@@ -9,8 +9,7 @@ author_id INT,
 description VARCHAR,
 title VARCHAR,
 images VARCHAR[],
-address VARCHAR,
-score FLOAT
+address VARCHAR
 '''
 
 
@@ -21,13 +20,13 @@ import datetime
 
 from ..models import Advert, User
 from .connection import get_connection
+from ..utils import location_details
 
 
 class DBGetAdvert:
     '''
     Class for getting adverts from database
     '''
-
 
     @get_connection
     def get_advert_by_id(cursor, advert_id: int) -> Optional[Advert]:
@@ -51,8 +50,7 @@ class DBGetAdvert:
             "description": rows[0][6],
             "title": rows[0][7],
             "images": rows[0][8],
-            "address": rows[0][9],
-            "score": rows[0][10]
+            "address": rows[0][9]
         })
 
         return advert
@@ -83,8 +81,7 @@ class DBGetAdvert:
             "description": row[6],
             "title": row[7],
             "images": row[8],
-            "address": row[9],
-            "score": row[10]
+            "address": row[9]
             })
             adverts.append(advert)
 
@@ -113,8 +110,7 @@ class DBGetAdvert:
             "description": row[6],
             "title": row[7],
             "images": row[8],
-            "address": row[9],
-            "score": row[10]
+            "address": row[9]
             })
             adverts.append(advert)
 
@@ -134,14 +130,17 @@ class DBEditAdvert:
 
         if advert.date is None:
             advert.date = datetime.date.today()
+
+        if advert.latitude is None or advert.longitude is None:
+            advert.latitude, advert.longitude = location_details.fetch_coordinates(advert.address)
         
 
         if advert.advert_id is None:
-            cursor.execute("INSERT INTO adverts (latitude, longitude, date, price, author_id, description, title, images, address, score) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);", 
-            (advert.latitude, advert.longitude, advert.date, advert.price, advert.author_id, advert.description, advert.title, advert.images, advert.address, advert.score))
+            cursor.execute("INSERT INTO adverts (latitude, longitude, date, price, author_id, description, title, images, address) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);", 
+            (advert.latitude, advert.longitude, advert.date, advert.price, advert.author_id, advert.description, advert.title, advert.images, advert.address))
         else:
-            cursor.execute("INSERT INTO adverts (advert_id, latitude, longitude, date, price, author_id, description, title, images, address, score) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);", 
-            (advert.advert_id, advert.latitude, advert.longitude, advert.date, advert.price, advert.author_id, advert.description, advert.title, advert.images, advert.address, advert.score))        
+            cursor.execute("INSERT INTO adverts (advert_id, latitude, longitude, date, price, author_id, description, title, images, address) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);", 
+            (advert.advert_id, advert.latitude, advert.longitude, advert.date, advert.price, advert.author_id, advert.description, advert.title, advert.images, advert.address))        
 
 
     @get_connection
@@ -173,7 +172,10 @@ class DBEditAdvert:
         rows = cursor.fetchall()
         if len(rows) == 0:
             raise HTTPException(status_code=404, detail="Advert not found")
+        old_latitude = int(rows[0][1])
+        old_longitude = int(rows[0][2])
         author_id = int(rows[0][5])
+        old_address = int(rows[0][9])
 
         if current_user.user_id != author_id:
             raise HTTPException(status_code=403, detail="You are not the author of this advert")
@@ -185,6 +187,11 @@ class DBEditAdvert:
         if advert.date is None:
             advert.date = datetime.date.today()
 
+        if advert.address != old_address:
+            advert.latitude, advert.longitude = location_details.fetch_coordinates(advert.address)
+        else:
+            advert.latitude, advert.longitude = old_latitude, old_longitude
 
-        cursor.execute("UPDATE adverts SET latitude = %s, longitude = %s, date = %s, price = %s, author_id = %s, description = %s, title = %s, images = %s, address = %s, score = %s WHERE advert_id = %s;", 
-        (advert.latitude, advert.longitude, advert.date, advert.price, author_id, advert.description, advert.title, advert.images, advert.address, advert.score, advert_id))
+
+        cursor.execute("UPDATE adverts SET latitude = %s, longitude = %s, date = %s, price = %s, author_id = %s, description = %s, title = %s, images = %s, address = %s WHERE advert_id = %s;", 
+        (advert.latitude, advert.longitude, advert.date, advert.price, advert.author_id, advert.description, advert.title, advert.images, advert.address, advert_id))

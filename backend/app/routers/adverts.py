@@ -1,26 +1,37 @@
 from fastapi import APIRouter, Query, Path, Depends, Body, Form, HTTPException
 from typing import List
-from ..models import Advert, User, Token
+from ..models import Advert, User, Token, AdvertDetailed
 from ..db.advert_interface import DBGetAdvert, DBEditAdvert
 from ..auth.jwt_handler import decode_token 
+
+from ..utils import location_details
 
 router = APIRouter()
 
 
-@router.get("/adverts", response_model=List[Advert], tags=['adverts'])
-async def get_adverts(lower_price_bound: float = Query(default=None), upper_price_bound: float = Query(default=None)):
+@router.get("/adverts", response_model=List[AdvertDetailed], tags=['adverts'])
+async def get_adverts_detailed(lower_price_bound: float = Query(default=None), upper_price_bound: float = Query(default=None), destination_latitude: float = Query(default=None, alias='latitude'), destination_longitude: float = Query(default=None, alias='longitude')):
     '''
     Get adverts by price and location
     '''
+
+    if lower_price_bound is None:
+        lower_price_bound = 0
+
+    if upper_price_bound is None:
+        upper_price_bound = 1000000000 # inf
+
+    adverts = DBGetAdvert.get_adverts_in_given_price(lower_price_bound, upper_price_bound)
+
+    adverts_detailed = []
+
+    for advert in adverts:
+        details = location_details.fetch_location_details(advert, destination_latitude, destination_longitude)
+        adverts_detailed.append(AdvertDetailed(**advert.dict(), **details.dict()))
     
-    if lower_price_bound is None and upper_price_bound is None:
-        return DBGetAdvert.get_adverts_in_given_price(0, 1000000000)
-    elif lower_price_bound is None:
-        return DBGetAdvert.get_adverts_in_given_price(0, upper_price_bound)
-    elif upper_price_bound is None:
-        return DBGetAdvert.get_adverts_in_given_price(lower_price_bound, 1000000000)
-    else:
-        return DBGetAdvert.get_adverts_in_given_price(lower_price_bound, upper_price_bound)
+    adverts_detailed = location_details.calculate_adverts_score(adverts_detailed)
+
+    return adverts_detailed
 
 
 @router.get("/adverts/me", response_model=List[Advert], tags=['adverts'])

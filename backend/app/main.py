@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from typing import List, Optional
 
-from .routers import users, adverts, location_details
+from .routers import users, adverts
 
 app = FastAPI()
 
@@ -18,4 +18,3 @@ app.add_middleware(
 
 app.include_router(users.router)
 app.include_router(adverts.router)
-app.include_router(location_details.router)

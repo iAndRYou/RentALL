@@ -4,12 +4,14 @@ from typing import Optional, List
 
 
 class LocationDetails(BaseModel):
-    travel_time: float = Field(default=...) # travel time in seconds
+    travel_time: float = Field(default=None) # travel time in seconds
+    score: float = Field(default=None)
+
 
 class Advert(BaseModel):
     advert_id: Optional[int] = Field(default=None)
-    latitude: float = Field(default=...)
-    longitude: float = Field(default=...)
+    latitude: float = Field(default=None)
+    longitude: float = Field(default=None)
     date: datetime.date = Field(default=None)
     price: float = Field(default=...)
     author_id: int = Field(default=None)
@@ -17,7 +19,11 @@ class Advert(BaseModel):
     title: str = Field(default=...)
     images: List[str] = Field(default=...)
     address: str = Field(default=...)
-    score: float = Field(default=None)
+
+
+class AdvertDetailed(Advert, LocationDetails):
+    pass
+
 
 
 class User(BaseModel):
