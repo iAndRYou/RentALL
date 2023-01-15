@@ -2,10 +2,13 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from typing import List, Optional
+import psycopg2
 
 from .routers import users, adverts
+from .db import databaseconfig
 
 app = FastAPI()
+
 
 app.add_middleware(
     CORSMiddleware,

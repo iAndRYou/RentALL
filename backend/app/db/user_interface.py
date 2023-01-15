@@ -10,7 +10,7 @@ password_hash VARCHAR
 
 import psycopg2
 from fastapi import APIRouter, Query, Path, Depends, Body, Form, HTTPException
-from typing import Optional
+from typing import Optional, List
 
 from ..models import User, UserInDB
 from .connection import get_connection
@@ -40,6 +40,26 @@ class DBGetUser:
         })
 
         return user
+    
+    @get_connection
+    def get_users_by_ids(cursor, user_ids: List[int]) -> List[User]:
+        '''
+        Get user from database by id
+        '''
+
+        cursor.execute("SELECT * FROM users WHERE user_id IN %s;", (tuple(user_ids),))
+        rows = cursor.fetchall()
+        users = []
+        for row in rows:
+            user = User(**{
+                "user_id": row[0],
+                "email": row[1],
+                "fullname": row[2],
+                "phone_number": row[3],
+            })
+            users.append(user)
+
+        return users
 
 
     @get_connection
