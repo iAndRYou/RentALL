@@ -9,9 +9,6 @@ export default function ApartmentContainer({className, price, address, images, t
       setIsOpen(!isOpen);
     };
 
-   const getActualAdvert = () => { 
-      return null;
-   }
 
    function travelTime(travel_time, debug){
       if(travel_time !== null || debug){
