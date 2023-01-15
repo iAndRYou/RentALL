@@ -187,4 +187,4 @@ class DBEditAdvert:
 
 
         cursor.execute("UPDATE adverts SET latitude = %s, longitude = %s, date = %s, price = %s, author_id = %s, description = %s, title = %s, images = %s, address = %s, score = %s WHERE advert_id = %s;", 
-        (advert.latitude, advert.longitude, advert.date, advert.price, author_id, advert.description, advert.title, advert.images, advert_id, advert.address, advert.score))
+        (advert.latitude, advert.longitude, advert.date, advert.price, author_id, advert.description, advert.title, advert.images, advert.address, advert.score, advert_id))

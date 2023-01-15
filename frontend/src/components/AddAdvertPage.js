@@ -72,7 +72,7 @@ export default function AddAdvertPage({className, handlePages}){
     }
 
     function addAdvert(newAdvert){
-        newAdvert.score = 69
+        newAdvert.score = 12
         var link = "http://127.0.0.1:8000/adverts"
         fetch (link, {
             method: 'POST',
@@ -104,7 +104,6 @@ export default function AddAdvertPage({className, handlePages}){
        });
        handlePages(Pages.renderApartments)
     }
-
     return(
         <div className={className}>
             <h2>Dodaj ogłoszenie</h2>
