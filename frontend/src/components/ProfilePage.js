@@ -44,7 +44,7 @@ export default function ProfilePage({className, handlePages}){
           console.log(err.message);
        });
     }
-    function getUserAdverts(debug){
+    function getUserAdverts(){
         if(userAdverts.length === 0){
             console.log("No user adverts")
             return(
@@ -68,8 +68,35 @@ export default function ProfilePage({className, handlePages}){
         handlePages(Pages.editPage)
     }
 
-    function deleteApartment(index){
-        console.log("Deleting apartment with index: " + index)
+    function deleteApartment(apartment){
+        console.log("Deleting apartment with id: " + apartment.advert_id)
+        var link = "http://127.0.0.1:8000/adverts/" + apartment.advert_id
+        fetch(link,  {
+            method: 'DELETE',
+            mode: 'cors',
+            headers: {
+                "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+                "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
+                "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With, append,delete,entries,foreach,get,has,keys,set,values",
+                "Content-Type": "application/json",
+                "Authorization": sessionStorage.getItem("token_type") + " " + sessionStorage.getItem('token')
+        }})
+        .then((response) => {
+            if(response.ok) {
+              console.log('Everything went ok: ' + response.status)
+              return response.json()
+            }else{
+              throw new Error('Something went wrong ... \n' + response.status);
+            }
+          }
+          )
+        .then((data) => {
+            console.log(data);
+            fetchAdverts(false/*debug*/)
+       })
+       .catch((err) => {
+          console.log(err.message);
+       });
     }
 
     function renderApartments(){
@@ -79,16 +106,19 @@ export default function ProfilePage({className, handlePages}){
                 // edit button that knows its index in userAdverts array
                 // delete button that knows its index in userAdverts array
                 <StyledUserAdvert>
-                    <StyledImageProfile src={apartment.images}></StyledImageProfile>
+                    <StyledImageProfile src={apartment.images[0]}></StyledImageProfile>
                     <h2>{apartment.title}</h2>
-                    <h3>{apartment.city}, {apartment.street}</h3>
+                    <h3>{apartment.address}</h3>
                     <h3>{apartment.price} zł / miesiąc</h3>
                     <StyledEditButton index={index} onClick={e => {
                         e.preventDefault()
                         editApartment(userAdverts[index])
                         }}>Edytuj</StyledEditButton>
                     <br></br>
-                    <StyledDeleteButton index={index}>Usuń</StyledDeleteButton>
+                    <StyledDeleteButton index={index}  onClick={e => {
+                        e.preventDefault()
+                        deleteApartment(userAdverts[index])
+                        }}>Usuń</StyledDeleteButton>
                 </StyledUserAdvert>
             )
         })
@@ -100,7 +130,7 @@ export default function ProfilePage({className, handlePages}){
             </div>
             <StyledEditButton onClick={e => {
                         e.preventDefault()
-                        fetchAdverts(false)
+                        fetchAdverts(false/*debug*/)
                         }}>Twoje ogłoszenia</StyledEditButton>
             {getUserAdverts(true)}
         </div>
