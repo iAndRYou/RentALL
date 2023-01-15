@@ -10,7 +10,7 @@ router = APIRouter()
 
 
 @router.get("/adverts", response_model=List[AdvertDetailed], tags=['adverts'])
-async def get_adverts_detailed(lower_price_bound: float = Query(default=None), upper_price_bound: float = Query(default=None), destination_latitude: float = Query(default=None, alias='latitude'), destination_longitude: float = Query(default=None, alias='longitude')):
+async def get_adverts_detailed(lower_price_bound: float = Query(default=None), upper_price_bound: float = Query(default=None), address: str = Query(default=None)):
     '''
     Get adverts by price and location
     '''
@@ -24,6 +24,11 @@ async def get_adverts_detailed(lower_price_bound: float = Query(default=None), u
     adverts = DBGetAdvert.get_adverts_in_given_price(lower_price_bound, upper_price_bound)
 
     adverts_detailed = []
+
+    if address is None:
+        destination_latitude, destination_longitude = None, None
+    else:
+        destination_latitude, destination_longitude = location_details.fetch_coordinates(destination_latitude, destination_longitude)
 
     for advert in adverts:
         details = location_details.fetch_location_details(advert, destination_latitude, destination_longitude)
