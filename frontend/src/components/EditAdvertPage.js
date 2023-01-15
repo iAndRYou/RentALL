@@ -29,7 +29,7 @@ export default function EditAdvertPage({className, handlePages}){
         address === '' ? address = obj.address : address = address
         price === '' ? price = obj.price : price = price
         details === '' ? details = obj.description : details = details
-        imageLink === '' ? imageLink = obj.images : imageLink = imageLink
+        imageLink === '' ? imageLink = obj.images[0] : imageLink = imageLink
 
         const updatedAdvert = {
             title: title,
