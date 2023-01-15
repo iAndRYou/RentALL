@@ -6,7 +6,7 @@ def get_connection(func):
     '''
     Decorator for getting connection to database
     '''
-    
+
     def wrapper(*args, **kwargs):
         conn = psycopg2.connect(databaseconfig.conn_string)
         cursor = conn.cursor()

@@ -9,7 +9,7 @@ class LocationDetails(BaseModel):
 
 
 class Advert(BaseModel):
-    advert_id: Optional[int] = Field(default=None)
+    advert_id: int = Field(default=None)
     latitude: float = Field(default=None)
     longitude: float = Field(default=None)
     date: datetime.date = Field(default=None)
@@ -19,11 +19,6 @@ class Advert(BaseModel):
     title: str = Field(default=...)
     images: List[str] = Field(default=...)
     address: str = Field(default=...)
-
-
-class AdvertDetailed(Advert, LocationDetails):
-    pass
-
 
 
 class User(BaseModel):
@@ -49,3 +44,7 @@ class Token(BaseModel):
     access_token: str
     token_type: str
 
+
+
+class AdvertDetailed(Advert, LocationDetails, User):
+    pass

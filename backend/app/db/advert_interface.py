@@ -20,7 +20,7 @@ import datetime
 
 from ..models import Advert, User
 from .connection import get_connection
-from ..utils import location_details
+from ..googleapi import location_details
 
 
 class DBGetAdvert:

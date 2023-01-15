@@ -1,10 +1,11 @@
 from fastapi import APIRouter, Query, Path, Depends, Body, Form, HTTPException
 from typing import List
+
 from ..models import Advert, User, Token, AdvertDetailed
 from ..db.advert_interface import DBGetAdvert, DBEditAdvert
+from ..db.user_interface import DBGetUser
 from ..auth.jwt_handler import decode_token 
-
-from ..utils import location_details
+from ..googleapi import location_details
 
 router = APIRouter()
 
@@ -23,6 +24,9 @@ async def get_adverts_detailed(lower_price_bound: float = Query(default=None), u
 
     adverts = DBGetAdvert.get_adverts_in_given_price(lower_price_bound, upper_price_bound)
 
+    author_ids = [advert.author_id for advert in adverts]
+    authors = DBGetUser.get_users_by_ids(author_ids)
+    
     adverts_detailed = []
 
     if address is None:
@@ -30,9 +34,9 @@ async def get_adverts_detailed(lower_price_bound: float = Query(default=None), u
     else:
         destination_latitude, destination_longitude = location_details.fetch_coordinates(address)
 
-    for advert in adverts:
+    for author, advert in zip(authors, adverts):
         details = location_details.fetch_location_details(advert, destination_latitude, destination_longitude)
-        adverts_detailed.append(AdvertDetailed(**advert.dict(), **details.dict()))
+        adverts_detailed.append(AdvertDetailed(**advert.dict(), **details.dict(), **author.dict()))
     
     adverts_detailed = location_details.calculate_adverts_score(adverts_detailed)
 
