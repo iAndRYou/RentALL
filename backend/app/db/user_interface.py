@@ -47,15 +47,15 @@ class DBGetUser:
         Get user from database by id
         '''
 
-        cursor.execute("SELECT * FROM users WHERE user_id IN %s;", (tuple(user_ids),))
-        rows = cursor.fetchall()
         users = []
-        for row in rows:
+        for user_id in user_ids:
+            cursor.execute("SELECT * FROM users WHERE user_id = %s;", (user_id,))
+            rows = cursor.fetchall()
             user = User(**{
-                "user_id": row[0],
-                "email": row[1],
-                "fullname": row[2],
-                "phone_number": row[3],
+                "user_id": rows[0][0],
+                "email": rows[0][1],
+                "fullname": rows[0][2],
+                "phone_number": rows[0][3],
             })
             users.append(user)
 

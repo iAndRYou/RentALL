@@ -18,11 +18,12 @@ cursor = conn.cursor()
 #cursor.execute("INSERT INTO adverts (latitude, longitude, date, price, author_id, description, title, images) VALUES (2.0, 2.0, '2021-01-01', 200.0, 0, 'test_description2', 'test_title2', 'test_image2');")
 
 
-cursor.execute("SELECT * FROM users;")
-#cursor.execute("SELECT * FROM adverts;")
+# cursor.execute("SELECT * FROM users;")
+cursor.execute("SELECT * FROM adverts;")
 
 rows = cursor.fetchall()
-print(rows)
+for row in rows:
+    print(row)
 
 conn.commit()
 cursor.close()
