@@ -53,7 +53,7 @@ export function changeColourDependingOnPrice(price){
    }else if(num >= 1600){
       return 'darkorange';
    }else if(num >= 1300){
-      return 'goldenrod';
+      return 'gold';
    }else if(num >= 1000){
       return 'yellowgreen';
    }else{
@@ -68,7 +68,7 @@ export function scoreColor(score){
    }else if(num >= 70){
       return 'yellowgreen';
    }else if(num >= 50){
-      return 'goldenrod';
+      return 'gold';
    }else if(num >= 30){
       return 'darkorange';
    } else{
