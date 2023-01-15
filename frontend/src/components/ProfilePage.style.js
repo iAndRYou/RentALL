@@ -96,6 +96,7 @@ export const StyledDeleteButton = styled.button`
     &::selection {
         background-color: transparent;
     }
+    margin-left:10px;
 `;
 
 export const StyledRefreshButton = styled.button`
@@ -112,7 +113,7 @@ export const StyledRefreshButton = styled.button`
 
     text-align: center;
     font-weight: 400;
-    font-size: 13px;
+    font-size: 14px;
 
     &:hover {
         background-color: #52ACDF;

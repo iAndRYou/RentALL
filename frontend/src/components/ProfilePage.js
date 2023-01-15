@@ -114,7 +114,7 @@ export default function ProfilePage({className, handlePages}){
                         e.preventDefault()
                         editApartment(userAdverts[index])
                         }}>Edytuj</StyledEditButton>
-                    <br></br>
+                  
                     <StyledDeleteButton index={index}  onClick={e => {
                         e.preventDefault()
                         deleteApartment(userAdverts[index])
