@@ -133,3 +133,9 @@ export const ScoreText = styled.p`
     font-weight: 700;
     text-align: center;
 `;
+
+export const ContactInfo = styled.div`
+    padding-left: 1%;
+    display: inline-block;
+    margin: 1%;
+`;

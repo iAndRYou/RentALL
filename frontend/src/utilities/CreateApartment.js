@@ -7,7 +7,7 @@ export function createApartment(apartmentObj, renderBool) {
         return apartmentObj.map(apartment => {
               return <StyledApartmentContainer price={apartment.price} address={apartment.address} images={apartment.images[0]} 
               description={apartment.description}  title={apartment.title} score={Math.round(apartment.score)} latitude={apartment.latitude} longtitude={apartment.longtitude}
-              author={apartment.author} date={apartment.date} advertId={apartment.advertId} travel_time={apartment.travel_time}/>})
+              author={apartment.author} date={apartment.date} advertId={apartment.advertId} travel_time={apartment.travel_time} fullname={apartment.fullname} email={apartment.email} phone_number={apartment.phone_number}/>})
       }else{
         return <NoResultsPage>No results found ;(</NoResultsPage>
       }
