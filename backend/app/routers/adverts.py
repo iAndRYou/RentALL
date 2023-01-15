@@ -28,7 +28,7 @@ async def get_adverts_detailed(lower_price_bound: float = Query(default=None), u
     if address is None:
         destination_latitude, destination_longitude = None, None
     else:
-        destination_latitude, destination_longitude = location_details.fetch_coordinates(destination_latitude, destination_longitude)
+        destination_latitude, destination_longitude = location_details.fetch_coordinates(address)
 
     for advert in adverts:
         details = location_details.fetch_location_details(advert, destination_latitude, destination_longitude)
