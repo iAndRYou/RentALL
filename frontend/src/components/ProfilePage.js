@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyledUserAdvert, StyledDeleteButton, StyledEditButton, StyledImageProfile } from "../components/ProfilePage.style";
+import { StyledUserAdvert, StyledDeleteButton, StyledEditButton, StyledImageProfile, StyledRefreshButton } from "../components/ProfilePage.style";
 import exampleApartments from './exampleApartments.json';
 import { Pages } from '../utilities/HandlePages';
 export default function ProfilePage({className, handlePages}){
@@ -127,11 +127,11 @@ export default function ProfilePage({className, handlePages}){
         <div className={className}>
             <div>
                 <h1 color='gray'>Twoje ogłoszenia</h1>
-            </div>
-            <StyledEditButton onClick={e => {
+                <StyledRefreshButton onClick={e => {
                         e.preventDefault()
                         fetchAdverts(false/*debug*/)
-                        }}>Twoje ogłoszenia</StyledEditButton>
+                        }}>Odśwież</StyledRefreshButton>
+            </div>
             {getUserAdverts(true)}
         </div>
     )

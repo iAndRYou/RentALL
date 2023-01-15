@@ -13,6 +13,16 @@ export default function ApartmentContainer({className, price, address, images, t
       return null;
    }
 
+   function travelTime(travel_time, debug){
+      if(travel_time !== null || debug){
+         return(
+            <div>
+               <DefText>Średni dojazd komunikacją miejską: </DefText>
+               <BetterText colour='#4f8fe8'>{travel_time}</BetterText>
+            </div>
+         )
+      }
+   }
    return (
     <div className={className}>
         <StyledImage src={images} alt=""></StyledImage> 
@@ -24,8 +34,7 @@ export default function ApartmentContainer({className, price, address, images, t
             <BetterText colour='grey'>{address}</BetterText><br></br>
             {/*<DefText>Dojazd do:&nbsp;</DefText><BetterText colour='grey'>AGH</BetterText><br></br>*/}
             {/*<DefText>Środek komunikacji:&nbsp;</DefText><BetterText colour='grey'>Autobus</BetterText><br></br>*/}
-            <DefText>Dojazd komunikacją miejską: </DefText>
-            <BetterText colour='red'>{travel_time}</BetterText>         
+            {travelTime(travel_time, false/*debug*/)}    
         </ApartmentInfo>
         <ScoreGraph colour={scoreColor(score)} degree={scoreString(score)}>
             <ScoreFill>

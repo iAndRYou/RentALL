@@ -97,3 +97,31 @@ export const StyledDeleteButton = styled.button`
         background-color: transparent;
     }
 `;
+
+export const StyledRefreshButton = styled.button`
+    color: #52ACDF;
+    background-color: transparent;
+    border: 2px solid #52ACDF;
+    outline: 20px #52ACDF;
+    border-radius: 15px;
+    padding: 7px;
+    margin-bottom: 10px;
+
+    height: max-content;
+    width: 70px;
+
+    text-align: center;
+    font-weight: 400;
+    font-size: 13px;
+
+    &:hover {
+        background-color: #52ACDF;
+        color: white;
+        border: 2px solid #52ACDF;
+        cursor: pointer;
+    }
+
+    &::selection {
+        background-color: transparent;
+    }
+`;
