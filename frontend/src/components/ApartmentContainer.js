@@ -15,7 +15,7 @@ export default function ApartmentContainer({className, price, address, images, t
          return(
             <div>
                <DefText>Średni dojazd komunikacją miejską: </DefText>
-               <BetterText colour='#4f8fe8'>{travel_time}</BetterText>
+               <BetterText colour='grey'>{travel_time}</BetterText>
             </div>
          )
       }
@@ -50,11 +50,11 @@ export default function ApartmentContainer({className, price, address, images, t
             <ContactInfo>
                <DefText>Dane kontaktowe:</DefText><br></br>
                <DefText>Imię i nazwisko:&nbsp;</DefText>
-               <BetterText colour='#4f8fe8'>{fullname}</BetterText><br></br>
+               <BetterText colour='#52ACDF'>{fullname}</BetterText><br></br>
                <DefText>Telefon:&nbsp;</DefText>
-               <BetterText colour='#4f8fe8'>{phone_number}</BetterText><br></br>
+               <BetterText colour='#52ACDF'>{phone_number}</BetterText><br></br>
                <DefText>Email:&nbsp;</DefText>
-               <BetterText colour='#4f8fe8'>{email}</BetterText><br></br>
+               <BetterText colour='#52ACDF'>{email}</BetterText><br></br>
             </ContactInfo>
         </StyledExpandableDiv>
     </div>
