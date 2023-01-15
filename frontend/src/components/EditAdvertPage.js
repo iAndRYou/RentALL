@@ -3,8 +3,7 @@ import React, { useRef, useState } from 'react'
 import {Pages} from '../utilities/HandlePages.js'
 export default function EditAdvertPage({className, handlePages}){
     const titleInputRef = useRef('')
-    const cityInputRef = useRef('')
-    const streetInputRef = useRef('')
+    const addressInputRef = useRef('')
     const priceInputRef = useRef('')
     const detailsInputRef = useRef('')
     const imageLinkRef = useRef('')
@@ -21,34 +20,90 @@ export default function EditAdvertPage({className, handlePages}){
 
     function handleEditAdvertForm(){
         var title = titleInputRef.current.value
-        var city = cityInputRef.current.value
-        var street = streetInputRef.current.value
+        var address = addressInputRef.current.value
         var price = priceInputRef.current.value
         var details = detailsInputRef.current.value
         var imageLink = imageLinkRef.current.value
 
         title === '' ? title = obj.title : title = title
-        city === '' ? city = obj.city : city = city
-        street === '' ? street = obj.street : street = street
+        address === '' ? address = obj.address : address = address
         price === '' ? price = obj.price : price = price
         details === '' ? details = obj.description : details = details
         imageLink === '' ? imageLink = obj.images : imageLink = imageLink
-
-        var adress = city + ', ' + street
+        var coordinates = ''
         const updatedAdvert = {
             title: title,
-            adress: adress,
-            price: price,
-            details: details,
-            images: imageLink
+            address: address,
+            price: parseFloat(price),
+            description: details,
+            images: [imageLink]
         }
 
         console.log(updatedAdvert)
 
-        var link = "http://127.0.0.1:8000/adverts"
-        //fetch TODO
+        var link = "http://127.0.0.1:8000/coordinates?address=" + address
+        fetch(link)
+        .then((response) => {
+            if(response.ok) {
+              console.log('Everything went ok: ' + response.status)
+              return response.json()
+            }else{
+              throw new Error('Something went wrong ... \n' + response.status);
+            }
+          }
+          )
+        .then((data) => {
+          console.log(data);
+          coordinates = data
+          if(coordinates === ''){
+            setEditStatus('Niepoprawny adres!')
+            throw new Error('Couldnt fetch coordinates ... \n');
+          }
+          else{
+                updatedAdvert['latitude'] = coordinates['latitude']
+                updatedAdvert['longitude'] = coordinates['longitude']
+                console.log(updatedAdvert)
+                updateAdvert(updatedAdvert)
+           }
+       })
+       .catch((err) => {
+          console.log(err.message);
+       });
 
-        handlePages(Pages.profilePage)
+    }
+
+    function updateAdvert(newAdvert){
+        newAdvert.score = 12
+        var link = "http://127.0.0.1:8000/adverts/" + obj.advert_id
+        fetch (link, {
+            method: 'PUT',
+            mode: 'cors',
+            headers: {
+                "Access-Control-Allow-Origin": "*", // Required for CORS support to work
+                "Access-Control-Allow-Methods": "DELETE, POST, GET, OPTIONS",
+                "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Requested-With, append,delete,entries,foreach,get,has,keys,set,values",
+                "Content-Type": "application/json",
+                "Authorization": sessionStorage.getItem("token_type") + " " + sessionStorage.getItem('token')
+        },
+            body: JSON.stringify(newAdvert)
+        }).then((response) => {
+            if(response.ok) {
+              console.log('Everything went ok: ' + response.status)
+              return response.json()
+            }else{
+              throw new Error('Something went wrong with adding the advert... \n' + response.status);
+            }
+          }
+          )
+        .then((data) => {
+            console.log(data);
+            setEditStatus('Edytowanie powiodło się!')
+            handlePages(Pages.profilePage)
+       })
+       .catch((err) => {
+            console.log(err.message);
+            setEditStatus('Edycja mieszkania nie powiodło się!')
+       });
     }
 
     return(
@@ -62,13 +117,8 @@ export default function EditAdvertPage({className, handlePages}){
                 </label>
                 <StyledFormBreak></StyledFormBreak>
                 <label>
-                    Miasto:
-                    <StyledInput type="text" name="city" placeholder={obj.city} ref={cityInputRef}/>
-                </label>
-                <StyledFormBreak></StyledFormBreak>
-                <label>
                     Adres:
-                    <StyledInput type="text" name="adress" placeholder={obj.street} ref={streetInputRef}/>
+                    <StyledInput type="text" name="address" placeholder={obj.address} ref={addressInputRef}/>
                 </label>
                 <StyledFormBreak></StyledFormBreak>
                 <label>
