@@ -1,0 +1,9 @@
+uvicorn
+fastapi
+psycopg2
+pydantic[email]
+auth
+python-jose[cryptography]
+passlib[bcrypt]
+python-multipart
+googlemaps
