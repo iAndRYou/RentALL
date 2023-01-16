@@ -33,7 +33,7 @@ URUCHOMIENIE APLIKACJI:
 !!! Przed uruchomieniem upewnić się, że w pliku database/app/googleapi/googleapiconfig wklejony jest poprawny klucz API Google (podany w mailu).
 
 - w folderze /backend:
-Użyć komendy 'uvicorn app.main:app'
+Użyć komendy 'py -m uvicorn app.main:app' lub 'python -m uvicorn app.main:app'
 
 - w folderze /frontend:
 Użyć komendy 'serve -s build'
@@ -47,6 +47,8 @@ DOKUMENTACJA:
 - dokumentacja techniczna: plik pdf w mailu
 
 - dokumentacja użytkownika: plik txt 'Dokumentacja użytkownika.txt'
+
+- dokumentacja REST API: po odpaleniu backendu na stronie localhost:8000/docs
 
 
 ---------------------------------
