@@ -1,0 +1,18 @@
+Możliwe akcje na stronie głównej dostępne przed i po zalogowaniu:
+	- Szukaj, na górze strony pola 'Dojazd do' i 'Miasto' reprezentują miejsce do którego interesuje nas dojazd. Po wypełnieniu tych pól i naciśnięciu przycisku szukaj pobrane zostaną ogłoszenia w pobliżu wybranego miejsca dojazdu. Jeżeli użytkownik nie poda nic w wyżej wymienionych polach zostaną pobrane wszystkie dostępne ogłoszenia. Dodatkowo pole 'Cena od - do' służą do przefiltrowania ogłoszeń w stosunku do przedziału cenowego, który nas interesuje.
+	- Sortuj według - po pobraniu ogłoszeń możliwe jest posortowanie ogłoszeń po kilku wartościach: cena od najniższej, cena od najwyższejm , czas dojazdu oraz Punkty RentaLL - liczone na bazie ceny oraz czasu dojazdu do wybranego przez użytkownika miejsca docelowego 
+	- Zaloguj się - po naciśnięciu przycisku 'Zaloguj się' znajdującego się w górnej części ekranu, wyświetlany jest formularz logowania oraz rejestracji gdzie użytkownik może się zalogować lub zarejestrować, przy tworzeniu nowego użytkownika hasło powinno posiadać co najmniej 6 znaków a nr telefonu co najmniej 9. Po dokonaniu rejestracji użytkownik jest powiadamiany o sukcesie rejestracji i może przystąpić do logowania. Po zalogowaniu się, jeśli się ono powiodło uzytkownik jest przekierowany na stronę główną aplikacji
+
+Możliwe akcje na stronie głównej po zalogowaniu:
+	- '+' - dodanie nowego ogłoszenia - przycisk '+' w lewej dolnej części ekranu przenosi użytkownika do panelu dodawania mieszkań z formularzem który użytkownik może wypełnić by dodać nowe ogłoszenie. Po dodaniu ogłoszenia użytkownik jest spowrotem przekierowywany na stronę główną aplikacji
+	- 'ikona ludzika' - strona profilowa użytkownika - w prawym górnym rogu stronyznajduje się przycisk ikona która przenosi użytkownika do panelu profilowego, gdzie znajdują się wszystkie dodane przez użytkownika ogłoszenia. By wyszukać te ogłoszenia należy nacisnąć przycisk 'odśwież' który znajduje się w lewym górnym rogu panelu. Po załadowaniu ogłoszeń użytkownika, jesli takowe istnieją, użytkownik może wejść w interakcję ze swoimi ogłoszeniami poprzez przyciski 'Edytuj' oraz 'Usuń'. Każde ogłoszenie posiada odpowiednie przyciski w swoich odpowiednich kontenerach.
+		* 'Edytuj' - edycja wskazanego ogłoszenia - przycisk przenosi użytkownika do panelu edycji gdzie może on edytować informacje zawarte w ogłoszeniu, po dokonaniu edycji użytkownik jest spowrotem przenoszony do strony profilowej
+		* 'Usuń' - usunięcie ogłoszenia ze strony - przycisk usunięcia usuwa wskazane ogłoszenie z bazy danych
+
+Możliwe interakcje z ogłoszeniami na stronie głównej:
+	- 'Pokaż szczegóły' - w każdym kontenerze zawierającym ogłoszenie jest przycisk 'Pokaż szczegóły' który rozwija ogłoszenie pokazując opis oraz dane kontaktowe użytkownika który owo ogłoszenie dodał.
+
+Na marginesie:
+
+-Przed zalogowaniem jeżeli użytkownik podejmie próbę podjęcia akcji dostępnej tylko po zalogowaniu, zostanie on przeniesiony na stronę logowania
+-Jeżeli użytkownik znajduje się na jakiejś innej stronie niż startowa, np. dodającą nowe ogłoszenie, i naciśnie przycisk odpowiadający za przejście do danej strony, w wypadku dodawania ogłoszeń '+', zostanie on spowrotem przekierowany na stronę główną aplikacji 

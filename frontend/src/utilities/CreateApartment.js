@@ -43,7 +43,7 @@ export function sortBy(apartmentObj, variable, descending){
   }
   else if(variable === 'travelTime'){
     apartmentObj.sort(function(a, b) {
-      return parseFloat(a.travelTime) - parseFloat(b.travelTime);
+      return parseFloat(a.travel_time) - parseFloat(b.travel_time);
   })
   }
   else if(variable === 'score'){
