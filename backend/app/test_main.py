@@ -146,22 +146,22 @@ def test_advert_crud_flow():
     password = 'mamdosc'
 
     # register new user
-    # response = client.post(
-    #     url='/register',
-    #     json={
-    #         'fullname': fullname,
-    #         'phone_number': phone_number,
-    #         'email': email,
-    #         'password': password
-    #     }
-    # )
+    response = client.post(
+        url='/register',
+        json={
+            'fullname': fullname,
+            'phone_number': phone_number,
+            'email': email,
+            'password': password
+        }
+    )
     
-    # assert response.status_code == 200
-    # user = response.json()
-    # assert user['fullname'] == fullname
-    # assert user['phone_number'] == phone_number
-    # assert user['email'] == email
-    # assert 'user_id' in user
+    assert response.status_code == 200
+    user = response.json()
+    assert user['fullname'] == fullname
+    assert user['phone_number'] == phone_number
+    assert user['email'] == email
+    assert 'user_id' in user
 
 
     # obtain auth token
