@@ -5,7 +5,6 @@ import logo from "./assets/logo.png";
 import profile from "./assets/profile.png"
 import { StyledEnterCity, StyledEnterCommute, StyledLowerPrice, StyledOptionBar, StyledPriceTag, StyledSearchButton, StyledSortMethod, StyledSortMethodElement, StyledUpperPrice } from './components/OptionBar.style';
 import React, {useState, useEffect} from 'react';
-import exampleApartments from './components/exampleApartments.json';
 import {createApartment, sortApartments,} from './utilities/CreateApartment.js'
 import { StyledAddAdvertButton, StyledAddAdvertPage } from './components/AddAdvertPage.style';
 import * as hp from './utilities/HandlePages.js';
@@ -23,7 +22,7 @@ function App() {
  
  
 
-  async function getApartmentsJson(lowerPrice, upperPrice, city, commute, debug) {
+  async function getApartmentsJson(lowerPrice, upperPrice, city, commute) {
     handlePages(hp.Pages.renderApartments);
     if(lowerPrice === ""){lowerPrice = "0.0"}
     if(upperPrice === ""){upperPrice = "99999999.0"}
@@ -47,11 +46,7 @@ function App() {
           setPosts(data);
        })
        .catch((err) => {
-          if(debug === true){
-            setPosts(exampleApartments)
-          }else{
-            setPosts(null)
-          }
+          setPosts(null)
           console.log(err.message);
        });
 

@@ -15,7 +15,7 @@ export default function ApartmentContainer({className, price, address, images, t
          return(
             <div>
                <DefText>Średni dojazd komunikacją miejską: </DefText>
-               <BetterText colour='#4f8fe8'>{travel_time}</BetterText>
+               <BetterText colour='grey'>{travel_time}</BetterText>
             </div>
          )
       }
@@ -26,7 +26,7 @@ export default function ApartmentContainer({className, price, address, images, t
         <ApartmentInfo>
             <h2>{title}</h2>
             <DefText>Cena:&nbsp;</DefText>
-            <BetterText colour={changeColourDependingOnPrice(price)}>{price}&nbsp;zł / miesiąc</BetterText><br></br>
+            <BetterText colour='grey'>{price}&nbsp;zł / miesiąc</BetterText><br></br>
             <DefText>Lokalizacja:&nbsp;</DefText>
             <BetterText colour='grey'>{address}</BetterText><br></br>
             {/*<DefText>Dojazd do:&nbsp;</DefText><BetterText colour='grey'>AGH</BetterText><br></br>*/}
@@ -50,11 +50,11 @@ export default function ApartmentContainer({className, price, address, images, t
             <ContactInfo>
                <DefText>Dane kontaktowe:</DefText><br></br>
                <DefText>Imię i nazwisko:&nbsp;</DefText>
-               <BetterText colour='#4f8fe8'>{fullname}</BetterText><br></br>
+               <BetterText colour='#52ACDF'>{fullname}</BetterText><br></br>
                <DefText>Telefon:&nbsp;</DefText>
-               <BetterText colour='#4f8fe8'>{phone_number}</BetterText><br></br>
+               <BetterText colour='#52ACDF'>{phone_number}</BetterText><br></br>
                <DefText>Email:&nbsp;</DefText>
-               <BetterText colour='#4f8fe8'>{email}</BetterText><br></br>
+               <BetterText colour='#52ACDF'>{email}</BetterText><br></br>
             </ContactInfo>
         </StyledExpandableDiv>
     </div>
@@ -62,20 +62,6 @@ export default function ApartmentContainer({className, price, address, images, t
 }
 //"https://www.w3schools.com/images/w3schools_green.jpg"
 //'#00cc00'
-export function changeColourDependingOnPrice(price){
-   var num = Number(price);
-   if(num >= 2000){
-      return 'red';
-   }else if(num >= 1600){
-      return 'darkorange';
-   }else if(num >= 1300){
-      return 'gold';
-   }else if(num >= 1000){
-      return 'yellowgreen';
-   }else{
-      return 'seagreen';
-   }
-}
 
 export function scoreColor(score){
    var num = Number(score);

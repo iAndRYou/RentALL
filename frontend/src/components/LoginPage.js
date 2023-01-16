@@ -62,7 +62,6 @@ export default function LoginPage({className, handlePages, setIsLoggedIn}){
             console.log(err.message);
             setLoginStatus('Logowanie nie powiodło się!')
        });
-       setIsLoggedIn(true)
     }
     
     function handleRegisterForm(){

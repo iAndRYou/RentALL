@@ -1,6 +1,5 @@
 import React from 'react'
 import { StyledUserAdvert, StyledDeleteButton, StyledEditButton, StyledImageProfile, StyledRefreshButton } from "../components/ProfilePage.style";
-import exampleApartments from './exampleApartments.json';
 import { Pages } from '../utilities/HandlePages';
 export default function ProfilePage({className, handlePages}){
     const [userAdverts, setUserAdverts] = React.useState([])
@@ -10,11 +9,6 @@ export default function ProfilePage({className, handlePages}){
     function fetchAdverts(debug){
         console.log("Fetching user adverts")
 
-        //debug
-        if(debug){
-            setUserAdverts(exampleApartments)
-            return
-        }
 
         var link = "http://127.0.0.1:8000/adverts/me"
         fetch(link,  {
@@ -92,7 +86,7 @@ export default function ProfilePage({className, handlePages}){
           )
         .then((data) => {
             console.log(data);
-            fetchAdverts(false/*debug*/)
+            fetchAdverts()
        })
        .catch((err) => {
           console.log(err.message);
@@ -129,7 +123,7 @@ export default function ProfilePage({className, handlePages}){
                 <h1 color='gray'>Twoje ogłoszenia</h1>
                 <StyledRefreshButton onClick={e => {
                         e.preventDefault()
-                        fetchAdverts(false/*debug*/)
+                        fetchAdverts()
                         }}>Odśwież</StyledRefreshButton>
             </div>
             {getUserAdverts(true)}
