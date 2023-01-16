@@ -120,7 +120,7 @@ class DBGetAdvert:
 class DBEditAdvert:
 
     @get_connection
-    def add_advert(cursor, advert: Advert, current_user: User) -> None:
+    def add_advert(cursor, advert: Advert, current_user: User) -> Advert:
         '''
         Insert new advert into database
         '''
@@ -166,7 +166,7 @@ class DBEditAdvert:
 
 
     @get_connection
-    def update_advert(cursor, advert_id: int, advert: Advert, current_user: User) -> None:
+    def update_advert(cursor, advert_id: int, advert: Advert, current_user: User) -> Advert:
         '''
         Update advert in database
         '''
@@ -200,5 +200,35 @@ class DBEditAdvert:
 
         cursor.execute("UPDATE adverts SET latitude = %s, longitude = %s, date = %s, price = %s, author_id = %s, description = %s, title = %s, images = %s, address = %s WHERE advert_id = %s;", 
         (advert.latitude, advert.longitude, advert.date, advert.price, advert.author_id, advert.description, advert.title, advert.images, advert.address, advert.advert_id))
+
+        return advert
+
+
+    @get_connection
+    def update_advert_coordinates(cursor, advert_id: int, latitude: float, longitude: float):
+        '''
+        Update coordinates of the given advert in database
+        '''
+        
+        cursor.execute("SELECT * FROM adverts WHERE advert_id = %s;", (advert_id,))
+        rows = cursor.fetchall()
+        if len(rows) == 0:
+            raise HTTPException(status_code=404, detail="Advert not found")
+
+        advert = Advert(**{
+            "advert_id": rows[0][0],
+            "latitude": latitude,
+            "longitude": longitude,
+            "date": rows[0][3],
+            "price": rows[0][4],
+            "author_id": rows[0][5],
+            "description": rows[0][6],
+            "title": rows[0][7],
+            "images": rows[0][8],
+            "address": rows[0][9]
+        })
+
+        cursor.execute("UPDATE adverts SET latitude = %s, longitude = %s WHERE advert_id = %s",
+        (latitude, longitude, advert_id))
 
         return advert

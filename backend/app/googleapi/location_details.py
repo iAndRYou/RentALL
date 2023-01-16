@@ -21,7 +21,7 @@ def fetch_location_details(advert: Advert, destination_latitude: float | None, d
         travel_time = None
     
     else:
-        response = gmaps.distance_matrix(origins=(advert.latitude, advert.longitude), destinations=(destination_latitude, destination_longitude))
+        response = gmaps.distance_matrix(origins=(advert.latitude, advert.longitude), destinations=(destination_latitude, destination_longitude), mode='transit')
         travel_time = response['rows'][0]['elements'][0]['duration']['value'] # in seconds
 
     return LocationDetails(travel_time=travel_time)

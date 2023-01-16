@@ -9,9 +9,16 @@ from ..googleapi import location_details
 
 router = APIRouter()
 
+DEFAULT_LATITUDE = 50.0
+DEFAULT_LONGITUDE = 20.0
+eps = 10**(-6) # epsilon; for calculations on floats
+
+def has_default_coordinates(advert: Advert) -> bool:
+    return abs(advert.latitude - DEFAULT_LATITUDE) <= eps and abs(advert.longitude - DEFAULT_LONGITUDE) <= eps
+
 
 @router.get("/adverts", response_model=List[AdvertDetailed], tags=['adverts'])
-async def get_adverts_detailed(lower_price_bound: float = Query(default=None), upper_price_bound: float = Query(default=None), address: str = Query(default=None)):
+async def get_adverts_detailed(lower_price_bound: float = Query(default=None), upper_price_bound: float = Query(default=None), destination_address: str = Query(alias='address', default=None)):
     '''
     Get adverts by price and location
     '''
@@ -29,16 +36,23 @@ async def get_adverts_detailed(lower_price_bound: float = Query(default=None), u
     
     adverts_detailed = []
 
-    if address is None:
+    if destination_address is None or destination_address == '':
         destination_latitude, destination_longitude = None, None
     else:
-        destination_latitude, destination_longitude = location_details.fetch_coordinates(address)
+        destination_latitude, destination_longitude = location_details.fetch_coordinates(destination_address)
 
     for author, advert in zip(authors, adverts):
+        # check if advert has default coordinates (before calculation)
+        if has_default_coordinates(advert) and destination_latitude is not None and destination_longitude is not None:
+            advert = DBEditAdvert.update_advert_coordinates(advert.advert_id, *location_details.fetch_coordinates(advert.address))
+
         details = location_details.fetch_location_details(advert, destination_latitude, destination_longitude)
-        adverts_detailed.append(AdvertDetailed(**advert.dict(), **details.dict(), **author.dict()))
-    
+        advert_detailed = AdvertDetailed(**advert.dict(), **details.dict(), **author.dict())
+        adverts_detailed.append(advert_detailed)
+
     adverts_detailed = location_details.calculate_adverts_score(adverts_detailed)
+
+    
 
     return adverts_detailed
 
