@@ -5,9 +5,10 @@ import googlemaps
 from typing import List
 
 from ..models import LocationDetails, Advert, AdvertDetailed
+from . import googleapiconfig
 
 
-API_key = ''
+API_key = googleapiconfig.API_key
 
 if API_key != '':
     gmaps = googlemaps.Client(key=API_key)
@@ -113,10 +114,13 @@ def mock_fetch_coordinates(address: str) -> tuple:
     return (50.0, 20.0)
 
 
-
 ##### CHOOSE #####
 
-if gmaps is None:
+def choose_mock_functions():
+    global fetch_location_details, fetch_coordinates, calculate_adverts_score
     fetch_location_details = mock_fetch_location_details
     fetch_coordinates = mock_fetch_coordinates
     calculate_adverts_score = mock_calculate_adverts_score
+
+if gmaps is None:
+    choose_mock_functions()

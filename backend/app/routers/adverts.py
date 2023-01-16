@@ -52,15 +52,15 @@ async def get_user_adverts(current_user: User = Depends(decode_token)):
     return DBGetAdvert.get_adverts_by_author(current_user)
 
 
-@router.post("/adverts", tags=['adverts'])
+@router.post("/adverts", response_model=Advert, tags=['adverts'])
 async def post_advert(advert: Advert, current_user: User = Depends(decode_token)):
     '''
     Post new advert
     '''
 
-    DBEditAdvert.add_advert(advert, current_user)
+    new_advert = DBEditAdvert.add_advert(advert, current_user)
 
-    return {"message": "Advert added successfully"}
+    return new_advert
     
 
 @router.get("/adverts/{advert_id}", response_model=Advert, tags=['adverts'])
@@ -83,9 +83,9 @@ async def update_user_advert(advert_id: int = Path(), advert: Advert = Body(), c
     Update advert in the database
     '''
     
-    DBEditAdvert.update_advert(advert_id, advert, current_user)
+    updated_advert = DBEditAdvert.update_advert(advert_id, advert, current_user)
 
-    return advert
+    return updated_advert
 
 
 @router.delete("/adverts/{advert_id}", tags=['adverts'])

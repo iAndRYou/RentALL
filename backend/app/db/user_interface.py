@@ -44,7 +44,7 @@ class DBGetUser:
     @get_connection
     def get_users_by_ids(cursor, user_ids: List[int]) -> List[User]:
         '''
-        Get user from database by id
+        Get users from database by list of ids
         '''
 
         users = []
@@ -150,17 +150,32 @@ class DBGetUser:
 
 class DBEditUser:
     '''
-    Class for adding and deleting users in database
+    Class for adding, updating and deleting users in database
     '''
 
     @get_connection
     def add_user(cursor, user: UserInDB) -> None:
         '''
-        Add user to database
+        Insert new user into database
         '''
 
         cursor.execute("INSERT INTO users (email, fullname, phone_number, password_hash) VALUES (%s, %s, %s, %s);", (user.email, user.fullname, user.phone_number, user.password_hash))
 
+
+    @get_connection
+    def update_user(cursor, user_id: int, dbuser: UserInDB, current_user: User) -> None:
+        '''
+        Update user in database
+        '''
+
+        cursor.execute("SELECT * FROM users WHERE user_id = %s;", (user_id,))
+        rows = cursor.fetchall()
+        if len(rows) == 0:
+            raise HTTPException(status_code=404, detail="User not found")
+
+        cursor.execute("UPDATE users SET email = %s, fullname = %s, phone_number = %s, password_hash = %s WHERE user_id = %s;", (dbuser.email, dbuser.fullname, dbuser.phone_number, dbuser.password_hash, user_id))
+
+        return dbuser
 
     @get_connection
     def delete_user(cursor, user_id: int, current_user: User) -> None:

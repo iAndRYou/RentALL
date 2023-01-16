@@ -2,7 +2,7 @@ from fastapi import APIRouter, Query, Path, Depends, Body, Form, HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
 from typing import List
 
-from ..models import User, UserRegister, UserInDB, Token
+from ..models import User, UserInput, UserInDB, Token
 from ..auth.jwt_handler import pwd_context, create_access_token, decode_token, oauth2_scheme, get_password_hash, verify_password, authenticate_user
 from ..db.user_interface import DBGetUser, DBEditUser
 from ..db.advert_interface import DBGetAdvert, DBEditAdvert
@@ -27,13 +27,13 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
 
 
 @router.post('/register', response_model=User, tags=['users'])
-async def register_user(new_user: UserRegister = Body()):
+async def register_user(new_user: UserInput = Body()):
     '''
     Register a new user
     '''
     
     dbuser = DBGetUser.get_user_by_email(new_user.email)
-    if dbuser:
+    if dbuser is not None:
         raise HTTPException(status_code=400, detail="Email already registered")
     dbuser = UserInDB(fullname=new_user.fullname, email=new_user.email, password_hash=get_password_hash(new_user.password), phone_number=new_user.phone_number)
     DBEditUser.add_user(dbuser)
@@ -43,7 +43,6 @@ async def register_user(new_user: UserRegister = Body()):
     return user
 
 
-# get all users
 @router.get('/users', response_model=List[User], tags=['users'])
 async def get_users():
     '''
@@ -76,8 +75,8 @@ async def get_user(user_id: int = Path()):
     return user
 
 
-@router.get('/users', response_model=User, tags=['users'])
-async def get_user_by_email(email: str = Query(default=...)):
+@router.get('/users/email/{email}', response_model=User, tags=['users'])
+async def get_user_by_email(email: str = Path(default=...)):
     '''
     Get user by email
     '''
@@ -90,8 +89,29 @@ async def get_user_by_email(email: str = Query(default=...)):
     return user
 
 
+@router.put('/users/{user_id}', tags=['users'])
+async def update_user(user_id: int = Path(), user: UserInput = Body(), current_user: User = Depends(decode_token)):
+    '''
+    Update user in the database
+    '''
+
+    if current_user.user_id != user_id:
+        raise HTTPException(status_code=403, detail="You cannot change information of other users")
+
+    dbuser = DBGetUser.get_user_by_email(user.email)
+    if dbuser is not None:
+        raise HTTPException(status_code=400, detail="Email already registered")
+
+    dbuser = UserInDB(fullname=user.fullname, email=user.email, password_hash=get_password_hash(user.password), phone_number=user.phone_number)
+
+    updated_dbuser = DBEditUser.update_user(user_id, dbuser, current_user)
+    updated_user = User(user_id=user_id, email=updated_dbuser.email, fullname=updated_dbuser.fullname, phone_number=updated_dbuser.phone_number)
+
+    return updated_user
+
+
 @router.delete("/users/{user_id}", tags=['users'])
-async def delete_user(user_id: int, current_user: User = Depends(decode_token)):
+async def delete_user(user_id: int = Path(), current_user: User = Depends(decode_token)):
     '''
     Delete user from the database
     '''

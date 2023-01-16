@@ -22,18 +22,19 @@ class Advert(BaseModel):
 
 
 class User(BaseModel):
-    user_id: int = Field(default=None)
+    user_id: int | None = Field(default=None)
     email: str = Field(default=...)
     fullname: str = Field(default=...)
     phone_number: str = Field(default=...)
 
 
-class UserRegister(BaseModel):
-    '''User model for register purposes'''
+class UserInput(BaseModel):
+    '''User model for registering purposes'''
     fullname: str = Field(default=...)
     phone_number: str = Field(default=...)
     email: EmailStr = Field(default=...)
     password: str = Field(default=...)
+
 
 class UserInDB(User):
     '''User in database'''
@@ -47,4 +48,5 @@ class Token(BaseModel):
 
 
 class AdvertDetailed(Advert, LocationDetails, User):
+    '''Advert model with additional information about the author and location'''
     pass

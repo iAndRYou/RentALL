@@ -59,7 +59,7 @@ class DBGetAdvert:
     @get_connection
     def get_adverts_in_given_price(cursor, lower_price_bound: int, upper_price_bound: int) -> Optional[List[Advert]]:
         '''
-        Get adverts from database in given price
+        Get adverts from database between given price bounds
         '''
 
         cursor.execute("SELECT * FROM adverts WHERE price >= %s AND price <= %s;", (lower_price_bound,upper_price_bound))
@@ -91,11 +91,11 @@ class DBGetAdvert:
     @get_connection
     def get_adverts_by_author(cursor, current_user: User):
         '''
-        Get adverts from database by author id
+        Get adverts from database by author
         '''
 
         author_id = current_user.user_id
-        cursor.execute(f"SELECT * FROM adverts WHERE author_id = {author_id};")
+        cursor.execute("SELECT * FROM adverts WHERE author_id = %s;", (author_id,))
         rows = cursor.fetchall()
         
         adverts = []
@@ -136,11 +136,14 @@ class DBEditAdvert:
         
 
         if advert.advert_id is None:
-            cursor.execute("INSERT INTO adverts (latitude, longitude, date, price, author_id, description, title, images, address) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);", 
+            cursor.execute("INSERT INTO adverts (latitude, longitude, date, price, author_id, description, title, images, address) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s) RETURNING advert_id;", 
             (advert.latitude, advert.longitude, advert.date, advert.price, advert.author_id, advert.description, advert.title, advert.images, advert.address))
+            advert.advert_id = cursor.fetchone()[0]
         else:
             cursor.execute("INSERT INTO adverts (advert_id, latitude, longitude, date, price, author_id, description, title, images, address) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);", 
             (advert.advert_id, advert.latitude, advert.longitude, advert.date, advert.price, advert.author_id, advert.description, advert.title, advert.images, advert.address))        
+
+        return advert
 
 
     @get_connection
@@ -181,6 +184,8 @@ class DBEditAdvert:
             raise HTTPException(status_code=403, detail="You are not the author of this advert")
 
 
+        advert.advert_id = advert_id
+
         if advert.author_id is None:
             advert.author_id = current_user.user_id
 
@@ -194,4 +199,6 @@ class DBEditAdvert:
 
 
         cursor.execute("UPDATE adverts SET latitude = %s, longitude = %s, date = %s, price = %s, author_id = %s, description = %s, title = %s, images = %s, address = %s WHERE advert_id = %s;", 
-        (advert.latitude, advert.longitude, advert.date, advert.price, advert.author_id, advert.description, advert.title, advert.images, advert.address, advert_id))
+        (advert.latitude, advert.longitude, advert.date, advert.price, advert.author_id, advert.description, advert.title, advert.images, advert.address, advert.advert_id))
+
+        return advert
