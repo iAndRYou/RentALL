@@ -15,6 +15,12 @@ Użyć komendy 'npm install -g serve'
 
 ---------------------------------
 
+TESTY:
+
+backend/app/test_main.py
+
+---------------------------------
+
 URUCHOMIENIE TESTÓW:
 
 - w folderze /backend:
@@ -33,3 +39,19 @@ Użyć komendy 'uvicorn app.main:app'
 Użyć komendy 'serve -s build'
 
 Po użyciu powyższych komend wejść na adres localhost:3000 (lub ten który wskaże terminal z folderu frontend)
+
+---------------------------------
+
+DOKUMENTACJA:
+
+- dokumentacja techniczna: plik pdf w mailu
+
+- dokumentacja użytkownika: plik txt 'Dokumentacja użytkownika.txt'
+
+
+---------------------------------
+
+ANALIZA STATYCZNA:
+
+Analiza SonarQube:
+- sonar-project.properties
