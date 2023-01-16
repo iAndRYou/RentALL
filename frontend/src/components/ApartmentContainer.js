@@ -1,15 +1,20 @@
 import React, {useState} from 'react'
 import {ApartmentInfo, DefText, BetterText, StyledImage, StyledExpandableDiv, DetailsButton, ScoreGraph, ScoreFill, ScoreText, ContactInfo} from './ApartmentContainer.style'
 
+/**
+ * Component that renders the apartment container with all the information about the apartment advert
+ * @returns 
+ */
 export default function ApartmentContainer({className, price, address, images, title, description, score, travel_time, fullname, phone_number, email, advertId}) {
    const [isOpen, setIsOpen] = useState(false)
    const [buttonText, setButtonText] = useState("Pokaż szczegóły")
+   //toggle function for the expandable div
    const toggle = () => {
       setButtonText(isOpen ? "Pokaż szczegóły" : "Ukryj szczegóły");
       setIsOpen(!isOpen);
     };
 
-
+    //function that displays travel time to the set location if such location was defined by the user
    function travelTime(travel_time, debug){
       if(travel_time !== null || debug){
          return(
@@ -60,9 +65,9 @@ export default function ApartmentContainer({className, price, address, images, t
     </div>
   )
 }
-//"https://www.w3schools.com/images/w3schools_green.jpg"
-//'#00cc00'
 
+
+// function that returns the color of the score graph
 export function scoreColor(score){
    var num = Number(score);
    if(num >= 90){

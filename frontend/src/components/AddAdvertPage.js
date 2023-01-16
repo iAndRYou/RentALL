@@ -1,6 +1,11 @@
 import {StyledInput, StyledAddButton, StyledFormBreak, StyledTextArea} from './AddAdvertPage.style'
 import React, { useRef } from 'react'
 import {Pages} from '../utilities/HandlePages.js'
+
+/**
+ * Component for adding new advert
+ * @returns - the add advert page
+ */
 export default function AddAdvertPage({className, handlePages}){
     const titleInputRef = useRef('')
     const cityInputRef = useRef('')
@@ -12,7 +17,11 @@ export default function AddAdvertPage({className, handlePages}){
     const imageLinkRef = useRef('')
     const [addStatus, setAddStatus] = React.useState('')
 
+    /**
+     * Function that handles the add advert form and sends the data to the backend to be added to the database
+     */
     function handleAddAdvertForm(){
+        //get the data from the form and add it to the newAdvert object
         var title = titleInputRef.current.value
         var city = cityInputRef.current.value
         var street = streetInputRef.current.value
@@ -22,6 +31,7 @@ export default function AddAdvertPage({className, handlePages}){
         var details = detailsInputRef.current.value
         var imageLink = imageLinkRef.current.value
 
+        //check if all the required fields are filled
         if(title === '' || city === '' || street === '' || buildingNumber === '' ||  price === '' || imageLink === ''){
             setAddStatus('Wypełnij wszystkie pola!')
             return
@@ -29,6 +39,7 @@ export default function AddAdvertPage({className, handlePages}){
         if(flatNumber !== ''){
             flatNumber = '/'+flatNumber
         }
+
         var address = city + ', ' + street + ' ' + buildingNumber +  flatNumber
         const newAdvert = {
             title: title,
@@ -39,10 +50,15 @@ export default function AddAdvertPage({className, handlePages}){
         }
 
         console.log(newAdvert)
+        //send the newAdvert object to the backend
         addAdvert(newAdvert)
 
     }
 
+    /**
+     * Function that sends the new advert to the backend to be added to the database and then redirects to the adverts page
+     * @param {*} newAdvert - the new advert to be added to the database
+     */
     function addAdvert(newAdvert){
         var link = "http://127.0.0.1:8000/adverts"
         fetch (link, {

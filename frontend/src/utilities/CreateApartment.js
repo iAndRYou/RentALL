@@ -1,6 +1,13 @@
 import React from 'react'
 import {StyledApartmentContainer, NoResultsPage} from '../components/ApartmentContainer.style';
 
+/**
+ * This function creates the apartment components and renders them on the page
+ * For each apartment object in the apartmentObj array, it creates a new apartment component
+ * @param {*} apartmentObj  - array of apartment objects gotten from the backend
+ * @param {*} renderBool - boolean value that determines whether the apartment components should be rendered or not
+ * @returns - apartment components
+ */
 export function createApartment(apartmentObj, renderBool) {
   if(renderBool === true){
       if(apartmentObj !== null){
@@ -13,6 +20,15 @@ export function createApartment(apartmentObj, renderBool) {
       }
   }
 }
+
+/**
+ * Function that sorts the apartment objects by price, travel time or score in ascending or descending order
+ * It cumulates all the sorting functions in one function
+ * @param {*} apartmentObj - array of apartment objects gotten from the backend
+ * @param {*} variable - variable to sort by
+ * @param {*} descending - boolean value that determines whether the sorting should be ascending or descending
+ * @returns - sorted array of apartment objects
+ */
 export function sortBy(apartmentObj, variable, descending){
   console.log("sortby", variable, descending)
   if(variable === 'price'){
@@ -38,6 +54,15 @@ export function sortBy(apartmentObj, variable, descending){
   return apartmentObj;
 };
 
+/**
+ * Fuunction that manages sorting it makes copies of the apartment object array and sorts it based on the value from html select
+ * It calls the sortBy function to sort the apartment objects
+ * Shallow copy is used to avoid mutating the original apartment object array and also to notifiy the react components that the apartment object array has changed
+ * in order to re-render the apartment components
+ * @param {*} value - value from html select
+ * @param {*} apartmentObj - array of apartment objects gotten from the backend
+ * @returns - sorted array of apartment objects
+ */
 export function sortApartments(value, apartmentObj){
     var shallowCopyOfApartmentObj = [...apartmentObj];
     if(value === '0'){

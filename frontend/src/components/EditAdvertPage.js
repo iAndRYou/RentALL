@@ -1,6 +1,11 @@
 import {StyledInput, StyledAddButton, StyledFormBreak, StyledTextArea, StyledImage} from './EditAdvertPage.style'
 import React, { useRef, useState } from 'react'
 import {Pages} from '../utilities/HandlePages.js'
+
+/**
+ * Component for editing advert details
+ * @returns - the edit advert page
+ */
 export default function EditAdvertPage({className, handlePages}){
     const titleInputRef = useRef('')
     const addressInputRef = useRef('')
@@ -9,6 +14,7 @@ export default function EditAdvertPage({className, handlePages}){
     const imageLinkRef = useRef('')
     const [editStatus, setEditStatus] = React.useState('')
 
+    // get the current advert details from the session storage
     console.log("Parsing advert from session storage...")
     var obj = {}
     try {
@@ -18,7 +24,11 @@ export default function EditAdvertPage({className, handlePages}){
     }
     console.log(obj)
 
+    /**
+     * Function that handles the edit advert form and sends the data to the backend
+     */
     function handleEditAdvertForm(){
+        //get the data from the form and add it to the newAdvert object
         var title = titleInputRef.current.value
         var address = addressInputRef.current.value
         var price = priceInputRef.current.value
@@ -40,11 +50,14 @@ export default function EditAdvertPage({className, handlePages}){
         }
 
         console.log(updatedAdvert)
-
+        //send the newAdvert object to the backend
         updateAdvert(updatedAdvert)
 
     }
-
+    /**
+     * Function that sends the updated advert to the backend to be added to the database and then redirects to the profile page
+     * @param {*} newAdvert - the new advert object
+     */
     function updateAdvert(newAdvert){
         var link = "http://127.0.0.1:8000/adverts/" + obj.advert_id
         fetch (link, {

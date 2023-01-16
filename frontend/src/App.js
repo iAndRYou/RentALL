@@ -10,7 +10,9 @@ import { StyledAddAdvertButton, StyledAddAdvertPage } from './components/AddAdve
 import * as hp from './utilities/HandlePages.js';
 
 
-
+/**
+ * Main App component that renders all the pages and components of the app
+ */
 function App() {
   const [lowerPrice, setLowerPrice] = useState('');
   const [upperPrice, setUpperPrice] = useState('');
@@ -21,14 +23,20 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
  
  
-
+  /**
+   * Handles the get request to the backend to get the apartments in json format
+   * @param {*} lowerPrice - lower price bound
+   * @param {*} upperPrice  - upper price bound
+   * @param {*} city - city name of the destination target
+   * @param {*} commute - destination target
+   */
   async function getApartmentsJson(lowerPrice, upperPrice, city, commute) {
     handlePages(hp.Pages.renderApartments);
     if(lowerPrice === ""){lowerPrice = "0.0"}
     if(upperPrice === ""){upperPrice = "99999999.0"}
     if(city !== ""){city = city +",+"}
 
-    // TODO: Make a call to the backend to get the apartments
+
     var link = 'http://127.0.0.1:8000/adverts?lower_price_bound='+lowerPrice+'&upper_price_bound='+upperPrice+'&address='+city+commute;
     console.log(link);
     await fetch(link)
@@ -52,14 +60,10 @@ function App() {
 
     setLowerPrice('');
     setUpperPrice('');
-    //setCity('');
-    //setCommute('');
-    // TODO: Return apartments got from the backend
-    return null;
   }
 
 
-  //handles sorting of the json array
+  //handles sorting of the apartment adverts on page
   function handleSortApartment(sorting_method){
     var copy = sortApartments(sorting_method, posts)
     console.log(copy)
@@ -123,6 +127,7 @@ function handlePages(page){
   }
 }
 
+// Function that renders the login button and the logout button
 function handleLogInOutButton(){
   if(isLoggedIn){
     return(
@@ -145,13 +150,13 @@ function handleLogInOutButton(){
   }
 }
 
+// Function that logs out the user
 function logOut(){
   setIsLoggedIn(false);
   sessionStorage.removeItem("token");
   handlePages(hp.Pages.plain);
 }
-// End of pages handling  
-
+// Core of the app
   return (
     <AppContainer>
       <HeaderWrapper>
@@ -246,7 +251,7 @@ function logOut(){
             type='submit'
 
             // here we call for backend to get the apartments
-            onClick={() => getApartmentsJson(lowerPrice, upperPrice, city, commute, true/*debug*/)}
+            onClick={() => getApartmentsJson(lowerPrice, upperPrice, city, commute)}
 
           >Szukaj</StyledSearchButton>
         </StyledOptionBar>
@@ -254,7 +259,6 @@ function logOut(){
       
       {/*here we handle every page on the website, if one of them is toggled, the handlePages function disables the rest of them
         What is to be rendered is determined by the createApartment function and handle- functions in the HandlePages.js file.
-        Everything that needs to be in those containers should be in those handle- functions
       */}
       <StyledMainContainer>
         {createApartment(posts, renderApartments)}

@@ -1,6 +1,10 @@
 import {StyledInput, StyledLoginButton, StyledFormBreak } from './LoginPage.style'
 import React, { useRef } from 'react'
 import {Pages} from '../utilities/HandlePages.js'
+/**
+ * Login page component that handles the login and register forms
+ * @returns - the login page
+ */
 export default function LoginPage({className, handlePages, setIsLoggedIn}){
     const loginInputRef = useRef('')
     const passwordInputRef = useRef('')
@@ -12,10 +16,16 @@ export default function LoginPage({className, handlePages, setIsLoggedIn}){
     const [loginStatus, setLoginStatus] = React.useState('')
     const [registrationStatus, setRegistrationStatus] = React.useState('')
  
+    /**
+     * Function that handles the login form and sends the data to the backend to be checked
+     * If the login is successful, the user is redirected to the adverts page and the login status is set to 'logged in'
+     */
     function handleLoginForm (){
+        //get the data from the form and add it to the user object
         const login = loginInputRef.current.value
         const password = passwordInputRef.current.value
 
+        //check if all the required fields are filled
         if(password === '' || login === ''){
             setLoginStatus('Wypełnij wszystkie pola!')
             return
@@ -63,15 +73,19 @@ export default function LoginPage({className, handlePages, setIsLoggedIn}){
             setLoginStatus('Logowanie nie powiodło się!')
        });
     }
-    
+    /**
+     * Function that handles the register form and sends the data to the backend to be checked
+     * @returns - the login form
+     */
     function handleRegisterForm(){
+        //get the data from the form and add it to the user object
         const fullname = regLoginInputRef.current.value
         const password = regPasswordInputRef.current.value
         const repeatPassword = regRepeatPasswordInputRef.current.value
         const email = regEmailInputRef.current.value
         const phone = regPhoneInputRef.current.value
 
-
+        //check if all the required fields are filled and if the passwords match as well as if the password is long enough
         if(password !== repeatPassword){
             setRegistrationStatus('Podano różne hasła!')
             return
@@ -128,7 +142,7 @@ export default function LoginPage({className, handlePages, setIsLoggedIn}){
             setRegistrationStatus('Rejestracja nie powiodła się!')
        });
     }
-
+    // core of the login page
     return(
         <div className={className}>
             <h2>Witamy ponownie!</h2>

@@ -1,15 +1,20 @@
 import React from 'react'
 import { StyledUserAdvert, StyledDeleteButton, StyledEditButton, StyledImageProfile, StyledRefreshButton } from "../components/ProfilePage.style";
 import { Pages } from '../utilities/HandlePages';
+
+/**
+ * Component that renders the profile page where the user can see his adverts
+ * @returns - the profile page
+ */
 export default function ProfilePage({className, handlePages}){
     const [userAdverts, setUserAdverts] = React.useState([])
     
 
-
-    function fetchAdverts(debug){
+    /**
+     * Function that gets the user adverts from the backend
+     */
+    function fetchAdverts(){
         console.log("Fetching user adverts")
-
-
         var link = "http://127.0.0.1:8000/adverts/me"
         fetch(link,  {
             method: 'GET',
@@ -38,6 +43,12 @@ export default function ProfilePage({className, handlePages}){
           console.log(err.message);
        });
     }
+
+    /**
+     * Function that renders the user adverts if they exist and a message if they don't
+     * @returns - the user adverts component
+     * @returns - a message that the user has no adverts
+    */
     function getUserAdverts(){
         if(userAdverts.length === 0){
             console.log("No user adverts")
@@ -55,6 +66,10 @@ export default function ProfilePage({className, handlePages}){
         }
     }
 
+    /**
+     * Function that selects the apartment that the user wants to edit and redirects to the edit page
+     * @param {*} advert - the apartment that the user wants to edit
+     */
     function editApartment(advert){
         console.log("Editing apartment" )
         console.log(advert)
@@ -62,6 +77,11 @@ export default function ProfilePage({className, handlePages}){
         handlePages(Pages.editPage)
     }
 
+    /**
+     * Function that deletes the apartment that the user wants to delete
+     * @param {*} apartment - the apartment that the user wants to delete
+     * @returns - the new list of user adverts
+    */
     function deleteApartment(apartment){
         console.log("Deleting apartment with id: " + apartment.advert_id)
         var link = "http://127.0.0.1:8000/adverts/" + apartment.advert_id
@@ -93,6 +113,10 @@ export default function ProfilePage({className, handlePages}){
        });
     }
 
+    /**
+     * Function that renders the user adverts in a container with edit and delete buttons for each apartment
+     * @returns - the user adverts
+     */
     function renderApartments(){
         return userAdverts.map((apartment, index) => {
             return(
@@ -117,6 +141,7 @@ export default function ProfilePage({className, handlePages}){
             )
         })
     }
+    // Core of the component
     return(
         <div className={className}>
             <div>
