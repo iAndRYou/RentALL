@@ -20,7 +20,7 @@ export default function ApartmentContainer({className, price, address, images, t
          return(
             <div>
                <DefText>Średni dojazd komunikacją miejską: </DefText>
-               <BetterText colour='grey'>{travel_time}</BetterText>
+               <BetterText colour='grey'>{Math.round(travel_time/60)} min</BetterText>
             </div>
          )
       }
