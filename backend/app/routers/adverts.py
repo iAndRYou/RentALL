@@ -93,7 +93,7 @@ async def delete_user_advert(advert_id: int, current_user: User = Depends(decode
     '''
     Delete advert from the database
     '''
-
+    
     DBEditAdvert.delete_advert(advert_id, current_user)
 
     return {"message": "Advert deleted successfully"}
